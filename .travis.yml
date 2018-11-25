@@ -1,6 +1,9 @@
 language: cpp
 compiler: gcc
 
+dist: xenial
+sudo: required
+
 addons:
   apt:
     packages:
