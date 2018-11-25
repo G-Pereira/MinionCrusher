@@ -11,4 +11,4 @@ addons:
 
 script:
   - cmake .
-  - cmake --build . -- -j2
+  - make
