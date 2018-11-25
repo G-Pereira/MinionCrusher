@@ -3,4 +3,4 @@ compiler: gcc
 
 script:
   cmake .
-  cmake --build . -- -j2
+  cmake --build .
