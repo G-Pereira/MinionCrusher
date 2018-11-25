@@ -11,4 +11,4 @@ addons:
 
 script:
   - cmake .
-  - make
+  - cmake --build cmake-build-debug --target MinionCrusher -- -j 4
