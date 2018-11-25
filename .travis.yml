@@ -10,5 +10,5 @@ addons:
       - libsdl2-dev
 
 script:
-  - cmake .
+  - cmake -DCMAKE_BUILD_TYPE=Debug .
   - cmake --build cmake-build-debug -- -j 4
