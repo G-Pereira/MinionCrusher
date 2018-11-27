@@ -14,11 +14,16 @@ include_directories(${INCLUDE_DIR})
 file(GLOB_RECURSE SRCS ${SOURCE_DIR}/*.cpp)
 file(GLOB_RECURSE HDRS ${INCLUDE_DIR}*.h)
 
-# Search SDL2
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
-
-configure_file(configs/simple.blueprint configs/simple.blueprint COPYONLY)
-
 add_executable(MinionCrusher ${SRCS} ${HDRS})
-target_link_libraries(MinionCrusher ${SDL2_LIBRARIES})
+
+# Search SDL2
+INCLUDE(FindPkgConfig)
+
+PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
+
+# Add blueprints
+configure_file(configs/simple.blueprint configs/simple.blueprint COPYONLY)
