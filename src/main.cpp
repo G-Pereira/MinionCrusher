@@ -1,9 +1,7 @@
 #include <iostream>
-#include <SDL.h>
 #undef main
 
 #include "../include/UI.h"
-
 
 using namespace std;
 
