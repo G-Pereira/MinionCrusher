@@ -1,5 +1,4 @@
 #include "../include/UI.h"
-#include <SDL.h>
 #include <iostream>
 
 
