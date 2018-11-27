@@ -16,10 +16,9 @@ file(GLOB_RECURSE HDRS ${INCLUDE_DIR}*.h)
 
 # Search SDL2
 find_package(SDL2 REQUIRED)
-include_directories(${SDL_INCLUDE_DIRS}/SDL2)
+include_directories(${SDL2_INCLUDE_DIRS})
 
 configure_file(configs/simple.blueprint configs/simple.blueprint COPYONLY)
 
 add_executable(MinionCrusher ${SRCS} ${HDRS})
-
-target_link_libraries(MinionCrusher SDL2)
+target_link_libraries(MinionCrusher ${SDL2_LIBRARIES})
