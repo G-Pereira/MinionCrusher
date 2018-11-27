@@ -1,6 +1,5 @@
-#include "../include/UI.h"
 #include <iostream>
-
+#include "include/UI.h"
 
 UI::UI()
 {
