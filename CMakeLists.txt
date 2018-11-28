@@ -17,6 +17,7 @@ include_directories(${INCLUDE_DIR})
 include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(${SDL2IMAGE_INCLUDE_DIRS})
 
+file(GLOB_RECURSE SOURCE_FILES ${HEADER_FILES}/*.h)
 file(GLOB_RECURSE SOURCE_FILES ${SOURCE_DIR}/*.cpp)
 
 # Search SDL2
