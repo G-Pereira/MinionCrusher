@@ -408,3 +408,5 @@ fabric.properties
 *.vcxproj
 
 *.filters
+
+*.sln
