@@ -4,7 +4,7 @@
 class UI {
 public:
 	UI();
-	//~UI();
+	~UI();
 
 
 

@@ -6,6 +6,10 @@ UI::UI()
 	this->init();
 }
 
+UI::~UI()
+{
+}
+
 void UI::init()
 {
 	// Init SDL
