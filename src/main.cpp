@@ -18,7 +18,7 @@ Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/)
 	return interval;
 }
 
-int main() {
+int main(int arg, char* arr[]) {
 	cout << "Hi" << endl;
 	UI ui;
 	int hoi;
