@@ -1,11 +1,25 @@
-#include "UI.h"
-#include <SDL.h>
-#include <iostream>
+/**
+ * Author: Leon Klute
+ * Created on: 26-11-18
+ * Last Modified: 28-11-18
+ */
 
+#include <iostream>
+#include "UI.h"
+#include "types.h"
+#include "MapObject.h"
+
+using namespace std;
 
 UI::UI(int w, int h): width(w), height(h){
-	window = NULL;
-	renderer = NULL;
+	window = nullptr;
+	renderer = nullptr;
+	map_texture = nullptr;
+	buildings_texture = nullptr;
+	info_texture = nullptr;
+	buildingViewport = SDL_Rect();
+	infoViewport = SDL_Rect();
+	mapViewport = SDL_Rect();
 }
 
 UI::~UI()
@@ -31,14 +45,14 @@ bool UI::init()
 	window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, width,
 		height, SDL_WINDOW_SHOWN);
-	if (window == NULL) {
+	if (window == nullptr) {
 		printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
 	// Create a new renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
 		SDL_RENDERER_PRESENTVSYNC);
-	if (renderer == NULL)
+	if (renderer == nullptr)
 	{
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 		return false;
@@ -47,7 +61,18 @@ bool UI::init()
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 
-	
+	/* ratio of UI elements
+	_________________
+	|			|b	|
+	|			|u	|
+	|	map		|i	|
+	|			|l	|
+	|			|d	|
+	|			|i	|
+	|___________|n	|
+	|	info	|g	|
+	|___________|s__|
+	*/
 	mapViewport.x = 0;
 	mapViewport.y = 0;
 	mapViewport.w = width * 8 / 10;
@@ -63,38 +88,51 @@ bool UI::init()
 	infoViewport.w = width * 8 / 10;
 	infoViewport.h = height * 2 / 10;
 
+	map_texture = loadTexture("resources/map.bmp");
+	info_texture = loadTexture("resources/info.bmp");
+	buildings_texture = loadTexture("resources/right_side.bmp");
+
 	return true;
 }
+
 void UI::close()
 {
-	//Free loaded image
-	//SDL_DestroyTexture(texture);
-	//gTexture = NULL;
+	//Free loaded images
+	SDL_DestroyTexture(map_texture);
+	map_texture = nullptr;
+	SDL_DestroyTexture(info_texture);
+	info_texture = nullptr;
+	SDL_DestroyTexture(buildings_texture);
+	buildings_texture = nullptr;
 
 	//Destroy window	
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-	window = NULL;
-	renderer = NULL;
+	window = nullptr;
+	renderer = nullptr;
 
 	//Quit SDL subsystems
 	//IMG_Quit();
 	SDL_Quit();
 }
 
-void UI::Render(SDL_Texture* Map, SDL_Texture* info, SDL_Texture* buildings) {
+void UI::Render() {
+	static CartesianCoordinates pos = CartesianCoordinates{ 0, 0 };
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
-	Position pos = Position(100.0F, 100.0F);
-	MapObject map_object = MapObject(pos);
+	pos.x++;
+	pos.y++;
+
+	MapObject map_object = MapObject(pos, ObjectSize{ 100, 100 });
 	std::vector<MapObject*> map_objects = std::vector<MapObject*>();
-	RenderMap(Map, map_objects);
+	map_objects.push_back(&map_object);
+	RenderMap(map_texture, map_objects);
 
 	//Top right viewport
 	SDL_RenderSetViewport(renderer, &buildingViewport);
 
 	//Render texture to screen
-	SDL_RenderCopy(renderer, buildings, NULL, NULL);
+	SDL_RenderCopy(renderer, buildings_texture, nullptr, nullptr);
 
 
 	//Bottom viewport
@@ -102,27 +140,29 @@ void UI::Render(SDL_Texture* Map, SDL_Texture* info, SDL_Texture* buildings) {
 
 
 	//Render texture to screen
-	SDL_RenderCopy(renderer, info, NULL, NULL);
+	SDL_RenderCopy(renderer, info_texture, nullptr, nullptr);
 
 
 	//Update screen
 	SDL_RenderPresent(renderer);
 }
 
-void UI::RenderMap(SDL_Texture* Map, std::vector<MapObject*> map_objects) {
+void UI::RenderMap(SDL_Texture* Map, std::vector<MapObject*> map_objects/*, mapclass map */ ) {
 	//Top left corner viewport
 	SDL_RenderSetViewport(renderer, &mapViewport);
 
 	//Render texture to screen
-	SDL_RenderCopy(renderer, Map, NULL, NULL);
+	SDL_RenderCopy(renderer, Map, nullptr, nullptr);
 	for (auto mo  : map_objects) {
-		SDL_Rect fillRect = { mo->pos.x, mo->pos.y,  100, 100 };
+		auto coordinates = mo->getCoordinates();
+		auto dims = mo->getDimensions();
+		SDL_Rect fillRect = { coordinates.x, coordinates.y,  dims.height, dims.width};
+
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 		SDL_RenderFillRect(renderer, &fillRect);
 	}
 
 }
-
 
 SDL_Renderer * UI::getRenderer() const {
 	return renderer;
@@ -131,11 +171,11 @@ SDL_Renderer * UI::getRenderer() const {
 SDL_Texture* UI::loadTexture(std::string path)
 {
 	//The final texture
-	SDL_Texture* newTexture = NULL;
+	SDL_Texture* newTexture = nullptr;
 
 	//Load image at specified path
 	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
-	if (loadedSurface == NULL)
+	if (loadedSurface == nullptr)
 	{
 		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), SDL_GetError());
 	}
@@ -143,7 +183,7 @@ SDL_Texture* UI::loadTexture(std::string path)
 	{
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
+		if (newTexture == nullptr)
 		{
 			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
 		}
