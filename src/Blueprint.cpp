@@ -3,7 +3,6 @@
 #include <fstream>
 #include <array>
 #include "Blueprint.h"
-#include "types.h"
 
 Blueprint::Blueprint(std::string configFile) : configFile(std::move(configFile)) {
 }

@@ -9,7 +9,7 @@
 #include "Base.h"
 #include "Blueprint.h"
 
-class Map{
+class Map {
 public:
     /**
      * The object is constructed with a blueprint from a file

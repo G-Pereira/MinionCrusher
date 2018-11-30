@@ -7,7 +7,7 @@
 #include "Bullet.h"
 
 Bullet::Bullet(float x, float y, float width, float height, AmmoType ammo)
-    : MapObject(x, y, width, height), ammo(ammo) {
+        : MapObject(x, y, width, height), ammo(ammo) {
 
 }
 

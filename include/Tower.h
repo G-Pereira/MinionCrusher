@@ -12,19 +12,24 @@
 class Tower : public MapObject {
 public:
     Tower(float x, float y, float width, float height, float health, float speed, float damage, AmmoType ammo);
+
     virtual ~Tower();
 
     // Getters and setters below
-    const float& getHealth() const;
+    const float &getHealth() const;
+
     void setHealth(float health);
 
-    const float& getSpeed() const;
+    const float &getSpeed() const;
+
     void setSpeed(float speed);
 
-    const float& getDamage() const;
+    const float &getDamage() const;
+
     void setDamage(float damage);
 
     const AmmoType &getAmmo() const;
+
     void setAmmo(AmmoType ammo);
 
 private:

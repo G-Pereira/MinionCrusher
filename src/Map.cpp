@@ -1,7 +1,7 @@
 #include "Map.h"
 
 Map::Map(Blueprint blueprint) {
-    try{
+    try {
         blueprint.loadBlueprint(map);
     }
     catch (std::exception const &e) {

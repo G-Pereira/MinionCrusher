@@ -7,12 +7,12 @@
 #include "MapObject.h"
 
 MapObject::MapObject(float x, float y, float width, float height)
-    : coordinates({x, y}), dimensions({width, height}) {
+        : coordinates({x, y}), dimensions({width, height}) {
 
 }
 
 MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensions)
-    : coordinates(coordinates), dimensions(dimensions) {
+        : coordinates(coordinates), dimensions(dimensions) {
     // No body yet
 }
 
@@ -20,7 +20,7 @@ MapObject::~MapObject() {
 
 }
 
-const CartesianCoordinates& MapObject::getCoordinates() const {
+const CartesianCoordinates &MapObject::getCoordinates() const {
     return this->coordinates;
 }
 
@@ -32,6 +32,6 @@ void MapObject::setCoordinates(float x, float y) {
     setCoordinates((CartesianCoordinates) {x, y});
 }
 
-const ObjectSize& MapObject::getDimensions() const {
+const ObjectSize &MapObject::getDimensions() const {
     return dimensions;
 }
