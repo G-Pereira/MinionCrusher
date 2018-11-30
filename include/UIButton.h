@@ -5,9 +5,8 @@ class UIButton
 {
 public:
 	//Initializes internal variables
-	//UIButton();
-	//Initializes internal variables
-	UIButton(SDL_Rect r, SDL_Texture *c, SDL_Texture *on, SDL_Texture *off, SDL_Texture *button_pressed);
+	UIButton();
+	UIButton(SDL_Rect r, SDL_Texture *c, SDL_Texture *on, SDL_Texture *off, SDL_Texture *button_pressed, void funct(UIButton & self, SDL_Event &));
 
 	~UIButton();
 	//Sets top left position
@@ -19,16 +18,16 @@ public:
 	void handleEvent(SDL_Event* e);
 
 	//Shows button sprite
-	void render(SDL_Renderer * renderer);
-
-private:
-	//Top left position
 	SDL_Rect rect;
-	
-	//Currently used global sprite
+	void render(SDL_Renderer * renderer);
 	SDL_Texture * current;
 	SDL_Texture * mouse_on;
 	SDL_Texture * mouse_off;
 	SDL_Texture * pressed;
+
+private:
+	//Top left position
+	void (*eventhandler)(UIButton& self, SDL_Event &e);
+
 };
 

@@ -70,7 +70,10 @@ public:
 		infoview,
 		buildingsview
 	};
-	void AddButton(enum viewPorts port, SDL_Rect rect, SDL_Texture* texture);
+	void AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &));
+	const SDL_Rect getMapViewport() const;
+	const SDL_Rect getInfoViewport() const;
+	const SDL_Rect getBuildingViewport() const;
 private:
 	/**
 	 * Perform all closing action to clean the memory of the UI
