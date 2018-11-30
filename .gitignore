@@ -408,3 +408,7 @@ fabric.properties
 *.vcxproj
 
 *.filters
+
+src/17_mouse_events\.cpp
+
+*.sln
