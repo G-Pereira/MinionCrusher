@@ -2,6 +2,7 @@
 #include <utility>
 #include <fstream>
 #include <array>
+#include <string>
 #include "Blueprint.h"
 
 Blueprint::Blueprint(std::string configFile) : configFile(std::move(configFile)) {

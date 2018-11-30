@@ -8,6 +8,7 @@
 #define MINIONCRUSHER_MAPOBJECT_H
 
 #include "types.h"
+#include "SDL.h"
 
 /**
  * In the Minioncrusher, any object that is drawn on the map is a MapObject. These objects are easily recognized
@@ -60,9 +61,16 @@ public:
      */
     const ObjectSize &getDimensions() const;
 
+	/**
+	 * Get a reference to the dimensions of this object.
+	 * @return ObjectSize&
+	 */
+	const SDL_Texture * getTexture() const;
+
 private:
     CartesianCoordinates coordinates; // Position on the map
     const ObjectSize dimensions;  // Dimensions on the map
+	SDL_Texture * texture;
 };
 
 
