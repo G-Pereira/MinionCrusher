@@ -17,9 +17,15 @@ UI::UI(int w, int h): width(w), height(h){
 	map_texture = nullptr;
 	buildings_texture = nullptr;
 	info_texture = nullptr;
+	map = nullptr;
+	buttons[viewPorts::buildingsview] = vector<UIButton>();
+	buttons[viewPorts::infoview] = vector<UIButton>();
+	buttons[viewPorts::mapview] = vector<UIButton>();
+
 	buildingViewport = SDL_Rect();
 	infoViewport = SDL_Rect();
 	mapViewport = SDL_Rect();
+
 }
 
 UI::~UI()
@@ -62,6 +68,7 @@ bool UI::init()
 
 
 	/* ratio of UI elements
+	current shape:
 	_________________
 	|			|b	|
 	|			|u	|
@@ -88,6 +95,8 @@ bool UI::init()
 	infoViewport.w = width * 8 / 10;
 	infoViewport.h = height * 2 / 10;
 
+
+
 	map_texture = loadTexture("resources/map.bmp");
 	info_texture = loadTexture("resources/info.bmp");
 	buildings_texture = loadTexture("resources/right_side.bmp");
@@ -95,6 +104,9 @@ bool UI::init()
 	return true;
 }
 
+void UI::AddButton(enum viewPorts port, SDL_Rect rect, SDL_Texture* texture) {
+	buttons[port].push_back(UIButton(rect, texture, texture, texture, texture));
+}
 void UI::close()
 {
 	//Free loaded images
@@ -116,26 +128,31 @@ void UI::close()
 	SDL_Quit();
 }
 
-void UI::Render() {
+void UI::Render(/*MapObjects*/) {
+	//SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	//SDL_RenderClear(renderer);
+	// for testing 
 	static CartesianCoordinates pos = CartesianCoordinates{ 0, 0 };
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_RenderClear(renderer);
-	pos.x++;
-	pos.y++;
+	if (++pos.x > width)
+		pos.x = 0;
+	if (++pos.y > height)
+		pos.y = 0;
 
 	MapObject map_object = MapObject(pos, ObjectSize{ 100, 100 });
 	std::vector<MapObject*> map_objects = std::vector<MapObject*>();
 	map_objects.push_back(&map_object);
-	RenderMap(map_texture, map_objects);
+	RenderMap(map_objects);
 
-	//Top right viewport
+	//Building viewport
 	SDL_RenderSetViewport(renderer, &buildingViewport);
 
 	//Render texture to screen
 	SDL_RenderCopy(renderer, buildings_texture, nullptr, nullptr);
+	for (auto button : buttons[viewPorts::buildingsview]) {
+		button.render(renderer);
+	}
 
-
-	//Bottom viewport
+	//info viewport
 	SDL_RenderSetViewport(renderer, &infoViewport);
 
 
@@ -147,19 +164,19 @@ void UI::Render() {
 	SDL_RenderPresent(renderer);
 }
 
-void UI::RenderMap(SDL_Texture* Map, std::vector<MapObject*> map_objects/*, mapclass map */ ) {
+void UI::RenderMap(std::vector<MapObject*> map_objects/*, mapclass map */ ) {
 	//Top left corner viewport
 	SDL_RenderSetViewport(renderer, &mapViewport);
 
 	//Render texture to screen
-	SDL_RenderCopy(renderer, Map, nullptr, nullptr);
-	for (auto mo  : map_objects) {
-		auto coordinates = mo->getCoordinates();
-		auto dims = mo->getDimensions();
-		SDL_Rect fillRect = { coordinates.x, coordinates.y,  dims.height, dims.width};
+	SDL_RenderCopy(renderer, map_texture, nullptr, nullptr);
+	for (auto map_object  : map_objects) {
+		auto coordinates = map_object->getCoordinates();
+		auto dims = map_object->getDimensions();
+		SDL_Rect fillRect = { (int)coordinates.x, (int)coordinates.y,  (int)dims.height, (int)dims.width};
 
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
-		SDL_RenderFillRect(renderer, &fillRect);
+		SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 	}
 
 }
@@ -193,4 +210,11 @@ SDL_Texture* UI::loadTexture(std::string path)
 	}
 
 	return newTexture;
+}
+
+void UI::HandleButtons(SDL_Event &e) {
+	for (auto building_button : buttons[viewPorts::buildingsview])
+	{
+		building_button.handleEvent(&e);
+	}
 }

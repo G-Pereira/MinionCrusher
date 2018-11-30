@@ -410,3 +410,5 @@ fabric.properties
 *.filters
 
 *.sln
+
+src/17_mouse_events\.cpp

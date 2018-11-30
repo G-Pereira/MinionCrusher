@@ -12,10 +12,6 @@ UI ui = UI(1280, 720);
 */
 Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/)
 {
-	//Update screen
-	ui.Render();
-	//SDL_RenderPresent(gRenderer);
-
 	cout << "Test" << endl;
 	// Update all minion positions
 
@@ -33,9 +29,22 @@ int main(int argc, char* args[]) {
 
 	SDL_TimerID timer_id = SDL_AddTimer(100, gameUpdate, static_cast<void *>(nullptr));
 
+	SDL_Texture * temptextu = ui.loadTexture("resources/tower1_tile.bmp");
+
+	// add some buttons
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 50,50,50,50 }, temptextu);
+
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,50,50,50 }, temptextu);
+
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 50,200,50,50 }, temptextu);
+
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,200,50,50 }, temptextu);
+
+
 	bool quit = false;
 	while (!quit) {
-		//ui.Render(map, info, buildings);
+		//update screen
+		ui.Render(/*MapObjects*/);
 		SDL_Event e;
 		while (SDL_PollEvent(&e) != 0)
 		{
@@ -46,6 +55,9 @@ int main(int argc, char* args[]) {
 				quit = true;
 
 			}
+
+			//Handle button events
+			ui.HandleButtons(e);
 		}
 	}
 	return 0;
