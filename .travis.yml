@@ -12,4 +12,4 @@ addons:
 
 script:
   - cmake .
-  - cmake --build . --target MinionCrusher -- -j 4
+  - cmake --build .
