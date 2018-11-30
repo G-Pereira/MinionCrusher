@@ -8,7 +8,8 @@ addons:
   apt:
     packages:
       - libsdl2-dev
+      - libsdl2-image-dev
 
 script:
   - cmake .
-  - cmake --build . --target MinionCrusher -- -j 4
+  - cmake --build .

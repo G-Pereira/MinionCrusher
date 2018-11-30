@@ -1,4 +1,6 @@
 #include <iostream>
+#include <Blueprint.h>
+#include <Map.h>
 #include <SDL.h>
 #include <string>
 #include <stdint.h>
@@ -10,17 +12,17 @@ UI ui = UI(1280, 720);
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
-Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/)
-{
-	cout << "Test" << endl;
-	// Update all minion positions
+Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/) {
+    // Update all minion positions
 
-	// For each tower: Check if it can fire by checking its ticks.
-		// If yes: Find closest minion and damage it. Set ticks back to firing period.
-		// If no: reduce tower ticks by one.
-	return interval;
+    // For each tower: Check if it can fire by checking its ticks.
+    // If yes: Find closest minion and damage it. Set ticks back to firing period.
+    // If no: reduce tower ticks by one.
+    return interval;
 }
 
+    Blueprint blueprint("configs/simple.blueprint");
+    Map map(blueprint);
 int main(int argc, char* args[]) {
 	cout << "Hi" << endl;
 	ui.init();

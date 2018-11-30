@@ -7,15 +7,15 @@
 #include "PathTile.h"
 
 PathTile::PathTile(float x, float y, float width, float height, const MapSlots type)
-    : MapObject(x, y, width, height), type(type) {
+        : MapObject(x, y, width, height), type(type) {
 
 }
 
 PathTile::PathTile(CartesianCoordinates coordinates, ObjectSize dimensions, const MapSlots type)
-    : MapObject(coordinates, dimensions), type(type) {
+        : MapObject(coordinates, dimensions), type(type) {
 
 }
 
-const MapSlots& PathTile::getType() const {
+const MapSlots &PathTile::getType() const {
     return type;
 }

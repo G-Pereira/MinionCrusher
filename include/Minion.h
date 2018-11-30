@@ -12,7 +12,9 @@
 class Minion : public MapObject {
 public:
     Minion();
+
     virtual ~Minion();
+
 private:
     float health; // Health of the minion
     float speed; // The speed of a minion in distance/tick
@@ -20,13 +22,16 @@ private:
 
 
     void setHealth(float health);
-    const float& getHealth() const;
+
+    const float &getHealth() const;
 
     void setSpeed(float speed);
-    const float& getSpeed() const;
+
+    const float &getSpeed() const;
 
     void setDamage(float damage);
-    const float& getDamage() const;
+
+    const float &getDamage() const;
 };
 
 

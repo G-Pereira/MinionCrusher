@@ -22,7 +22,7 @@ MapObject::~MapObject() {
 		SDL_DestroyTexture(texture);
 }
 
-const CartesianCoordinates& MapObject::getCoordinates() const {
+const CartesianCoordinates &MapObject::getCoordinates() const {
     return this->coordinates;
 }
 
@@ -34,7 +34,7 @@ void MapObject::setCoordinates(float x, float y) {
     setCoordinates(CartesianCoordinates{x, y});
 }
 
-const ObjectSize& MapObject::getDimensions() const {
+const ObjectSize &MapObject::getDimensions() const {
     return dimensions;
 }
 

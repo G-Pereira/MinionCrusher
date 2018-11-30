@@ -6,7 +6,7 @@
 
 #include "Minion.h"
 
-const float& Minion::getHealth() const {
+const float &Minion::getHealth() const {
     return this->health;
 }
 
@@ -18,13 +18,14 @@ void Minion::setSpeed(float speed) {
     this->speed = speed;
 }
 
-const float& Minion::getSpeed() const {
+const float &Minion::getSpeed() const {
     return this->speed;
 }
+
 void Minion::setDamage(float damage) {
     this->damage = damage;
 }
 
-const float& Minion::getDamage() const {
+const float &Minion::getDamage() const {
     return this->damage;
 }

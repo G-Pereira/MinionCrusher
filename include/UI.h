@@ -4,6 +4,7 @@
  * Last Modified: 28-11-18
  */
 #pragma once
+
 #include <SDL.h>
 #include <string>
 #include <vector>
