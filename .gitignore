@@ -409,6 +409,6 @@ fabric.properties
 
 *.filters
 
-src/17_mouse_events\.cpp
-
 *.sln
+
+src/17_mouse_events\.cpp
