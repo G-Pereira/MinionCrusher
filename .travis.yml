@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
       - libsdl2-dev
+      - libsdl2-image-dev
 
 script:
   - cmake .
