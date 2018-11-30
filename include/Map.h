@@ -18,5 +18,5 @@ public:
     Map(Blueprint bp);
 
 private:
-    std::vector<std::vector<MapObject>> *map = {};
+    std::vector<std::vector<MapObject>> map = {};
 };

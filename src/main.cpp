@@ -23,7 +23,7 @@ Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/)
 
 int main() {
 	cout << "Hi" << endl;
-	Blueprint blueprint;
+	Blueprint blueprint("configs/simple.blueprint");
 	Map map(blueprint);
 	UI ui;
 	int hoi;
