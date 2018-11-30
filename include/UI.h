@@ -65,7 +65,7 @@ public:
 	 */
 	SDL_Texture * loadTexture(std::string path);
 	void HandleButtons(SDL_Event &e);
-	static enum viewPorts:int{
+	enum class viewPorts:int{
 		mapview,
 		infoview,
 		buildingsview

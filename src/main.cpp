@@ -21,27 +21,22 @@ Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/) {
     return interval;
 }
 
-    Blueprint blueprint("configs/simple.blueprint");
-    Map map(blueprint);
 int main(int argc, char* args[]) {
+    //Blueprint blueprint("configs/simple.blueprint");
+    //Map map(blueprint);
 	cout << "Hi" << endl;
 	ui.init();
 
 
-
 	SDL_TimerID timer_id = SDL_AddTimer(100, gameUpdate, static_cast<void *>(nullptr));
 
+	// add some buttons
 	SDL_Texture * temptextu = ui.loadTexture("resources/tower1_tile.bmp");
 
-	// add some buttons
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 50,50,50,50 }, temptextu);
-
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,50,50,50 }, temptextu);
-
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 50,200,50,50 }, temptextu);
-
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,200,50,50 }, temptextu);
-
 
 	bool quit = false;
 	while (!quit) {

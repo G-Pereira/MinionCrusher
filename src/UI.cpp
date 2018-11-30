@@ -18,9 +18,9 @@ UI::UI(int w, int h): width(w), height(h){
 	buildings_texture = nullptr;
 	info_texture = nullptr;
 	map = nullptr;
-	buttons[viewPorts::buildingsview] = vector<UIButton>();
-	buttons[viewPorts::infoview] = vector<UIButton>();
-	buttons[viewPorts::mapview] = vector<UIButton>();
+	buttons[static_cast<int>(viewPorts::buildingsview)] = vector<UIButton>();
+	buttons[static_cast<int>(viewPorts::infoview)] = vector<UIButton>();
+	buttons[static_cast<int>(viewPorts::mapview)] = vector<UIButton>();
 
 	buildingViewport = SDL_Rect();
 	infoViewport = SDL_Rect();
@@ -104,8 +104,8 @@ bool UI::init()
 	return true;
 }
 
-void UI::AddButton(enum viewPorts port, SDL_Rect rect, SDL_Texture* texture) {
-	buttons[port].push_back(UIButton(rect, texture, texture, texture, texture));
+void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture) {
+	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture));
 }
 void UI::close()
 {
@@ -148,7 +148,7 @@ void UI::Render(/*MapObjects*/) {
 
 	//Render texture to screen
 	SDL_RenderCopy(renderer, buildings_texture, nullptr, nullptr);
-	for (auto button : buttons[viewPorts::buildingsview]) {
+	for (auto button : buttons[static_cast<int>(viewPorts::buildingsview)]) {
 		button.render(renderer);
 	}
 
@@ -213,7 +213,7 @@ SDL_Texture* UI::loadTexture(std::string path)
 }
 
 void UI::HandleButtons(SDL_Event &e) {
-	for (auto building_button : buttons[viewPorts::buildingsview])
+	for (auto building_button : buttons[static_cast<int>(viewPorts::buildingsview)])
 	{
 		building_button.handleEvent(&e);
 	}
