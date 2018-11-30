@@ -12,7 +12,7 @@ void Blueprint::loadBlueprint(std::vector<std::vector<MapObject>> map) {
     std::ifstream f(configFile);
 
     if (!f.good()) throw std::invalid_argument("Error reading blueprint file");
-
+	
     std::string line;
     for (uint8_t x = 0; std::getline(f, line); x++) {
         std::vector<MapObject> mapline = {};

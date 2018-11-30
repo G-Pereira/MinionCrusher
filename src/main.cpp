@@ -24,31 +24,24 @@ Uint32 gameUpdate(Uint32 interval, void *param /*param, MAPOBJECTSclass*/)
 
 
 
-int main(int arg, char* arr[]) {
+int main(int argc, char* args[]) {
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
-	if (SDL_Init(SDL_INIT_TIMER) != 0) {							
+	if (SDL_Init(SDL_INIT_TIMER) != 0) {
 		cout << "SDL could not initialize timers" << endl;
 	}
 	// INITIALIZE THE CALLBACK TIMER
 	if (SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, static_cast<void *>(nullptr)) == 0) {
 		cout << "SDL was unable to create a timer. " << endl;
 	}
+
+	// LOAD BLUEPRINT FROM FILE
+	Blueprint blueprint("configs/simple.blueprint");
+	// CREATE MAP FROM BLUEPRINT
+	Map map(blueprint);
+
 	// INITIALIZE THE USER INTERFACE
-	UI ui;
-
-	// MAKE SURE THE PROGRAM DOESN'T EXIT
-	while (1);
-
-	return 0;
-int main(int argc, char* args[]) {
-    //Blueprint blueprint("configs/simple.blueprint");
-    //Map map(blueprint);
-	cout << "Hi" << endl;
 	ui.init();
-
-
-	SDL_TimerID timer_id = SDL_AddTimer(100, gameUpdate, static_cast<void *>(nullptr));
 
 	// add some buttons
 	SDL_Texture * temptextu = ui.loadTexture("resources/tower1_tile.bmp");
@@ -57,6 +50,8 @@ int main(int argc, char* args[]) {
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,50,50,50 }, temptextu);
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 50,200,50,50 }, temptextu);
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,200,50,50 }, temptextu);
+
+
 
 	bool quit = false;
 	while (!quit) {
@@ -77,5 +72,6 @@ int main(int argc, char* args[]) {
 			ui.HandleButtons(e);
 		}
 	}
+
 	return 0;
 }
