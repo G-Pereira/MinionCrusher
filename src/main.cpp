@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <string>
 #include <stdint.h>
-#include "../include/UI.h"
+#include "UI.h"
 using namespace std;
 
 UI ui = UI(1280, 720);
@@ -24,8 +24,9 @@ Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/) {
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
 int main(int argc, char* args[]) {
-    //Blueprint blueprint("configs/simple.blueprint");
-    //Map map(blueprint);
+    Blueprint blueprint = Blueprint("configs/simple.blueprint");
+    Map map = Map(blueprint);
+
 	cout << "Hi" << endl;
 	ui.init();
 
@@ -35,10 +36,10 @@ int main(int argc, char* args[]) {
 	// add some buttons
 	SDL_Texture * temptextu = ui.loadTexture("resources/tower1_tile.bmp");
 
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 50,50,50,50 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,50,50,50 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 50,200,50,50 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 200,200,50,50 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,20,100,100 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,20,100,100 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,140,100,100 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,140,100,100 }, temptextu, BuildingButtonhandleEvent);
 
 	bool quit = false;
 	while (!quit) {
@@ -71,6 +72,7 @@ void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e)
 		//Get mouse position
 		int x, y;
 		SDL_GetMouseState(&x, &y);
+		// add the offset of the viewport
 		x -= ui.getBuildingViewport().x;
 		y -= ui.getBuildingViewport().y;
 		//Check if mouse is in button
@@ -109,7 +111,7 @@ void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e)
 			switch (e.type)
 			{
 			case SDL_MOUSEMOTION:
-				cout << "SDL_MOUSEMOTION" << endl;
+				//cout << "SDL_MOUSEMOTION" << endl;
 				self.current = self.mouse_on;
 				break;
 
