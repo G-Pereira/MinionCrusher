@@ -12,11 +12,14 @@
 class Base : public MapObject {
 public:
     Base(float x, float y, float width, float height, float health);
+
     virtual ~Base();
+
 private:
     float health; // Health of the base the minions attack
     void setHealth(float health);
-    const float& getHealth() const;
+
+    const float &getHealth() const;
 };
 
 

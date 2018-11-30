@@ -1,4 +1,7 @@
 #include <iostream>
+#include <Blueprint.h>
+#include <Map.h>
+
 #include <SDL.h>
 #undef main
 

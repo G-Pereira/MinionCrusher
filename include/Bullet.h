@@ -12,10 +12,13 @@
 class Bullet : public MapObject {
 public:
     Bullet(float x, float y, float width, float height, AmmoType ammo);
+
     virtual ~Bullet();
 
     const AmmoType &getAmmo() const;
+
     void setAmmo(AmmoType ammo);
+
 private:
     AmmoType ammo;
 };

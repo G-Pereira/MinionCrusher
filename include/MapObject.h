@@ -39,7 +39,7 @@ public:
      * Get a constant reference to the cartesian coordinates of this MapObject.
      * @return CartesianCoordinates&
      */
-    const CartesianCoordinates& getCoordinates() const;
+    const CartesianCoordinates &getCoordinates() const;
 
     /**
      * Set the coordinates.
@@ -58,7 +58,7 @@ public:
      * Get a reference to the dimensions of this object.
      * @return ObjectSize&
      */
-    const ObjectSize& getDimensions() const;
+    const ObjectSize &getDimensions() const;
 
 private:
     CartesianCoordinates coordinates; // Position on the map
