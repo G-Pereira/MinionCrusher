@@ -1,4 +1,7 @@
 #include <iostream>
+#include <Blueprint.h>
+#include <Map.h>
+
 #undef main
 
 #include "UI.h"
@@ -20,6 +23,8 @@ Uint32 gameUpdate(Uint32 interval, void * /*param, MAPOBJECTSclass*/)
 
 int main() {
 	cout << "Hi" << endl;
+	Blueprint blueprint;
+	Map map(blueprint);
 	UI ui;
 	int hoi;
 	cin >> hoi;
