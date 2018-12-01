@@ -62,7 +62,7 @@ public:
 		buildingsview
 	};
 	void SetMap(Map *);
-	void AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &));
+	void AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture);
 	const SDL_Rect getMapViewport() const;
 	const SDL_Rect getInfoViewport() const;
 	const SDL_Rect getBuildingViewport() const;

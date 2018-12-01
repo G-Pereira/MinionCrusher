@@ -108,8 +108,8 @@ void UI::SetMap(Map * new_map)
 {
 	map = new_map;
 }
-void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &)) {
-	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture,funct));
+void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture) {
+	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture));
 }
 void UI::close()
 {

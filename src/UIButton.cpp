@@ -15,13 +15,13 @@
 //}
 
 
-UIButton::UIButton(SDL_Rect r, SDL_Texture * c, SDL_Texture * on, SDL_Texture * off, SDL_Texture * button_pressed, void funct(UIButton &self, SDL_Event &))
+UIButton::UIButton(SDL_Rect r, SDL_Texture * c, SDL_Texture * on, SDL_Texture * off, SDL_Texture * button_pressed)
 {
 	rect = r;
+	current = c;
 	mouse_on = on;
 	mouse_off = off;
 	pressed = button_pressed;
-	current = mouse_off;
 }
 
 UIButton::~UIButton()

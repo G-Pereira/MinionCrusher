@@ -12,9 +12,10 @@ UI ui = UI(1280, 720);
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
-Uint32 gameUpdate(Uint32 interval, void *param /*param, MAPOBJECTSclass*/)
+Uint32 gameUpdate(Uint32 interval , void* param = 0/*, MAPOBJECTSclass*/)
 {
-	cout << "Test" << endl;
+	// param is printed here to not trigger the -Werror unused parameter
+	cout << "Test" <<  param << endl;
 	// For each minion: Check current position
 	// For each tower: Check if it can fire by checking its ticks.
 		// If yes: Find closest minion. If in range: damage it. Set ticks back to firing period.
@@ -24,14 +25,15 @@ Uint32 gameUpdate(Uint32 interval, void *param /*param, MAPOBJECTSclass*/)
 
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
-int main(int argc, char* args[]){
+int main(){
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {
 		cout << "SDL could not initialize timers" << endl;
 	}
 	// INITIALIZE THE CALLBACK TIMER
-	if (SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, static_cast<void *>(nullptr)) == 0) {
+    SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, static_cast<void *>(nullptr));
+	if (timer_id == 0) {
 		cout << "SDL was unable to create a timer. " << endl;
 	}
 
@@ -46,10 +48,10 @@ int main(int argc, char* args[]){
 	// add some buttons
 	SDL_Texture * temptextu = ui.loadTexture("resources/sprites/tower1_tile.bmp");
 
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,20,100,100 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,20,100,100 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,140,100,100 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,140,100,100 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,20,100,100 }, temptextu);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,20,100,100 }, temptextu);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,140,100,100 }, temptextu);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,140,100,100 }, temptextu);
 
 
 
