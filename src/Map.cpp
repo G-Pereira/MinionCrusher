@@ -2,7 +2,7 @@
 
 Map::Map(Blueprint blueprint) {
     try {
-        blueprint.loadBlueprint(map);
+        blueprint.loadBlueprint(&map);
     }
     catch (std::exception const &e) {
         std::cerr << e.what();
