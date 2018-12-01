@@ -36,7 +36,7 @@ int main(int argc, char* args[]){
 	}
 
 	// LOAD BLUEPRINT FROM FILE
-	Blueprint blueprint("configs/simple.blueprint");
+	Blueprint blueprint("resources/blueprints/simple.blueprint");
 	// CREATE MAP FROM BLUEPRINT
 	Map map(blueprint);
 
@@ -44,7 +44,7 @@ int main(int argc, char* args[]){
 	ui.init();
 
 	// add some buttons
-	SDL_Texture * temptextu = ui.loadTexture("resources/tower1_tile.bmp");
+	SDL_Texture * temptextu = ui.loadTexture("resources/sprites/tower1_tile.bmp");
 
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,20,100,100 }, temptextu, BuildingButtonhandleEvent);
 	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,20,100,100 }, temptextu, BuildingButtonhandleEvent);

@@ -97,9 +97,9 @@ bool UI::init()
 
 
 
-	map_texture = loadTexture("resources/map.bmp");
-	info_texture = loadTexture("resources/info.bmp");
-	buildings_texture = loadTexture("resources/right_side.bmp");
+	map_texture = loadTexture("resources/sprites/map.bmp");
+	info_texture = loadTexture("resources/sprites/info.bmp");
+	buildings_texture = loadTexture("resources/sprites/right_side.bmp");
 
 	return true;
 }

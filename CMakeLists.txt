@@ -26,8 +26,5 @@ include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 
-# Add blueprints
-configure_file(configs/simple.blueprint configs/simple.blueprint COPYONLY)
-
 add_executable(MinionCrusher ${HEADER_FILES} ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
