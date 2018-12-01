@@ -8,7 +8,7 @@
 Blueprint::Blueprint(std::string configFile) : configFile(std::move(configFile)) {
 }
 
-void Blueprint::loadBlueprint(std::vector<std::vector<MapObject>> map) {
+void Blueprint::loadBlueprint(std::vector<std::vector<MapObject>> *map) {
     std::ifstream f(configFile);
 
     if (!f.good()) throw std::invalid_argument("Error reading blueprint file");
@@ -23,6 +23,6 @@ void Blueprint::loadBlueprint(std::vector<std::vector<MapObject>> map) {
                         "Map blueprint has invalid entry at x=" + std::to_string(x) + " and y=" + std::to_string(y));
             mapline.push_back(PathTile(x, y, 1, 1, MapSlots(tileType)));
         }
-        map.push_back(mapline);
+        map->push_back(mapline);
     }
 }

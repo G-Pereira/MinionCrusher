@@ -10,7 +10,7 @@ class Blueprint {
 public:
     Blueprint(std::string configFile = "configs/simple.blueprint");
 
-    void loadBlueprint(std::vector<std::vector<MapObject>> map);
+    void loadBlueprint(std::vector<std::vector<MapObject>> *map);
 
 private:
     std::string configFile;
