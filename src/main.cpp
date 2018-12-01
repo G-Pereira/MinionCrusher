@@ -24,11 +24,7 @@ Uint32 gameUpdate(Uint32 interval, void *param /*param, MAPOBJECTSclass*/)
 
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
-int main(int argc, char* args[]) {
-    Blueprint blueprint = Blueprint("configs/simple.blueprint");
-    Map map = Map(blueprint);
-
-int main(int argc, char* args[]) {
+int main(int argc, char* args[]){
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {
