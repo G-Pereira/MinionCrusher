@@ -1,6 +1,6 @@
+#pragma once
 #ifndef MINIONCRUSHER_MAP_H
 #define MINIONCRUSHER_MAP_H
-#endif //MINIONCRUSHER_MAP_H
 
 #include <iostream>
 #include <vector>
@@ -20,3 +20,5 @@ public:
 private:
     std::vector<std::vector<MapObject>> map = {};
 };
+
+#endif //MINIONCRUSHER_MAP_H

@@ -104,8 +104,12 @@ bool UI::init()
 	return true;
 }
 
-void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture) {
-	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture));
+void UI::SetMap(Map * new_map)
+{
+	map = new_map;
+}
+void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &)) {
+	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture,funct));
 }
 void UI::close()
 {
@@ -133,9 +137,9 @@ void UI::Render(/*MapObjects*/) {
 	//SDL_RenderClear(renderer);
 	// for testing 
 	static CartesianCoordinates pos = CartesianCoordinates{ 0, 0 };
-	if (++pos.x > width)
+	if (++pos.x > mapViewport.w)
 		pos.x = 0;
-	if (++pos.y > height)
+	if (++pos.y > mapViewport.h)
 		pos.y = 0;
 
 	MapObject map_object = MapObject(pos, ObjectSize{ 100, 100 });
@@ -217,4 +221,17 @@ void UI::HandleButtons(SDL_Event &e) {
 	{
 		building_button.handleEvent(&e);
 	}
+}
+
+
+const SDL_Rect UI::getMapViewport() const {
+	return mapViewport;
+}
+
+const SDL_Rect UI::getInfoViewport() const {
+	return infoViewport;
+}
+
+const SDL_Rect UI::getBuildingViewport() const {
+	return buildingViewport;
 }
