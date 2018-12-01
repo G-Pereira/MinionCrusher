@@ -4,6 +4,8 @@
  * Last Modified: 28-11-18
  */
 #pragma once
+#ifndef MINIONCRUSHER_UI_H
+#define MINIONCRUSHER_UI_H
 
 #include <SDL.h>
 #include <string>
@@ -11,19 +13,8 @@
 #include "MapObject.h"
 #include "UIButton.h"
 #include <vector>
+#include "Map.h"
 
-class tempMap {
-public:
-	int getXTiles() {
-		return x_tiles;
-	}
-	int getYTiles() {
-		return y_tiles;
-	}
-private:
-	int x_tiles;
-	int y_tiles;
-};
 class UI {
 public:
 	/**
@@ -70,13 +61,17 @@ public:
 		infoview,
 		buildingsview
 	};
-	void AddButton(enum viewPorts port, SDL_Rect rect, SDL_Texture* texture);
+	void SetMap(Map *);
+	void AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &));
+	const SDL_Rect getMapViewport() const;
+	const SDL_Rect getInfoViewport() const;
+	const SDL_Rect getBuildingViewport() const;
 private:
 	/**
 	 * Perform all closing action to clean the memory of the UI
 	 */
 	void close();
-
+	Map * map;
 	SDL_Texture * map_texture;
 	SDL_Texture * info_texture;
 	SDL_Texture * buildings_texture;
@@ -87,6 +82,7 @@ private:
 	SDL_Rect mapViewport;
 	SDL_Rect infoViewport;
 	SDL_Rect buildingViewport;
-	tempMap * map;
 	std::vector<UIButton> buttons[3];
 };
+
+#endif
