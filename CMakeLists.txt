@@ -30,4 +30,4 @@ configure_file(resources/blueprints/simple.blueprint resources/blueprints/simple
 configure_file(resources/blueprints/simple.blueprint resources/blueprints/simple.blueprint COPYONLY)
 
 add_executable(MinionCrusher ${HEADER_FILES} ${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} SDL2main SDL2)
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})

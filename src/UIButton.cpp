@@ -1,7 +1,5 @@
 #include "UIButton.h"
 
-
-
 //UIButton::UIButton()
 //{
 //	rect.x = 0;
