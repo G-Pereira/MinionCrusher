@@ -9,7 +9,7 @@
 
 class Blueprint {
 public:
-    Blueprint(std::string configFile = "configs/simple.blueprint");
+    Blueprint(std::string configFile = "resources/blueprints/simple.blueprint");
 
     void loadBlueprint(Map *map);
 
