@@ -9,6 +9,7 @@ addons:
     packages:
       - libsdl2-dev
       - libsdl2-image-dev
+      - python-pkgconfig
 
 script:
   - cmake .
