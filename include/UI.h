@@ -7,7 +7,7 @@
 #ifndef MINIONCRUSHER_UI_H
 #define MINIONCRUSHER_UI_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <string>
 #include <vector>
 #include "MapObject.h"
