@@ -8,6 +8,7 @@
 #include "PathTile.h"
 #include "Base.h"
 #include "Blueprint.h"
+#include "Tower.h"
 
 class Map {
 public:
@@ -17,8 +18,11 @@ public:
      */
     Map(Blueprint bp);
 
-private:
-    std::vector<std::vector<MapObject>> map = {};
+    ~Map();
+
+    Base *base;
+    std::vector<PathTile> path;
+    std::vector<Tower> towers;
 };
 
 #endif //MINIONCRUSHER_MAP_H

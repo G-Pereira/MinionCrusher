@@ -42,12 +42,10 @@ struct AmmoType {
  */
 enum class MapSlots {
     EMPTY = 0,
-    BASE = 1,
-    TOWER = 2,
-    RIGHT = 3,
-    UP = 4,
-    DOWN = 5,
-    LEFT = 6
+    RIGHT = 1,
+    UP = 2,
+    DOWN = 3,
+    LEFT = 4
 };
 
 #endif //MINIONCRUSHER_TYPES_H

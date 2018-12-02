@@ -5,12 +5,13 @@
 #include <vector>
 #include "Base.h"
 #include "PathTile.h"
+#include "Map.h"
 
 class Blueprint {
 public:
     Blueprint(std::string configFile = "configs/simple.blueprint");
 
-    void loadBlueprint(std::vector<std::vector<MapObject>> *map);
+    void loadBlueprint(Map *map);
 
 private:
     std::string configFile;
