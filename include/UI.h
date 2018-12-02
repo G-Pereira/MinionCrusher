@@ -13,7 +13,7 @@
 #include "MapObject.h"
 #include "UIButton.h"
 #include <vector>
-#include "Map.h"
+#include "Battlefield.h"
 
 class UI {
 public:
@@ -61,7 +61,7 @@ public:
 		infoview,
 		buildingsview
 	};
-	void SetMap(Map *);
+	void SetMap(Battlefield *);
 	void AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture);
 	const SDL_Rect getMapViewport() const;
 	const SDL_Rect getInfoViewport() const;
@@ -71,7 +71,7 @@ private:
 	 * Perform all closing action to clean the memory of the UI
 	 */
 	void close();
-	Map * map;
+	Battlefield * map;
 	SDL_Texture * map_texture;
 	SDL_Texture * info_texture;
 	SDL_Texture * buildings_texture;

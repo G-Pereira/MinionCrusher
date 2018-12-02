@@ -8,12 +8,9 @@
 
 class Blueprint {
 public:
-    Blueprint(std::string configFile = "configs/simple.blueprint");
+    Blueprint(std::string blueprintFile = "resources/blueprints/simple.blueprint");
 
-    void loadBlueprint(std::vector<std::vector<MapObject>> *map);
-
-private:
-    std::string configFile;
+    std::string blueprintFile;
 };
 
 

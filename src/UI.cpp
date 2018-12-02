@@ -104,7 +104,7 @@ bool UI::init()
 	return true;
 }
 
-void UI::SetMap(Map * new_map)
+void UI::SetMap(Battlefield * new_map)
 {
 	map = new_map;
 }
