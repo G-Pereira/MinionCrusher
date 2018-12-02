@@ -1,5 +1,5 @@
 #include <fstream>
-
+#include <string>
 #include "Battlefield.h"
 
 Battlefield::Battlefield(Blueprint *blueprint) {

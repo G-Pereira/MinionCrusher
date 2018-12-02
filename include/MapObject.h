@@ -8,7 +8,11 @@
 #define MINIONCRUSHER_MAPOBJECT_H
 
 #include "types.h"
+#ifdef _WIN32
+#include <SDL.h>
+#else
 #include "SDL2/SDL.h"
+#endif
 
 /**
  * In the Minioncrusher, any object that is drawn on the map is a MapObject. These objects are easily recognized

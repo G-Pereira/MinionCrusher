@@ -24,7 +24,7 @@ Uint32 gameUpdate(Uint32 interval , void* param = 0/*, MAPOBJECTSclass*/)
 
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
-int main(){
+int main(int argc, char * args[]){
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {
@@ -47,10 +47,10 @@ int main(){
 	// add some buttons
 	SDL_Texture * temptextu = ui.loadTexture("resources/sprites/tower1_tile.bmp");
 
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,20,100,100 }, temptextu);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,20,100,100 }, temptextu);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,140,100,100 }, temptextu);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,140,100,100 }, temptextu);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,20,100,100 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,20,100,100 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,140,100,100 }, temptextu, BuildingButtonhandleEvent);
+	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,140,100,100 }, temptextu, BuildingButtonhandleEvent);
 
 
 
