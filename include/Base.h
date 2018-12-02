@@ -11,6 +11,12 @@
 
 class Base : public MapObject {
 public:
+    /**
+     * \brief Base model with represents the entity the player has to defend
+     * The Object is created at
+     * @param x X coordinate
+     * @param y Y coordinate
+     */
     Base(float x, float y, float width, float height, float health);
 
     virtual ~Base();

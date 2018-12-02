@@ -16,7 +16,7 @@ public:
      * The object is constructed with a blueprint from a file
      * @param bp Blueprint file path
      */
-    Battlefield(Blueprint *bp);
+    Battlefield(Blueprint *blueprint);
 
     ~Battlefield();
 
