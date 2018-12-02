@@ -40,7 +40,7 @@ int main(){
 	// LOAD BLUEPRINT FROM FILE
 	Blueprint blueprint("resources/blueprints/simple.blueprint");
 	// CREATE MAP FROM BLUEPRINT
-	Battlefield map(blueprint);
+	Battlefield map(&blueprint);
 
 	// INITIALIZE THE USER INTERFACE
 	ui.init();
