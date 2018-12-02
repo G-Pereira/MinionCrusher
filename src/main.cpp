@@ -1,7 +1,7 @@
 #include <iostream>
 #include <Blueprint.h>
 #include <Battlefield.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <string>
 #include <stdint.h>
 #include "UI.h"
