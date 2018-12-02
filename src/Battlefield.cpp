@@ -14,6 +14,7 @@ Battlefield::Battlefield(Blueprint *blueprint) {
             std::cout << tileType << std::endl;
             switch (tileType) {
                 case 0:
+					break;
                 case 1:
                 case 2:
                 case 3:
