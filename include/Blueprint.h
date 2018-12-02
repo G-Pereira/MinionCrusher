@@ -5,16 +5,12 @@
 #include <vector>
 #include "Base.h"
 #include "PathTile.h"
-#include "Battlefield.h"
 
 class Blueprint {
 public:
-    Blueprint(std::string configFile = "resources/blueprints/simple.blueprint");
+    Blueprint(std::string blueprintFile = "resources/blueprints/simple.blueprint");
 
-    void loadBlueprint(Battlefield *map);
-
-private:
-    std::string configFile;
+    std::string blueprintFile;
 };
 
 
