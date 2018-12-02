@@ -1,9 +1,9 @@
 
-#include <Map.h>
+#include <Battlefield.h>
 
-#include "Map.h"
+#include "Battlefield.h"
 
-Map::Map(Blueprint *blueprint) {
+Battlefield::Battlefield(Blueprint *blueprint) {
     try {
         blueprint->loadBlueprint(this);
     }
@@ -12,6 +12,6 @@ Map::Map(Blueprint *blueprint) {
     }
 }
 
-Map::~Map() {
+Battlefield::~Battlefield() {
     delete this->base;
 }

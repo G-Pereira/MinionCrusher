@@ -1,6 +1,6 @@
 #include <iostream>
 #include <Blueprint.h>
-#include <Map.h>
+#include <Battlefield.h>
 #include <SDL.h>
 #include <string>
 #include <stdint.h>
@@ -40,7 +40,7 @@ int main(){
 	// LOAD BLUEPRINT FROM FILE
 	Blueprint blueprint("resources/blueprints/simple.blueprint");
 	// CREATE MAP FROM BLUEPRINT
-	Map map(blueprint);
+	Battlefield map(blueprint);
 
 	// INITIALIZE THE USER INTERFACE
 	ui.init();

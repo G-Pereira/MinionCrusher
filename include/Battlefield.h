@@ -10,15 +10,15 @@
 #include "Blueprint.h"
 #include "Tower.h"
 
-class Map {
+class Battlefield {
 public:
     /**
      * The object is constructed with a blueprint from a file
      * @param bp Blueprint file path
      */
-    Map(Blueprint *bp);
+    Battlefield(Blueprint *bp);
 
-    ~Map();
+    ~Battlefield();
 
     Base *base;
     std::vector<PathTile> path;
