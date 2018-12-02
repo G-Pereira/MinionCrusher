@@ -1,15 +1,15 @@
 language: cpp
 compiler: gcc
 
-dist: xenial
-sudo: required
-
 addons:
   apt:
     packages:
       - libsdl2-dev
       - libsdl2-image-dev
-      - python-pkgconfig
+      - libsdl2-mixer-dev
+      - libsdl2-ttf-dev
+      - libegl1-mesa-dev
+      - libgles2-mesa-dev
 
 script:
   - cmake .
