@@ -11,7 +11,7 @@ using namespace std;
 UI ui = UI(1280, 720);
 
 // Temporary location of minion spawn information
-CartesianCoordinates spawnLocation = { 16,6 };
+CartesianCoordinates spawnLocation = { 0, 1 };
 int ticksToNextMinion = 3;
 int tickCount = 2;
 
@@ -22,24 +22,31 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 {
 	Battlefield *map = reinterpret_cast<Battlefield *>(m);
 
+
+	// Move all minions in the right direction
+	for (Minion &minion : (map->minions)) {
+
+		int dir = (int) map->path[minion.moveCount].getType();
+		minion.setCoordinates(
+			{ minion.getCoordinates().x + - (dir == 1) + (dir == 4),
+			 minion.getCoordinates().y + -(dir == 3) + (dir == 2) }
+		);
+		if (minion.moveCount == map->path.size() - 1) {
+			map->minions.pop_front();
+			break;
+		}
+		minion.moveCount = minion.moveCount + 1;
+
+		//cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
+	}
 	// Add minions to the battlefield on an interval
 	if (tickCount >= ticksToNextMinion) {
-		Minion minion = Minion(spawnLocation.x,spawnLocation.y,1,1,100,1,1);
+		tickCount = 0;
+		Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 1);
 		map->minions.push_back(minion);
 	}
 	else {
 		tickCount++;
-	}
-
-	// Move all minions in the right direction
-	for (Minion &minion : (map->minions)) {
-		int dir = (int) map->path[minion.moveCount].getType();
-		minion.setCoordinates(
-			{ minion.getCoordinates().x + (dir == 1) - (dir == 4),
-			 minion.getCoordinates().y + (dir == 3) - (dir == 2) }
-		);
-		minion.moveCount = minion.moveCount + 1;
-		//cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
 	}
 
 	// For each tower: Check if it can fire by checking its ticks.

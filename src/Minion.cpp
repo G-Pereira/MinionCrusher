@@ -11,7 +11,7 @@ Minion::Minion(float x, float y, float width, float height, float health, float 
 
 }
 
-Minion::~Minion() {
+ Minion::~Minion() {
 
 }
 

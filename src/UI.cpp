@@ -107,8 +107,8 @@ void UI::SetMap(Battlefield * new_map)
 {
 	map = new_map;
 
-	float tilewidth = mapViewport.w / map->y_tiles;
-	float tileheight = mapViewport.h / map->x_tiles;
+	float tilewidth = mapViewport.w / map->x_tiles;
+	float tileheight = mapViewport.h / map->y_tiles;
 	SDL_Texture * path_texture = loadTexture("resources/sprites/path_tile.bmp");
 	for (int i = 0; i < map->path.size(); i++) {
 		map->path[i].setTexture(path_texture);
@@ -191,11 +191,28 @@ void UI::RenderMap() {
 	for (auto &map_object  : map->path) {
 		auto coordinates = map_object.getCoordinates();
 		auto dims = map_object.getDimensions();
-		SDL_Rect fillRect = { (int)coordinates.y, (int)coordinates.x,  (int)dims.height, (int)dims.width };
+		SDL_Rect fillRect = { (int)coordinates.x, (int)coordinates.y, (int)dims.width, (int)dims.height};
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!map_object.getTexture()) {
-			SDL_Rect fillRect = { (int)coordinates.x, (int)coordinates.y,  (int)dims.height, (int)dims.width };
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+		}
+		else {
+			SDL_RenderCopy(renderer, map_object.getTexture(), nullptr, &fillRect);
+		}
+	}
+	//render minions
+	float tilewidth = mapViewport.w / map->x_tiles;
+	float tileheight = mapViewport.h / map->y_tiles;
+	for (auto &map_object : map->minions) {
+		auto coordinates = map_object.getCoordinates();
+		auto dims = map_object.getDimensions();
+
+		SDL_Rect fillRect = {(int)coordinates.x * tilewidth,  (int)coordinates.y * tileheight, (int)dims.width * tilewidth, (int)dims.height * tileheight };
+		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
+
+		if (!map_object.getTexture()) {
 			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
