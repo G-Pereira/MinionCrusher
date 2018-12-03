@@ -13,7 +13,6 @@ Map::Map(std::string blueprintFile) {
 		for (y_tiles = 0; std::getline(f, line); y_tiles++) {
 			for (x_tiles = 0; x_tiles < line.length(); x_tiles++) {
 				int tileType = line.at(x_tiles) - '0';
-				//std::cout << "at " << (int)x << ", " << (int)y << " type " << tileType << std::endl;
 				switch (tileType) {
 				case 0:
 					break;
