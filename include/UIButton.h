@@ -7,14 +7,14 @@ public:
 	//Initializes internal variables
 	//UIButton();
 	/**
-	* @param: r Rectangle that defines the size and position
-	* @param: c Texture to start off with, if left to zero will be same as param off
-	* @param: on Texture to show when mouse is on the button
-	* @param: off Texture to show when user is not interacting with the button
+	* @param: renderer Rectangle that defines the size and position
+	* @param: current Texture to start off with, if left to zero will be same as param off
+	* @param: mouse_on Texture to show when mouse is on the button
+	* @param: mouse_off Texture to show when user is not interacting with the button
 	* @param: button_pressed Texture to show after user has clicked this button
 	* @param: funct call back function to call when button is clicked
 	*/
-	UIButton(SDL_Rect r, SDL_Texture *c, SDL_Texture *on, SDL_Texture *off, SDL_Texture *button_pressed, void funct(UIButton & self, SDL_Event &));
+	UIButton(SDL_Rect renderer, SDL_Texture *current, SDL_Texture *mouse_on, SDL_Texture *mouse_off, SDL_Texture *button_pressed, void funct(UIButton & self, SDL_Event &));
 
 	~UIButton();
 	/**
@@ -39,7 +39,7 @@ public:
 	SDL_Texture * current;
 	SDL_Texture * mouse_on;
 	SDL_Texture * mouse_off;
-	SDL_Texture * pressed;
+	SDL_Texture * button_pressed;
 
 private:
 	/**

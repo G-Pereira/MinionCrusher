@@ -165,12 +165,12 @@ void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e)
 
 			case SDL_MOUSEBUTTONDOWN:
 				cout << "SDL_MOUSEBUTTONDOWN" << endl;
-				self.current = self.pressed;
+				self.current = self.button_pressed;
 				break;
 
 			case SDL_MOUSEBUTTONUP:
 				cout << "SDL_MOUSEBUTTONUP" << endl;
-				self.current = self.pressed;
+				self.current = self.button_pressed;
 				break;
 			}
 		}

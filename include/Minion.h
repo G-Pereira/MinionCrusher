@@ -32,11 +32,8 @@ public:
 
 private:
     float health; // Health of the minion
+	float damage; // The damage a minion does when attacking the base
     float speed; // The speed of a minion in distance/tick
-    float damage; // The damage a minion does when attacking the base
-
-
-    
 };
 
 
