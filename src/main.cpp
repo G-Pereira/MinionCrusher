@@ -57,7 +57,7 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
-int main(int argc, char * args[]){
+int main(){
 	// LOAD BLUEPRINT FROM FILE
 	Blueprint blueprint("resources/blueprints/simple.blueprint");
 	// CREATE MAP FROM BLUEPRINT
