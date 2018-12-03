@@ -41,36 +41,29 @@ UI::~UI()
 	close();
 }
 
-bool UI::init()
+void UI::init()
 {
 	// Init SDL
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
-		return false;
-	}
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+		throw std::runtime_error("SDL could not initialize!");
 
 	//Set texture filtering to linear
 	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-	{
-		printf("Warning: Linear texture filtering not enabled!");
-	}
+		throw std::runtime_error("Warning: Linear texture filtering not enabled!");
 
 	// Create a Window in the middle of the screen
 	window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, width,
 		height, SDL_WINDOW_SHOWN);
-	if (window == nullptr) {
-		printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
-		return false;
-	}
+	if (window == nullptr)
+		throw std::runtime_error("Window could not be created!");
+
 	// Create a new renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
 		SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr)
-	{
-		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
-		return false;
-	}
+		throw std::runtime_error("Renderer could not be created!");
+
 	//Initialize renderer color
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	
@@ -108,8 +101,6 @@ bool UI::init()
 	map_texture = loadTexture("resources/sprites/map_background.bmp");
 	info_texture = loadTexture("resources/sprites/info.bmp");
 	buildings_texture = loadTexture("resources/sprites/right_side.bmp");
-
-	return true;
 }
 
 void UI::SetMap(Battlefield * new_map)

@@ -24,7 +24,7 @@ Uint32 gameUpdate(Uint32 interval , void* param = 0/*, MAPOBJECTSclass*/)
 
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
-int main(int argc, char * args[]){
+int main(int arg, char * args[]){
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {
@@ -42,7 +42,11 @@ int main(int argc, char * args[]){
 	Battlefield map(&blueprint);
 
 	// INITIALIZE THE USER INTERFACE
-	ui.init();
+    try {
+        ui.init();
+    } catch (std::exception& e){
+        std::cout << e.what();
+    }
 	ui.SetMap(&map);
 
 	// add some buttons

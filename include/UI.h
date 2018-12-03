@@ -30,7 +30,7 @@ public:
 	/**
 	 * Initilialize the UI
 	 */
-	bool init();
+	void init();
 	/**
 	 * Render all parts of the user interface
 	 * @param Map the texture which will be in the background of the map
