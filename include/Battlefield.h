@@ -23,6 +23,10 @@ public:
     Base *base;
     std::vector<PathTile> path;
     std::vector<Tower> towers;
+
+	int x_tiles;
+	int y_tiles;
+
 };
 
 #endif //MINIONCRUSHER_MAP_H

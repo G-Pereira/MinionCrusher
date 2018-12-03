@@ -43,7 +43,7 @@ public:
 	 * @param path path to the file containing a bitmap
 	 * @return pointer to texture
 	 */
-	void RenderMap(std::vector<MapObject*> map_objects);
+	void RenderMap();
 	/**
 	 * returns a pointer to the renderer
 	 * @return pointer to the used renderer

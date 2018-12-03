@@ -107,8 +107,8 @@ void UI::SetMap(Battlefield * new_map)
 {
 	map = new_map;
 
-	float tilewidth = mapViewport.w / 16.0F;// 16 and 10 need to be gotten from the map object!!!!!!!!!
-	float tileheight = mapViewport.h / 9.0F;
+	float tilewidth = mapViewport.w / map->y_tiles;
+	float tileheight = mapViewport.h / map->x_tiles;
 	SDL_Texture * path_texture = loadTexture("resources/sprites/path_tile.bmp");
 	for (int i = 0; i < map->path.size(); i++) {
 		map->path[i].setTexture(path_texture);
@@ -153,25 +153,7 @@ void UI::close()
 void UI::Render(/*MapObjects*/) {
 	//SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	//SDL_RenderClear(renderer);
-	// for testing 
-	static CartesianCoordinates pos = CartesianCoordinates{ 0, 0 };
-	if (++pos.x > mapViewport.w)
-		pos.x = 0;
-	if (++pos.y > mapViewport.h)
-		pos.y = 0;
-
-	MapObject map_object = MapObject(pos, ObjectSize{ 100, 100 });
-	std::vector<MapObject*> map_objects = std::vector<MapObject*>();
-	map_objects.push_back(&map_object);
-	if (map) {
-		for (auto it = map->path.cbegin(); it != map->path.cend(); it++){
-			map_objects.push_back((it._Ptr));
-		}
-	}
-	else {
-		cout << "no map" << endl;
-	}
-	RenderMap(map_objects);
+	RenderMap();
 
 	//Building viewport
 	SDL_RenderSetViewport(renderer, &buildingViewport);
@@ -194,25 +176,31 @@ void UI::Render(/*MapObjects*/) {
 	SDL_RenderPresent(renderer);
 }
 
-void UI::RenderMap(std::vector<MapObject*> map_objects/*, mapclass map */ ) {
+void UI::RenderMap() {
 	//Top left corner viewport
 	SDL_RenderSetViewport(renderer, &mapViewport);
 
 	//Render background texture to screen
 	SDL_RenderCopy(renderer, map_texture, nullptr, nullptr);
-	for (auto map_object  : map_objects) {
-		auto coordinates = map_object->getCoordinates();
-		auto dims = map_object->getDimensions();
+
+	if (!map) {
+		cout << "no map initialized" << endl;
+		return;
+	}
+	//render path tiles
+	for (auto &map_object  : map->path) {
+		auto coordinates = map_object.getCoordinates();
+		auto dims = map_object.getDimensions();
 		SDL_Rect fillRect = { (int)coordinates.y, (int)coordinates.x,  (int)dims.height, (int)dims.width };
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
-		if (!map_object->getTexture()) {
+		if (!map_object.getTexture()) {
 			SDL_Rect fillRect = { (int)coordinates.x, (int)coordinates.y,  (int)dims.height, (int)dims.width };
 			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
 		else {
-			SDL_RenderCopy(renderer, map_object->getTexture(), nullptr, &fillRect);
+			SDL_RenderCopy(renderer, map_object.getTexture(), nullptr, &fillRect);
 		}
 	}
 
