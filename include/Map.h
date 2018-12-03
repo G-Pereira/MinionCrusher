@@ -35,8 +35,8 @@ public:
     std::vector<Tower> towers;
 	std::list<Minion> minions;
 
-	int x_tiles;
-	int y_tiles;
+    uint8_t x_tiles;
+    uint8_t y_tiles;
 
 };
 

@@ -110,7 +110,7 @@ void UI::SetMap(Map * new_map)
 	float tilewidth = mapViewport.w / map->x_tiles;
 	float tileheight = mapViewport.h / map->y_tiles;
 	SDL_Texture * path_texture = loadTexture("resources/sprites/path_tile.bmp");
-	for (int i = 0; i < map->path.size(); i++) {
+	for (uint8_t i = 0; i < map->path.size(); i++) {
 		map->path[i].setTexture(path_texture);
 		auto coordinates = map->path[i].getCoordinates();
 		coordinates.x *= tilewidth;
