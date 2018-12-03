@@ -39,5 +39,4 @@ Battlefield::Battlefield(Blueprint *blueprint) {
 }
 
 Battlefield::~Battlefield() {
-    delete this->base;
 }

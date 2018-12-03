@@ -4,11 +4,13 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 
 #include "PathTile.h"
 #include "Base.h"
 #include "Blueprint.h"
 #include "Tower.h"
+#include "Minion.h"
 
 class Battlefield {
 public:
@@ -20,9 +22,10 @@ public:
 
     ~Battlefield();
 
-    Base *base;
+    Base base = Base(0,0,1,1,100);
     std::vector<PathTile> path;
     std::vector<Tower> towers;
+	std::list<Minion> minions;
 
 	int x_tiles;
 	int y_tiles;

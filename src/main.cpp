@@ -3,19 +3,45 @@
 #include <Battlefield.h>
 #include <string>
 #include <stdint.h>
+#include <list>
 #include "UI.h"
+#include "types.h"
 using namespace std;
 
 UI ui = UI(1280, 720);
 
+// Temporary location of minion spawn information
+CartesianCoordinates spawnLocation = { 16,6 };
+int ticksToNextMinion = 3;
+int tickCount = 2;
+
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
-Uint32 gameUpdate(Uint32 interval , void* param = 0/*, MAPOBJECTSclass*/)
+Uint32 gameUpdate(Uint32 interval , void *m)
 {
-	// param is printed here to not trigger the -Werror unused parameter
-	cout << "Test" <<  param << endl;
-	// For each minion: Check current position
+	Battlefield *map = reinterpret_cast<Battlefield *>(m);
+
+	// Add minions to the battlefield on an interval
+	if (tickCount >= ticksToNextMinion) {
+		Minion minion = Minion(spawnLocation.x,spawnLocation.y,1,1,100,1,1);
+		map->minions.push_back(minion);
+	}
+	else {
+		tickCount++;
+	}
+
+	// Move all minions in the right direction
+	for (Minion &minion : (map->minions)) {
+		int dir = (int) map->path[minion.moveCount].getType();
+		minion.setCoordinates(
+			{ minion.getCoordinates().x + (dir == 1) - (dir == 4),
+			 minion.getCoordinates().y + (dir == 3) - (dir == 2) }
+		);
+		minion.moveCount = minion.moveCount + 1;
+		//cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
+	}
+
 	// For each tower: Check if it can fire by checking its ticks.
 		// If yes: Find closest minion. If in range: damage it. Set ticks back to firing period.
 		// If no: reduce tower ticks by one.
@@ -24,22 +50,21 @@ Uint32 gameUpdate(Uint32 interval , void* param = 0/*, MAPOBJECTSclass*/)
 
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
-int main(int arg, char * args[]){
+int main(int argc, char * args[]){
+	// LOAD BLUEPRINT FROM FILE
+	Blueprint blueprint("resources/blueprints/simple.blueprint");
+	// CREATE MAP FROM BLUEPRINT
+	Battlefield map(&blueprint);
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {
 		cout << "SDL could not initialize timers" << endl;
 	}
 	// INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, static_cast<void *>(nullptr));
+	SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, &map);
 	if (timer_id == 0) {
 		cout << "SDL was unable to create a timer. " << endl;
 	}
-
-	// LOAD BLUEPRINT FROM FILE
-	Blueprint blueprint("resources/blueprints/simple.blueprint");
-	// CREATE MAP FROM BLUEPRINT
-	Battlefield map(&blueprint);
 
 	// INITIALIZE THE USER INTERFACE
     try {
