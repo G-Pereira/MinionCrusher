@@ -24,7 +24,7 @@ Battlefield::Battlefield(Blueprint *blueprint) {
 					this->path.emplace_back(x_tiles, y_tiles, 1, 1, MapSlots(tileType));
 					break;
 				case 5:
-					this->base = new Base(x_tiles, y_tiles, 1, 1, 100);
+					this->base = Base(x_tiles, y_tiles, 1, 1, 100);
 					break;
 				default:
 					throw std::domain_error(
