@@ -30,7 +30,7 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 			{ minion.getCoordinates().x + - (dir == 1) + (dir == 4),
 			 minion.getCoordinates().y + -(dir == 3) + (dir == 2) }
 		);
-		if (minion.moveCount == map->path.size() - 1) {
+		if (minion.moveCount == (int)map->path.size() - 1) {
 			map->minions.pop_front();
 			break;
 		}

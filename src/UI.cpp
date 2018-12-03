@@ -209,7 +209,7 @@ void UI::RenderMap() {
 		auto coordinates = map_object.getCoordinates();
 		auto dims = map_object.getDimensions();
 
-		SDL_Rect fillRect = {(int)coordinates.x * tilewidth,  (int)coordinates.y * tileheight, (int)dims.width * tilewidth, (int)dims.height * tileheight };
+		SDL_Rect fillRect = {int(coordinates.x * tilewidth),  int(coordinates.y * tileheight), int(dims.width * tilewidth), int(dims.height * tileheight) };
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!map_object.getTexture()) {
