@@ -11,9 +11,24 @@
 
 class Minion : public MapObject {
 public:
-    Minion();
+	Minion(float x, float y, float width, float height, float health, float damage, float speed);
 
     virtual ~Minion();
+
+
+	void setHealth(float health);
+
+	const float &getHealth() const;
+
+	void setSpeed(float speed);
+
+	const float &getSpeed() const;
+
+	void setDamage(float damage);
+
+	const float &getDamage() const;
+
+	int moveCount = 0;
 
 private:
     float health; // Health of the minion
@@ -21,17 +36,7 @@ private:
     float damage; // The damage a minion does when attacking the base
 
 
-    void setHealth(float health);
-
-    const float &getHealth() const;
-
-    void setSpeed(float speed);
-
-    const float &getSpeed() const;
-
-    void setDamage(float damage);
-
-    const float &getDamage() const;
+    
 };
 
 

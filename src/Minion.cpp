@@ -6,6 +6,15 @@
 
 #include "Minion.h"
 
+Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed)
+	: MapObject(x, y, width, height), health(health), damage(damage), speed(speed) {
+
+}
+
+Minion::~Minion() {
+
+}
+
 const float &Minion::getHealth() const {
     return this->health;
 }
