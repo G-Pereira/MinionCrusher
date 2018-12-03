@@ -1,5 +1,4 @@
 #include <iostream>
-#include <Blueprint.h>
 #include <Map.h>
 #include <string>
 #include <stdint.h>
@@ -58,10 +57,8 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
 int main(){
-	// LOAD BLUEPRINT FROM FILE
-	Blueprint blueprint("resources/blueprints/simple.blueprint");
 	// CREATE MAP FROM BLUEPRINT
-	Map map(&blueprint);
+	Map map("resources/blueprints/simple.blueprint");
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {

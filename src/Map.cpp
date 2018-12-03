@@ -2,9 +2,9 @@
 #include <string>
 #include "Map.h"
 
-Map::Map(Blueprint *blueprint) {
+Map::Map(std::string blueprintFile) {
     try {
-        std::ifstream f(blueprint->blueprintFile);
+        std::ifstream f(blueprintFile);
 
         if (!f.good()) throw std::invalid_argument("Error reading blueprint file");
 

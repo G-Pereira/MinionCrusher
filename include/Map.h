@@ -14,7 +14,6 @@
 
 #include "PathTile.h"
 #include "Base.h"
-#include "Blueprint.h"
 #include "Tower.h"
 #include "Minion.h"
 
@@ -27,7 +26,7 @@ public:
      * that is displayed as a map to the user.
      * @param blueprint Blueprint file path
      */
-    Map(Blueprint *blueprint);
+    Map(std::string blueprintFile = "resources/blueprints/simple.blueprint");
 
     ~Map();
 
