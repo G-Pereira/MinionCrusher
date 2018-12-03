@@ -38,6 +38,19 @@ const ObjectSize &MapObject::getDimensions() const {
     return dimensions;
 }
 
-const SDL_Texture * MapObject::getTexture() const {
+void MapObject::setDimensions(ObjectSize size)
+{
+	dimensions = size;
+}
+
+SDL_Texture * MapObject::getTexture() const {
 	return texture;
+}
+
+bool MapObject::setTexture(SDL_Texture * nTexture)
+{
+	if(!nTexture)
+		return false;
+	texture = nTexture;
+	return true;
 }

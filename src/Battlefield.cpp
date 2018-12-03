@@ -11,7 +11,7 @@ Battlefield::Battlefield(Blueprint *blueprint) {
     for (uint8_t x = 0; std::getline(f, line); x++) {
         for (uint8_t y = 0; y < line.length(); y++) {
             int tileType = line.at(y)-'0';
-            std::cout << tileType << std::endl;
+            //std::cout << "at " << (int)x << ", " << (int)y << " type " << tileType << std::endl;
             switch (tileType) {
                 case 0:
 					break;

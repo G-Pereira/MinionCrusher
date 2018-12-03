@@ -11,6 +11,14 @@
 
 using namespace std;
 
+
+//struct sdl_deleter
+//{
+//	void operator()(SDL_Window *p) const { SDL_DestroyWindow(p); }
+//	void operator()(SDL_Renderer *p) const { SDL_DestroyRenderer(p); }
+//	void operator()(SDL_Texture *p) const { SDL_DestroyTexture(p); }
+//};
+
 UI::UI(int w, int h): width(w), height(h){
 	window = nullptr;
 	renderer = nullptr;
@@ -65,7 +73,7 @@ bool UI::init()
 	}
 	//Initialize renderer color
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
+	
 
 	/* ratio of UI elements
 	current shape:
@@ -97,7 +105,7 @@ bool UI::init()
 
 
 
-	map_texture = loadTexture("resources/sprites/map.bmp");
+	map_texture = loadTexture("resources/sprites/map_background.bmp");
 	info_texture = loadTexture("resources/sprites/info.bmp");
 	buildings_texture = loadTexture("resources/sprites/right_side.bmp");
 
@@ -107,6 +115,25 @@ bool UI::init()
 void UI::SetMap(Battlefield * new_map)
 {
 	map = new_map;
+
+	float tilewidth = mapViewport.w / 16.0F;// 16 and 10 need to be gotten from the map object!!!!!!!!!
+	float tileheight = mapViewport.h / 9.0F;
+	SDL_Texture * path_texture = loadTexture("resources/sprites/path_tile.bmp");
+	for (int i = 0; i < map->path.size(); i++) {
+		map->path[i].setTexture(path_texture);
+		auto coordinates = map->path[i].getCoordinates();
+		coordinates.x *= tilewidth;
+		coordinates.y *= tileheight;
+		map->path[i].setCoordinates(coordinates);
+		auto dims = map->path[i].getDimensions();
+		dims.width *= tilewidth;
+		dims.height *= tileheight;
+		map->path[i].setDimensions(dims);
+		//cout << "setting path tile textures " << i << endl;
+		//cout << coordinates.x << " " << coordinates.y << endl;
+		//cout << dims.height << " " << dims.width << endl;
+
+	}
 }
 void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &)) {
 	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture, funct));
@@ -145,6 +172,14 @@ void UI::Render(/*MapObjects*/) {
 	MapObject map_object = MapObject(pos, ObjectSize{ 100, 100 });
 	std::vector<MapObject*> map_objects = std::vector<MapObject*>();
 	map_objects.push_back(&map_object);
+	if (map) {
+		for (auto it = map->path.cbegin(); it != map->path.cend(); it++){
+			map_objects.push_back((it._Ptr));
+		}
+	}
+	else {
+		cout << "no map" << endl;
+	}
 	RenderMap(map_objects);
 
 	//Building viewport
@@ -172,15 +207,22 @@ void UI::RenderMap(std::vector<MapObject*> map_objects/*, mapclass map */ ) {
 	//Top left corner viewport
 	SDL_RenderSetViewport(renderer, &mapViewport);
 
-	//Render texture to screen
+	//Render background texture to screen
 	SDL_RenderCopy(renderer, map_texture, nullptr, nullptr);
 	for (auto map_object  : map_objects) {
 		auto coordinates = map_object->getCoordinates();
 		auto dims = map_object->getDimensions();
-		SDL_Rect fillRect = { (int)coordinates.x, (int)coordinates.y,  (int)dims.height, (int)dims.width};
+		SDL_Rect fillRect = { (int)coordinates.y, (int)coordinates.x,  (int)dims.height, (int)dims.width };
+		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
-		SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+		if (!map_object->getTexture()) {
+			SDL_Rect fillRect = { (int)coordinates.x, (int)coordinates.y,  (int)dims.height, (int)dims.width };
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+		}
+		else {
+			SDL_RenderCopy(renderer, map_object->getTexture(), nullptr, &fillRect);
+		}
 	}
 
 }

@@ -43,6 +43,7 @@ int main(int argc, char * args[]){
 
 	// INITIALIZE THE USER INTERFACE
 	ui.init();
+	ui.SetMap(&map);
 
 	// add some buttons
 	SDL_Texture * temptextu = ui.loadTexture("resources/sprites/tower1_tile.bmp");
