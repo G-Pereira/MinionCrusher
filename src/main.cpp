@@ -1,6 +1,6 @@
 #include <iostream>
 #include <Blueprint.h>
-#include <Battlefield.h>
+#include <Map.h>
 #include <string>
 #include <stdint.h>
 #include <list>
@@ -20,7 +20,7 @@ int tickCount = 2;
 */
 Uint32 gameUpdate(Uint32 interval , void *m)
 {
-	Battlefield *map = reinterpret_cast<Battlefield *>(m);
+	Map *map = reinterpret_cast<Map *>(m);
 
 
 	// Move all minions in the right direction
@@ -61,7 +61,7 @@ int main(int argc, char * args[]){
 	// LOAD BLUEPRINT FROM FILE
 	Blueprint blueprint("resources/blueprints/simple.blueprint");
 	// CREATE MAP FROM BLUEPRINT
-	Battlefield map(&blueprint);
+	Map map(&blueprint);
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {

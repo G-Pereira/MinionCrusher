@@ -1,8 +1,8 @@
 #include <fstream>
 #include <string>
-#include "Battlefield.h"
+#include "Map.h"
 
-Battlefield::Battlefield(Blueprint *blueprint) {
+Map::Map(Blueprint *blueprint) {
     try {
         std::ifstream f(blueprint->blueprintFile);
 
@@ -28,7 +28,7 @@ Battlefield::Battlefield(Blueprint *blueprint) {
 					break;
 				default:
 					throw std::domain_error(
-						"Battlefield blueprint has invalid entry at x=" + std::to_string(x_tiles) + " and y=" +
+						"Map blueprint has invalid entry at x=" + std::to_string(x_tiles) + " and y=" +
 						std::to_string(y_tiles) + " read: " + std::to_string(tileType));
 				}
 			}
@@ -38,5 +38,5 @@ Battlefield::Battlefield(Blueprint *blueprint) {
     }
 }
 
-Battlefield::~Battlefield() {
+Map::~Map() {
 }

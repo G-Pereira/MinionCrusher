@@ -103,7 +103,7 @@ void UI::init()
 	buildings_texture = loadTexture("resources/sprites/right_side.bmp");
 }
 
-void UI::SetMap(Battlefield * new_map)
+void UI::SetMap(Map * new_map)
 {
 	map = new_map;
 

@@ -12,15 +12,15 @@
 #include "Tower.h"
 #include "Minion.h"
 
-class Battlefield {
+class Map {
 public:
     /**
-     * The object is constructed with a blueprint from a file
+     * \brief
      * @param bp Blueprint file path
      */
-    Battlefield(Blueprint *blueprint);
+    Map(Blueprint *blueprint);
 
-    ~Battlefield();
+    ~Map();
 
     Base base = Base(0,0,1,1,100);
     std::vector<PathTile> path;
