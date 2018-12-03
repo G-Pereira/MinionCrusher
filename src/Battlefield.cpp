@@ -10,9 +10,9 @@ Battlefield::Battlefield(Blueprint *blueprint) {
 
 		std::string line;
 
-		for (x_tiles = 0; std::getline(f, line); x_tiles++) {
-			for (y_tiles = 0; y_tiles < line.length(); y_tiles++) {
-				int tileType = line.at(y_tiles) - '0';
+		for (y_tiles = 0; std::getline(f, line); y_tiles++) {
+			for (x_tiles = 0; x_tiles < line.length(); x_tiles++) {
+				int tileType = line.at(x_tiles) - '0';
 				//std::cout << "at " << (int)x << ", " << (int)y << " type " << tileType << std::endl;
 				switch (tileType) {
 				case 0:
