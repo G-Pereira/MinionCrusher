@@ -36,18 +36,13 @@ public:
 	 * @param h height in pixels
 	 * @param x x position in pixels
 	 * @param y y position in pixels
-	* @param: parent pointer to the parent UIView of the element
+	 * @param: parent pointer to the parent UIView of the element
 	 */
 	UIView(int x, int y, int w, int h, UIView * parent);
-
 	/**
 	 * Destructor of the UI, calls the UI close method
 	 */
 	~UIView();
-	/**
-	 * Initilialize the UI
-	 */
-	void init();
 	/**
 	 * Render all parts of the user interface
 	 * @param Map the texture which will be in the background of the map
@@ -80,25 +75,45 @@ public:
 	 * @return pointer to texture
 	 */
 	void loadTexture(std::string path);
-
-	void setQuad(SDL_Rect);
+	/**
+	* set the rectangle that defines the position and shape of the element
+	* @param quad the new quad to use
+	*/
+	void setQuad(SDL_Rect quad);
+	/**
+	* get the rectangle that defines the position and shape of the element
+	* @return quad of this element
+	*/
+	SDL_Rect getQuad();
+	/**
+	* add to the children of the Element
+	* @param new_child UIView element to add to children
+	*/
 	void addChild(UIView * new_child);
+	/**
+	* return the vector of the children
+	* @return a vector with all its children
+	*/
 	std::vector<UIView*> getChildren();
-
+	/**
+	* passes the SDL_events to children and optionally acts upon them.
+	* @param e SDL_Event
+	*/
 	virtual void HandleEvents(SDL_Event &e);
 
-	void close();
-
-	SDL_Texture * background;
-	SDL_Renderer * renderer;
+	UIView * getParent();
+protected:
 	SDL_Rect quad;
 	std::vector<UIView*> children;
+	SDL_Texture * background;
+	void close();
 	UIView * parent;
+	SDL_Renderer * renderer;
+private:
+	/**
+	 * Initilialize the UI
+	 */
+	void init();
 };
-
-
-
-
-
 
 #endif

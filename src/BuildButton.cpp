@@ -19,11 +19,11 @@ void BuildButton::HandleEvents(SDL_Event &e)
 		y -= quad.y;
 		//std::cout << "after quad substraction :" << x << ", " << y << std::endl;
 		// go through all parents to substracct the total offset
-		UIView * UI_elem = parent;
+		UIView * UI_elem = getParent();
 		while (UI_elem) {
-			x -= UI_elem->quad.x;
-			y -= UI_elem->quad.y;
-			UI_elem = UI_elem->parent;
+			x -= UI_elem->getQuad().x;
+			y -= UI_elem->getQuad().y;
+			UI_elem = UI_elem->getParent();
 		}
 		//std::cout << "after tree calculation:" << x << ", " << y << std::endl;
 		//Check if mouse is in button

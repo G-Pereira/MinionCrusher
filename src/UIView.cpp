@@ -64,6 +64,11 @@ void UIView::setQuad(SDL_Rect new_quad)
 	quad = new_quad;
 }
 
+SDL_Rect UIView::getQuad()
+{
+	return quad;
+}
+
 void UIView::addChild(UIView * new_child)
 {
 	children.push_back(new_child);
@@ -79,6 +84,11 @@ void UIView::HandleEvents(SDL_Event & e)
 	for (UIView* child : children) {
 		child->HandleEvents(e);
 	}
+}
+
+UIView * UIView::getParent()
+{
+	return parent;
 }
 
 void UIView::close()
