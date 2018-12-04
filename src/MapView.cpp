@@ -19,7 +19,6 @@ void MapView::postRender()
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!minion.getTexture()) {
-			std::cout << minion.getHealth();
 			SDL_SetRenderDrawColor(renderer, (unsigned int)minion.getHealth(), 0x00, 0x00, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
@@ -37,10 +36,8 @@ void MapView::postRender()
 		fillRect.h = dims.height * tileheight*0.8;
 		fillRect.x = coordinates.x * tilewidth + 0.1 * fillRect.w;
 		fillRect.y = coordinates.y * tileheight + 0.1 * fillRect.h;
-		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!tower.getTexture()) {
-			std::cout << tower.getHealth();
 			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
@@ -48,6 +45,24 @@ void MapView::postRender()
 			SDL_RenderCopy(renderer, tower.getTexture(), nullptr, &fillRect);
 		}
 	}
+	auto coordinates = map->base.getCoordinates();
+	auto dims = map->base.getDimensions();
+
+	SDL_Rect fillRect;
+	fillRect.w = dims.width * tilewidth*1.1;
+	fillRect.h = dims.height * tileheight*1.1;
+	fillRect.x = coordinates.x * tilewidth - 0.05 * fillRect.w;
+	fillRect.y = coordinates.y * tileheight - 0.05 * fillRect.h;
+
+	if (!map->base.getTexture()) {
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
+		SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+	}
+	else {
+		SDL_RenderCopy(renderer, map->base.getTexture(), nullptr, &fillRect);
+	}
+
+	
 }
 
 
