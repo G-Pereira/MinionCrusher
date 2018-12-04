@@ -3,6 +3,8 @@
 #include "Map.h"
 
 Map::Map(std::string blueprintFile) {
+	y_tiles = 0;
+	x_tiles = 0;
     try {
         std::ifstream f(blueprintFile);
 
