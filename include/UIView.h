@@ -9,11 +9,10 @@
 #include <string>
 #include <vector>
 #include "MapObject.h"
-#include <vector>
 #include "Map.h"
+#include "RenderElement.h"
 
-
-class UIView {
+class UIView:public RenderElement {
 public:
 
 	/**
@@ -43,20 +42,7 @@ public:
 	 * Destructor of the UI, calls the UI close method
 	 */
 	~UIView();
-	/**
-	 * Render all parts of the user interface
-	 * @param Map the texture which will be in the background of the map
-	 * @param info the texture which will be in the background of the info
-	 * @param buildings the texture which will be in the building buttons
-	 */
-	virtual void preRender();
-	/**
-	 * Render all parts of the user interface
-	 * @param Map the texture which will be in the background of the map
-	 * @param info the texture which will be in the background of the info
-	 * @param buildings the texture which will be in the building buttons
-	 */
-	virtual void postRender();
+
 	/**
 	 * Render all parts of the user interface
 	 * @param Map the texture which will be in the background of the map
@@ -64,27 +50,6 @@ public:
 	 * @param buildings the texture which will be in the building buttons
 	 */
 	void Render();
-	/**
-	 * returns a pointer to the renderer
-	 * @return pointer to the used renderer
-	 */
-	SDL_Renderer *getRenderer() const;
-	/**
-	 * Load an image from a link and turn it into a texture
-	 * @param path path to the file containing a bitmap
-	 * @return pointer to texture
-	 */
-	void loadTexture(std::string path);
-	/**
-	* set the rectangle that defines the position and shape of the element
-	* @param quad the new quad to use
-	*/
-	void setQuad(SDL_Rect quad);
-	/**
-	* get the rectangle that defines the position and shape of the element
-	* @return quad of this element
-	*/
-	SDL_Rect getQuad();
 	/**
 	* add to the children of the Element
 	* @param new_child UIView element to add to children
@@ -103,12 +68,8 @@ public:
 
 	UIView * getParent();
 protected:
-	SDL_Rect quad;
 	std::vector<UIView*> children;
-	SDL_Texture * background;
-	void close();
 	UIView * parent;
-	SDL_Renderer * renderer;
 private:
 
 };

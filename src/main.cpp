@@ -58,20 +58,9 @@ int main(int argc, char * args[]) {
 
 	// CREATE MAP FROM BLUEPRINT
 	Map map("resources/blueprints/simple.blueprint");
-	AmmoType ammo;
-	ammo.speed = 1;
+
 	map.towers.push_back(Tower(2, 2, 1, 1, 1, 5, 10, AmmoType{}));
-
-	// INITIALIZE THE TIMER FUNCTION OF SDL
-	if (SDL_Init(SDL_INIT_TIMER) != 0) {
-		cout << "SDL could not initialize timers" << endl;
-	}
-	// INITIALIZE THE CALLBACK TIMER
-	SDL_TimerID timer_id = SDL_AddTimer(100, gameUpdate, &map);
-	if (timer_id == 0) {
-		cout << "SDL was unable to create a timer. " << endl;
-	}
-
+	
 	// INITIALIZE THE USER INTERFACE
 	SDL_Window * window;
 	SDL_Renderer * renderer;
@@ -82,8 +71,14 @@ int main(int argc, char * args[]) {
 		std::cout << e.what();
 	}
 	UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT, window, renderer);
+	//Initialize the map
 	ui.setMap(&map);
 
+	// INITIALIZE THE CALLBACK TIMER
+	SDL_TimerID timer_id = SDL_AddTimer(20, gameUpdate, &map);
+	if (timer_id == 0) {
+		cout << "SDL was unable to create a timer. " << endl;
+	}
 
 	bool quit = false;
 	while (!quit) {
@@ -159,7 +154,7 @@ void addMinions(Map *map) {
 	static float speed = 0.1F;
 	if (speed * tickCount >= ticksToNextMinion) {
 		tickCount = 0;
-		Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 0.1F);
+		Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 0.02F);
 		map->minions.push_back(minion);
 		speed = minion.getSpeed();
 	}
