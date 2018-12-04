@@ -1,4 +1,4 @@
-/**
+/*
  * Author: Remi Jonkman
  * Created on: 28-11-18
  * Last Modified: 28-11-18
@@ -11,18 +11,15 @@
 
 class Tower : public MapObject {
 public:
-    Tower(float x, float y, float width, float height, float health, float speed, float damage, AmmoType ammo);
+    Tower(float x, float y, float width, float height, float firePeriod, float range, float damage, AmmoType ammo);
 
     virtual ~Tower();
 
     // Getters and setters below
-    const float &getHealth() const;
 
-    void setHealth(float health);
+    const float &getFirePeriod() const;
 
-    const float &getSpeed() const;
-
-    void setSpeed(float speed);
+    void setFirePeriod(float firePeriod);
 
     const float &getDamage() const;
 
@@ -33,9 +30,10 @@ public:
     void setAmmo(AmmoType ammo);
 
 private:
-    float health;
-    float speed;
+    float firePeriod;
+	float range;
     float damage;
+	float rangeSquared;
     AmmoType ammo;
 };
 

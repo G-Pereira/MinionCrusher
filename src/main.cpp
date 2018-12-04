@@ -57,6 +57,9 @@ int main(int argc, char * args[]) {
 
 	// CREATE MAP FROM BLUEPRINT
 	Map map("resources/blueprints/simple.blueprint");
+	AmmoType ammo;
+	ammo.speed = 1;
+	map.towers.push_back(Tower(2, 2, 1, 1, 1, 5, 10, AmmoType{}));
 
 	// INITIALIZE THE TIMER FUNCTION OF SDL
 	if (SDL_Init(SDL_INIT_TIMER) != 0) {
