@@ -19,11 +19,33 @@ void MapView::postRender()
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!minion.getTexture()) {
-			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+			std::cout << minion.getHealth();
+			SDL_SetRenderDrawColor(renderer, (unsigned int)minion.getHealth(), 0x00, 0x00, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
 		else {
 			SDL_RenderCopy(renderer, minion.getTexture(), nullptr, &fillRect);
+		}
+	}
+
+	for (auto tower : map->towers) {
+		auto coordinates = tower.getCoordinates();
+		auto dims = tower.getDimensions();
+
+		SDL_Rect fillRect;
+		fillRect.w = dims.width * tilewidth*0.8;
+		fillRect.h = dims.height * tileheight*0.8;
+		fillRect.x = coordinates.x * tilewidth + 0.1 * fillRect.w;
+		fillRect.y = coordinates.y * tileheight + 0.1 * fillRect.h;
+		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
+
+		if (!tower.getTexture()) {
+			std::cout << tower.getHealth();
+			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
+			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+		}
+		else {
+			SDL_RenderCopy(renderer, tower.getTexture(), nullptr, &fillRect);
 		}
 	}
 }
