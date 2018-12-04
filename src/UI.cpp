@@ -188,18 +188,33 @@ void UI::RenderMap() {
 		return;
 	}
 	//render path tiles
-	for (auto &map_object  : map->path) {
-		auto coordinates = map_object.getCoordinates();
-		auto dims = map_object.getDimensions();
+	for (auto &path_tile  : map->path) {
+		auto coordinates = path_tile.getCoordinates();
+		auto dims = path_tile.getDimensions();
 		SDL_Rect fillRect = { (int)coordinates.x, (int)coordinates.y, (int)dims.width, (int)dims.height};
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
-		if (!map_object.getTexture()) {
+		if (!path_tile.getTexture()) {
 			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
 		else {
-			SDL_RenderCopy(renderer, map_object.getTexture(), nullptr, &fillRect);
+			SDL_RendererFlip flip = (SDL_RendererFlip)0;
+			double angle = 0.0;
+			switch (path_tile.getType()) {
+			case (MapSlots)1:
+				break;
+			case (MapSlots)2:
+				angle = 90.0;
+				break;
+			case (MapSlots)3:
+				angle = -90.0;
+				break;
+			case (MapSlots)4:
+				flip = (SDL_RendererFlip)2;
+				break;
+			}
+			SDL_RenderCopyEx(renderer, path_tile.getTexture(), nullptr, &fillRect, angle, nullptr, flip);
 		}
 	}
 	//render minions
