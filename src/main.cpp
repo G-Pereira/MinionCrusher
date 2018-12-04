@@ -56,7 +56,13 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 
 void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
 
-int main(){
+int main(int argc, char * args[]){
+	if (argc > 1) {
+		cout << "too many arguments: ";
+		for (int i = 0; i < argc; i++) {
+			cout << args[i] << " ";
+		}
+	}
 	// CREATE MAP FROM BLUEPRINT
 	Map map("resources/blueprints/simple.blueprint");
 
