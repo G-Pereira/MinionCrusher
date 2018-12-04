@@ -1,10 +1,16 @@
 #include <iostream>
 #include <Map.h>
+#include <string>
+#include <stdint.h>
+#include <list>
+#include "UIView.h"
 #include "UI.h"
+#include "types.h"
 
 using namespace std;
 
-UI ui = UI(1280, 720);
+constexpr int WINDOW_HEIGHT = 720;
+constexpr int WINDOW_WIDTH = 1280;
 
 // Temporary location of minion spawn information
 CartesianCoordinates spawnLocation = {0, 1};
@@ -54,17 +60,18 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
     return interval;
 }
 
-void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
+void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
 
-int main(int argc, char *args[]) {
-    if (argc > 1) {
-        cout << "too many arguments: ";
-        for (int i = 0; i < argc; i++) {
-            cout << args[i] << " ";
-        }
-    }
-    // CREATE MAP FROM BLUEPRINT
-    Map map("resources/blueprints/simple.blueprint");
+int main(int argc, char * args[]){
+	if (argc > 1) {
+		cout << "too many arguments: ";
+		for (int i = 0; i < argc; i++) {
+			cout << args[i] << " ";
+		}
+	}
+
+	// CREATE MAP FROM BLUEPRINT
+	Map map("resources/blueprints/simple.blueprint");
 
     // INITIALIZE THE TIMER FUNCTION OF SDL
     if (SDL_Init(SDL_INIT_TIMER) != 0) {
@@ -76,97 +83,61 @@ int main(int argc, char *args[]) {
         cout << "SDL was unable to create a timer. " << endl;
     }
 
-    // INITIALIZE THE USER INTERFACE
-    try {
-        ui.init();
-    } catch (std::exception &e) {
-        std::cout << e.what();
-    }
-    ui.SetMap(&map);
-
-    // add some buttons
-    SDL_Texture *temptextu = ui.loadTexture("resources/sprites/tower1_tile.bmp");
-
-    ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{20, 20, 100, 100}, temptextu, BuildingButtonhandleEvent);
-    ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{140, 20, 100, 100}, temptextu, BuildingButtonhandleEvent);
-    ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{20, 140, 100, 100}, temptextu, BuildingButtonhandleEvent);
-    ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{140, 140, 100, 100}, temptextu, BuildingButtonhandleEvent);
+	// INITIALIZE THE USER INTERFACE
+	SDL_Window * window;
+	SDL_Renderer * renderer;
+	try {
+		UIInit(window, renderer);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what();
+	}
+	UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT, window, renderer);
+	ui.setMap(&map);
 
 
-    bool quit = false;
-    while (!quit) {
-        //update screen
-        ui.Render(/*MapObjects*/);
-        SDL_Event e;
-        while (SDL_PollEvent(&e) != 0) {
-            //User requests quit
-            if (e.type == SDL_QUIT) {
-                cout << "quitting" << endl;
-                quit = true;
+	bool quit = false;
+	while (!quit) {
+		//update screen
+		ui.Render();
+		SDL_Event e;
+		while (SDL_PollEvent(&e) != 0)
+		{
+			//Handle button events
+			ui.HandleEvents(e);
+			//User requests quit
+			if (e.type == SDL_QUIT)
+			{
+				cout << "quitting" << endl;
+				quit = true;
 
-            }
-
-            //Handle button events
-            ui.HandleButtons(e);
-        }
-    }
-
-    return 0;
+			}
+		}
+	}
+	return 0;
 }
 
+void UIInit(SDL_Window *&window, SDL_Renderer *&renderer){
+	// INITIALIZE THE USER INTERFACE
 
-void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e) {
-    //If mouse event happened
-    if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
-        //Get mouse position
-        int x, y;
-        SDL_GetMouseState(&x, &y);
-        // add the offset of the viewport
-        x -= ui.getBuildingViewport().x;
-        y -= ui.getBuildingViewport().y;
-        //Check if mouse is in button
-        bool inside = true;
+// Init SDL
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+		throw std::runtime_error("SDL could not initialize!");
 
-        //Mouse is left of the button
-        if (x < self.rect.x) {
-            inside = false;
-        }
-            //Mouse is right of the button
-        else if (x > self.rect.x + self.rect.w) {
-            inside = false;
-        }
-            //Mouse above the button
-        else if (y < self.rect.y) {
-            inside = false;
-        }
-            //Mouse below the button
-        else if (y > self.rect.y + self.rect.h) {
-            inside = false;
-        }
+	//Set texture filtering to linear
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+		throw std::runtime_error("Warning: Linear texture filtering not enabled!");
 
-        //Mouse is outside button
-        if (!inside) {
-            self.current = self.mouse_off;
-        }
-            //Mouse is inside button
-        else {
-            //Set mouse over sprite
-            switch (e.type) {
-                case SDL_MOUSEMOTION:
-                    //cout << "SDL_MOUSEMOTION" << endl;
-                    self.current = self.mouse_on;
-                    break;
+	// Create a Window in the middle of the screen
+	window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
+		WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == nullptr)
+		throw std::runtime_error("Window could not be created!");
 
-                case SDL_MOUSEBUTTONDOWN:
-                    cout << "SDL_MOUSEBUTTONDOWN" << endl;
-                    self.current = self.button_pressed;
-                    break;
-
-                case SDL_MOUSEBUTTONUP:
-                    cout << "SDL_MOUSEBUTTONUP" << endl;
-                    self.current = self.button_pressed;
-                    break;
-            }
-        }
-    }
+	// Create a new renderer
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
+		SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr)
+		throw std::runtime_error("Renderer could not be created!");
 }
