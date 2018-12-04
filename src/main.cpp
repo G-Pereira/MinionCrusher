@@ -32,7 +32,8 @@ void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
 Uint32 gameUpdate(Uint32 interval, void *m) {
-	Map *map = reinterpret_cast<Map *>(m);
+    Map *map = reinterpret_cast<Map *>(m);
+	std::lock_guard<std::mutex> lock(map->getMutex());
 
 	moveMinions(map);
 

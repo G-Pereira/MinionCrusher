@@ -3,6 +3,7 @@
 #define MINIONCRUSHER_MAPVIEW_H
 
 #include "UIView.h"
+#include <mutex>
 
 
 class MapView : public UIView {
@@ -12,10 +13,8 @@ public:
 	void preRender();
 	void postRender();
 	void setMap(Map *);
-
 	Map *map;
 private:
-
 	float tilewidth;
 	float tileheight;
 	SDL_Rect getHealthbar();

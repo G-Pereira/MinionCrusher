@@ -7,6 +7,7 @@ MapView::MapView(SDL_Rect quad, UIView * parent) :UIView(quad, parent), map(null
 
 void MapView::postRender()
 {
+	std::lock_guard<std::mutex> lock(map->getMutex());
 	for (auto minion : map->minions) {
 		auto coordinates = minion.getCoordinates();
 		auto dims = minion.getDimensions();
@@ -48,7 +49,7 @@ void MapView::postRender()
 		fillRect.y = coordinates.y * tileheight + 0.1 * fillRect.h;
 
 		if (!tower.getTexture()) {
-			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
+			SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);
 		}
 		else {

@@ -41,3 +41,8 @@ Map::Map(std::string blueprintFile) {
 
 Map::~Map() {
 }
+
+std::mutex & Map::getMutex()
+{
+	return mutex;
+}

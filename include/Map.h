@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <mutex>
 
 #include "PathTile.h"
 #include "Base.h"
@@ -37,7 +38,9 @@ public:
 
     uint8_t x_tiles;
     uint8_t y_tiles;
-
+	std::mutex &getMutex();
+private:
+	std::mutex mutex;
 };
 
 #endif //MINIONCRUSHER_MAP_H
