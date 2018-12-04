@@ -29,9 +29,6 @@ UIView::~UIView()
 	close();
 }
 
-void UIView::init()
-{
-}
 void UIView::loadTexture(std::string path)
 {	
 	//The final texture

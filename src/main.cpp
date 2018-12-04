@@ -67,7 +67,7 @@ int main(int argc, char * args[]) {
 		cout << "SDL could not initialize timers" << endl;
 	}
 	// INITIALIZE THE CALLBACK TIMER
-	SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, &map);
+	SDL_TimerID timer_id = SDL_AddTimer(100, gameUpdate, &map);
 	if (timer_id == 0) {
 		cout << "SDL was unable to create a timer. " << endl;
 	}
@@ -130,7 +130,6 @@ void UIInit(SDL_Window *&window, SDL_Renderer *&renderer) {
 	if (renderer == nullptr)
 		throw std::runtime_error("Renderer could not be created!");
 }
-
 void moveMinions(Map *map) {
 	// Move all minions in the right direction
 	bool finished;
@@ -138,17 +137,17 @@ void moveMinions(Map *map) {
 		finished = true;
 		for (Minion &minion : (map->minions)) {
 
-			int dir = (int)map->path[minion.moveCount].getType();
+			int dir = (int)map->path[(int)minion.moveCount].getType();
 			minion.setCoordinates(
-				{ minion.getCoordinates().x + -(dir == 1) + (dir == 4),
-				 minion.getCoordinates().y + -(dir == 3) + (dir == 2) }
+				{ minion.getCoordinates().x + minion.getSpeed() * (-(dir == 1) + (dir == 4)),
+				 minion.getCoordinates().y + minion.getSpeed() * (-(dir == 3) + (dir == 2)) }
 			);
-			if (minion.moveCount == (int)map->path.size() - 1) {
+			if (int(minion.moveCount) >= (int)map->path.size() - 1) {
 				map->minions.pop_front();
 				finished = false;
 				break;
 			}
-			minion.moveCount = minion.moveCount + 1;
+			minion.moveCount = minion.moveCount + minion.getSpeed();
 
 			//cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
 		}
@@ -157,10 +156,12 @@ void moveMinions(Map *map) {
 
 void addMinions(Map *map) {
 	// Add minions to the battlefield on an interval
-	if (tickCount >= ticksToNextMinion) {
+	static float speed = 0.1F;
+	if (speed * tickCount >= ticksToNextMinion) {
 		tickCount = 0;
-		Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 1);
+		Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 0.1F);
 		map->minions.push_back(minion);
+		speed = minion.getSpeed();
 	}
 	else {
 		tickCount++;

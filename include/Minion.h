@@ -30,7 +30,7 @@ public:
 
     const float &getDamage() const;
 
-    int moveCount = 0;
+    float moveCount = 0;
 
 private:
 	float health; // Health of the minion

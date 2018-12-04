@@ -110,10 +110,7 @@ protected:
 	UIView * parent;
 	SDL_Renderer * renderer;
 private:
-	/**
-	 * Initilialize the UI
-	 */
-	void init();
+
 };
 
 #endif

@@ -16,6 +16,7 @@ void TileView::postRender()
 	double angle = 0.0;
 	switch (type) {
 	case (MapSlots)1:
+		flip = (SDL_RendererFlip)1;
 		break;
 	case (MapSlots)2:
 		angle = 90.0;
@@ -24,7 +25,6 @@ void TileView::postRender()
 		angle = -90.0;
 		break;
 	case (MapSlots)4:
-		flip = (SDL_RendererFlip)2;
 		break;
 	}
 	SDL_RenderCopyEx(renderer, background, nullptr, &quad, angle, nullptr, flip);
