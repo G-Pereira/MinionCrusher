@@ -21,6 +21,7 @@ using namespace std;
 
 UI::UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend) : UIView(SDL_Rect{0,0, w,h }, nullptr, rend) {
 	window = wind;
+	init();
 }
 
 UI::~UI()

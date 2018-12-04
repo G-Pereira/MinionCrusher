@@ -11,7 +11,11 @@ void MapView::postRender()
 		auto coordinates = minion.getCoordinates();
 		auto dims = minion.getDimensions();
 
-		SDL_Rect fillRect = { int(coordinates.x * tilewidth),  int(coordinates.y * tileheight), int(dims.width * tilewidth), int(dims.height * tileheight) };
+		SDL_Rect fillRect;
+		fillRect.w = dims.width * tilewidth*0.8;
+		fillRect.h = dims.height * tileheight*0.8;
+		fillRect.x = coordinates.x * tilewidth + 0.1 * fillRect.w;
+		fillRect.y = coordinates.y * tileheight + 0.1 * fillRect.h;
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!minion.getTexture()) {

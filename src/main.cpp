@@ -62,7 +62,7 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 	return interval;
 }
 
-
+void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
 
 int main(int argc, char * args[]){
 	if (argc > 1) {
@@ -86,44 +86,22 @@ int main(int argc, char * args[]){
 	}
 
 	// INITIALIZE THE USER INTERFACE
-
-	// Init SDL
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-		throw std::runtime_error("SDL could not initialize!");
-
-	//Set texture filtering to linear
-	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-		throw std::runtime_error("Warning: Linear texture filtering not enabled!");
-
-	// Create a Window in the middle of the screen
-	SDL_Window * window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, 
-		WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-	if (window == nullptr)
-		throw std::runtime_error("Window could not be created!");
-
-	// Create a new renderer
-	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
-		SDL_RENDERER_PRESENTVSYNC);
-	if (renderer == nullptr)
-		throw std::runtime_error("Renderer could not be created!");
-	else
-		cout << "initialize renderer at address:" << renderer << endl;
-	UI ui = UI(1280, 720, window, renderer);
-    try {
-        ui.init();
-    } catch (std::exception& e){
-        std::cout << e.what();
-    }
+	SDL_Window * window;
+	SDL_Renderer * renderer;
+	try {
+		UIInit(window, renderer);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what();
+	}
+	UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT, window, renderer);
 	ui.setMap(&map);
-
-
 
 
 	bool quit = false;
 	while (!quit) {
 		//update screen
-		ui.Render(/*MapObjects*/);
+		ui.Render();
 		SDL_Event e;
 		while (SDL_PollEvent(&e) != 0)
 		{
@@ -143,3 +121,27 @@ int main(int argc, char * args[]){
 	return 0;
 }
 
+void UIInit(SDL_Window *&window, SDL_Renderer *&renderer){
+	// INITIALIZE THE USER INTERFACE
+
+// Init SDL
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+		throw std::runtime_error("SDL could not initialize!");
+
+	//Set texture filtering to linear
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+		throw std::runtime_error("Warning: Linear texture filtering not enabled!");
+
+	// Create a Window in the middle of the screen
+	window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
+		WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == nullptr)
+		throw std::runtime_error("Window could not be created!");
+
+	// Create a new renderer
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
+		SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr)
+		throw std::runtime_error("Renderer could not be created!");
+}

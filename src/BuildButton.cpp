@@ -3,7 +3,6 @@
 BuildButton::BuildButton(SDL_Rect quad, void funct(UIButton &self, SDL_Event &), UIView * parent)
 	:UIButton(quad, funct, parent)
 {
-	std::cout << "BuildButton\n";
 }
 
 void BuildButton::HandleEvents(SDL_Event &e)
@@ -67,15 +66,15 @@ void BuildButton::HandleEvents(SDL_Event &e)
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
-				std::cout << "SDL_MOUSEBUTTONDOWN" << std::endl;
+				if (eventhandler)
+					eventhandler(*this, e);
+				std::cout << "BuildButton SDL_MOUSEBUTTONDOWN" << std::endl;
 				break;
 
 			case SDL_MOUSEBUTTONUP:
-				std::cout << "SDL_MOUSEBUTTONUP" << std::endl;
+				//std::cout << "SDL_MOUSEBUTTONUP" << std::endl;
 				break;
 			}
 		}
 	}
-	if (eventhandler)
-		eventhandler(*this, e);
 }
