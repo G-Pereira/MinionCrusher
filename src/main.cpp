@@ -1,3 +1,8 @@
+/*! \mainpage Minion Crusher
+ * Minion Crusher is a tower defense game, where the player builds and upgrades towers to defend his base from the enemy minions.
+ *
+ */
+
 #include <iostream>
 #include <Map.h>
 #include <string>
@@ -6,6 +11,7 @@
 #include "UIView.h"
 #include "UI.h"
 #include "types.h"
+#include "Tower.h"
 
 using namespace std;
 
@@ -13,55 +19,35 @@ constexpr int WINDOW_HEIGHT = 720;
 constexpr int WINDOW_WIDTH = 1280;
 
 // Temporary location of minion spawn information
-CartesianCoordinates spawnLocation = {0, 1};
+CartesianCoordinates spawnLocation = { 0, 1 };
 int ticksToNextMinion = 3;
 int tickCount = 2;
+
+void moveMinions(Map *map);
+void addMinions(Map *map);
+void shootTowers(Map *map);
+void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
 
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
 Uint32 gameUpdate(Uint32 interval, void *m) {
-    Map *map = reinterpret_cast<Map *>(m);
+	Map *map = reinterpret_cast<Map *>(m);
 
+	moveMinions(map);
 
-    // Move all minions in the right direction
-    bool finished;
-    do {
-        finished = true;
-        for (Minion &minion : (map->minions)) {
+	addMinions(map);
 
-            int dir = (int) map->path[minion.moveCount].getType();
-            minion.setCoordinates(
-                    {minion.getCoordinates().x + -(dir == 1) + (dir == 4),
-                     minion.getCoordinates().y + -(dir == 3) + (dir == 2)}
-            );
-            if (minion.moveCount == (int) map->path.size() - 1) {
-                map->minions.pop_front();
-                finished = false;
-                break;
-            }
-            minion.moveCount = minion.moveCount + 1;
-            //cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
-        }
-    } while (!finished);
-    // Add minions to the battlefield on an interval
-    if (tickCount >= ticksToNextMinion) {
-        tickCount = 0;
-        Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 1);
-        map->minions.push_back(minion);
-    } else {
-        tickCount++;
-    }
-
-    // For each tower: Check if it can fire by checking its ticks.
-    // If yes: Find closest minion. If in range: damage it. Set ticks back to firing period.
-    // If no: reduce tower ticks by one.
-    return interval;
+	shootTowers(map);
+	// For each tower: Check if it can fire by checking its ticks.
+	// If yes: Find closest minion. If in range: damage it. Set ticks back to firing period.
+	// If no: reduce tower ticks by one.
+	return interval;
 }
 
-void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
 
-int main(int argc, char * args[]){
+
+int main(int argc, char * args[]) {
 	if (argc > 1) {
 		cout << "too many arguments: ";
 		for (int i = 0; i < argc; i++) {
@@ -72,15 +58,15 @@ int main(int argc, char * args[]){
 	// CREATE MAP FROM BLUEPRINT
 	Map map("resources/blueprints/simple.blueprint");
 
-    // INITIALIZE THE TIMER FUNCTION OF SDL
-    if (SDL_Init(SDL_INIT_TIMER) != 0) {
-        cout << "SDL could not initialize timers" << endl;
-    }
-    // INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, &map);
-    if (timer_id == 0) {
-        cout << "SDL was unable to create a timer. " << endl;
-    }
+	// INITIALIZE THE TIMER FUNCTION OF SDL
+	if (SDL_Init(SDL_INIT_TIMER) != 0) {
+		cout << "SDL could not initialize timers" << endl;
+	}
+	// INITIALIZE THE CALLBACK TIMER
+	SDL_TimerID timer_id = SDL_AddTimer(1000, gameUpdate, &map);
+	if (timer_id == 0) {
+		cout << "SDL was unable to create a timer. " << endl;
+	}
 
 	// INITIALIZE THE USER INTERFACE
 	SDL_Window * window;
@@ -116,7 +102,7 @@ int main(int argc, char * args[]){
 	return 0;
 }
 
-void UIInit(SDL_Window *&window, SDL_Renderer *&renderer){
+void UIInit(SDL_Window *&window, SDL_Renderer *&renderer) {
 	// INITIALIZE THE USER INTERFACE
 
 // Init SDL
@@ -139,4 +125,46 @@ void UIInit(SDL_Window *&window, SDL_Renderer *&renderer){
 		SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr)
 		throw std::runtime_error("Renderer could not be created!");
+}
+
+void moveMinions(Map *map) {
+	// Move all minions in the right direction
+	bool finished;
+	do {
+		finished = true;
+		for (Minion &minion : (map->minions)) {
+
+			int dir = (int)map->path[minion.moveCount].getType();
+			minion.setCoordinates(
+				{ minion.getCoordinates().x + -(dir == 1) + (dir == 4),
+				 minion.getCoordinates().y + -(dir == 3) + (dir == 2) }
+			);
+			if (minion.moveCount == (int)map->path.size() - 1) {
+				map->minions.pop_front();
+				finished = false;
+				break;
+			}
+			minion.moveCount = minion.moveCount + 1;
+
+			//cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
+		}
+	} while (!finished);
+}
+
+void addMinions(Map *map) {
+	// Add minions to the battlefield on an interval
+	if (tickCount >= ticksToNextMinion) {
+		tickCount = 0;
+		Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 1);
+		map->minions.push_back(minion);
+	}
+	else {
+		tickCount++;
+	}
+}
+
+void shootTowers(Map *map) {
+	for (Tower &tower : map->towers) {
+
+	}
 }
