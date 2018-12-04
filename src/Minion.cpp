@@ -7,7 +7,7 @@
 #include "Minion.h"
 
 Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed)
-        : MapObject(x, y, width, height), health(health), damage(damage), speed(speed) {
+        : MapObject(x, y, width, height), health(health), max_health(health), damage(damage), speed(speed) {
 
 }
 
@@ -19,8 +19,14 @@ const float &Minion::getHealth() const {
     return this->health;
 }
 
+const float & Minion::getMaxHealth() const
+{
+	return max_health;
+}
+
 void Minion::setHealth(float health) {
     this->health = health;
+	max_health = health > max_health ? health : max_health;
 }
 
 void Minion::setSpeed(float speed) {

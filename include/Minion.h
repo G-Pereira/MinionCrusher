@@ -18,7 +18,9 @@ public:
 
     void setHealth(float health);
 
-    const float &getHealth() const;
+	const float &getHealth() const;
+
+	const float &getMaxHealth() const;
 
     void setSpeed(float speed);
 
@@ -31,7 +33,8 @@ public:
     int moveCount = 0;
 
 private:
-    float health; // Health of the minion
+	float health; // Health of the minion
+	float max_health; // Health of the minion
     float damage; // The damage a minion does when attacking the base
     float speed; // The speed of a minion in distance/tick
 };

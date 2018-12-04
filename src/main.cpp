@@ -41,7 +41,6 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
                 break;
             }
             minion.moveCount = minion.moveCount + 1;
-
             //cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
         }
     } while (!finished);

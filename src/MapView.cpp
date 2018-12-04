@@ -19,12 +19,22 @@ void MapView::postRender()
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!minion.getTexture()) {
-			SDL_SetRenderDrawColor(renderer, (unsigned int)minion.getHealth(), 0x00, 0x00, 0xFF);
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
 		else {
 			SDL_RenderCopy(renderer, minion.getTexture(), nullptr, &fillRect);
 		}
+		SDL_Rect health_rect = getHealthbar();
+		fillRect.x = health_rect.x + coordinates.x * tilewidth;
+		fillRect.y = health_rect.y + coordinates.y * tileheight;
+		fillRect.w = health_rect.w;
+		fillRect.h = health_rect.h;
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+		SDL_RenderFillRect(renderer, &fillRect);
+		fillRect.w *= (minion.getHealth() / minion.getMaxHealth());
+		SDL_SetRenderDrawColor(renderer,  0x00, 0xFF, 0x00, 0xFF);
+		SDL_RenderFillRect(renderer, &fillRect);
 	}
 
 	for (auto tower : map->towers) {
@@ -39,7 +49,7 @@ void MapView::postRender()
 
 		if (!tower.getTexture()) {
 			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
-			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+			SDL_RenderFillRect(renderer, &fillRect);
 		}
 		else {
 			SDL_RenderCopy(renderer, tower.getTexture(), nullptr, &fillRect);
@@ -56,7 +66,7 @@ void MapView::postRender()
 
 	if (!map->base.getTexture()) {
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
-		SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+		SDL_RenderFillRect(renderer, &fillRect);
 	}
 	else {
 		SDL_RenderCopy(renderer, map->base.getTexture(), nullptr, &fillRect);
@@ -92,6 +102,11 @@ void  MapView::setMap(Map * new_map)
 		//cout << dims.height << " " << dims.width << endl;
 
 	}
+}
+
+SDL_Rect MapView::getHealthbar()
+{
+	return SDL_Rect{ (int)(tilewidth*0.25F), (int)(tileheight- tileheight * 0.1F), (int)(tilewidth*0.5F), (int)(tileheight * 0.1F)};
 }
 
 MapView::~MapView()

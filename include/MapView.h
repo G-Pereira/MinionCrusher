@@ -18,6 +18,7 @@ private:
 
 	float tilewidth;
 	float tileheight;
+	SDL_Rect getHealthbar();
 };
 
 
