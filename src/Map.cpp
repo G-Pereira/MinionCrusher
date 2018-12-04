@@ -1,4 +1,5 @@
 #include <fstream>
+#include <string>
 #include "Map.h"
 
 Map::Map(std::string blueprintFile) {
