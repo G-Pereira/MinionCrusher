@@ -1,16 +1,26 @@
 #include "UIView.h"
 
-UIView::UIView(int x, int y, int w, int h) : quad{x,y,w,h} {
-	renderer = nullptr;
-	background = nullptr;
 
+UIView::UIView(SDL_Rect viewport, UIView  *parent, SDL_Renderer * rend):quad(viewport), parent(parent), renderer(rend)
+{
+	//if no renderer is created try to inherit from parent
+	if (!renderer) {
+		try {
+			renderer = parent->renderer;
+		}
+		catch (std::exception& e) {
+			std::cout << "first UIView must be initialized with a renderer\n";
+			std::cout << e.what();
+		}
+	}
+	background = nullptr;
 }
 
-UIView::UIView(int w, int h):quad{ 0,0,w,h }
+UIView::UIView(int x, int y, int w, int h, UIView *parent) : UIView(SDL_Rect{ x, y, w,  h }, parent, nullptr)
 {
 }
 
-UIView::UIView(SDL_Rect viewport): quad(viewport)
+UIView::UIView(SDL_Rect viewport, UIView  *parent): UIView(viewport, parent, nullptr)
 {
 }
 
@@ -22,7 +32,6 @@ UIView::~UIView()
 void UIView::init()
 {
 }
-
 void UIView::loadTexture(std::string path)
 {	
 	//The final texture
@@ -87,15 +96,26 @@ void UIView::close()
 	SDL_Quit();
 }
 
+
+void UIView::preRender()
+{
+}
+
+void UIView::postRender()
+{
+}
+
 void UIView::Render()
 {
+	preRender();
 	//Render texture to screen
 	SDL_RenderCopy(renderer, background, nullptr, &quad);
-
 	// render children recursively
 	for (UIView* child : children) {
+		SDL_RenderSetViewport(renderer, &quad);
 		child->Render();
 	}
+	postRender();
 }
 
 SDL_Renderer * UIView::getRenderer() const

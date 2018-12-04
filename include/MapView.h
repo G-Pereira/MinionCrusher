@@ -6,11 +6,18 @@
 
 
 class MapView : public UIView {
-	MapView(SDL_Rect);
+public:
+	MapView(SDL_Rect, UIView * parent);
 	~MapView();
-	bool setMap(Map *);
+	void preRender();
+	void postRender();
+	void setMap(Map *);
 
 	Map *map;
+private:
+
+	float tilewidth;
+	float tileheight;
 };
 
 

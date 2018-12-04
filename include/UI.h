@@ -15,15 +15,17 @@
 #include <vector>
 #include "Map.h"
 #include "MapView.h"
+#include "BuildButton.h"
+#include "BuildView.h"
 
-class UI:UIView {
+class UI:public UIView {
 public:
 	/**
 	 * Constructor
 	 * @param w width in pixels
 	 * @param h height in pixels
 	 */
-	UI(int w, int h);
+	UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend);
 	/**
 	 * Destructor of the UI, calls the UI close method
 	 */
@@ -32,13 +34,9 @@ public:
 	 * Initilialize the UI
 	 */
 	void init();
-	/**
-	 * Render all parts of the user interface
-	 * @param Map the texture which will be in the background of the map
-	 * @param info the texture which will be in the background of the info
-	 * @param buildings the texture which will be in the building buttons
-	 */
-	void Render(/*MapObjects*/);
+
+	void postRender();
+	void preRender();
 	/**
 	 * returns a pointer to the renderer
 	 * @return pointer to the used renderer
@@ -50,14 +48,15 @@ public:
 	 * @return pointer to texture
 	 */
 	SDL_Texture * loadTexture(std::string path);
-	void HandleButtons(SDL_Event &e);
+
+	void setMap(Map *);
+
 private:
 	/**
 	 * Perform all closing action to clean the memory of the UI
 	 */
 	void close();
 	SDL_Window *window;
-	SDL_Renderer *renderer;
 
 };
 

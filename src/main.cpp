@@ -3,11 +3,14 @@
 #include <string>
 #include <stdint.h>
 #include <list>
+#include "UIView.h"
 #include "UI.h"
 #include "types.h"
+
 using namespace std;
 
-UI ui = UI(1280, 720);
+constexpr int WINDOW_HEIGHT = 720;
+constexpr int WINDOW_WIDTH = 1280;
 
 // Temporary location of minion spawn information
 CartesianCoordinates spawnLocation = { 0, 1 };
@@ -59,7 +62,7 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 	return interval;
 }
 
-void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e);
+
 
 int main(int argc, char * args[]){
 	if (argc > 1) {
@@ -68,6 +71,7 @@ int main(int argc, char * args[]){
 			cout << args[i] << " ";
 		}
 	}
+
 	// CREATE MAP FROM BLUEPRINT
 	Map map("resources/blueprints/simple.blueprint");
 
@@ -82,20 +86,37 @@ int main(int argc, char * args[]){
 	}
 
 	// INITIALIZE THE USER INTERFACE
+
+	// Init SDL
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+		throw std::runtime_error("SDL could not initialize!");
+
+	//Set texture filtering to linear
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+		throw std::runtime_error("Warning: Linear texture filtering not enabled!");
+
+	// Create a Window in the middle of the screen
+	SDL_Window * window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, 
+		WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == nullptr)
+		throw std::runtime_error("Window could not be created!");
+
+	// Create a new renderer
+	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
+		SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr)
+		throw std::runtime_error("Renderer could not be created!");
+	else
+		cout << "initialize renderer at address:" << renderer << endl;
+	UI ui = UI(1280, 720, window, renderer);
     try {
         ui.init();
     } catch (std::exception& e){
         std::cout << e.what();
     }
-	ui.SetMap(&map);
+	ui.setMap(&map);
 
-	// add some buttons
-	SDL_Texture * temptextu = ui.loadTexture("resources/sprites/tower1_tile.bmp");
-
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,20,100,100 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,20,100,100 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 20,140,100,100 }, temptextu, BuildingButtonhandleEvent);
-	ui.AddButton(UI::viewPorts::buildingsview, SDL_Rect{ 140,140,100,100 }, temptextu, BuildingButtonhandleEvent);
 
 
 
@@ -106,6 +127,8 @@ int main(int argc, char * args[]){
 		SDL_Event e;
 		while (SDL_PollEvent(&e) != 0)
 		{
+			//Handle button events
+			ui.HandleEvents(e);
 			//User requests quit
 			if (e.type == SDL_QUIT)
 			{
@@ -114,76 +137,9 @@ int main(int argc, char * args[]){
 
 			}
 
-			//Handle button events
-			ui.HandleButtons(e);
 		}
 	}
 
 	return 0;
 }
 
-
-void BuildingButtonhandleEvent(UIButton &self, SDL_Event &e)
-{
-	//If mouse event happened
-	if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP)
-	{
-		//Get mouse position
-		int x, y;
-		SDL_GetMouseState(&x, &y);
-		// add the offset of the viewport
-		x -= ui.getBuildingViewport().x;
-		y -= ui.getBuildingViewport().y;
-		//Check if mouse is in button
-		bool inside = true;
-
-		//Mouse is left of the button
-		if (x < self.rect.x)
-		{
-			inside = false;
-		}
-		//Mouse is right of the button
-		else if (x > self.rect.x + self.rect.w)
-		{
-			inside = false;
-		}
-		//Mouse above the button
-		else if (y < self.rect.y)
-		{
-			inside = false;
-		}
-		//Mouse below the button
-		else if (y > self.rect.y + self.rect.h)
-		{
-			inside = false;
-		}
-
-		//Mouse is outside button
-		if (!inside)
-		{
-			self.current = self.mouse_off;
-		}
-		//Mouse is inside button
-		else
-		{
-			//Set mouse over sprite
-			switch (e.type)
-			{
-			case SDL_MOUSEMOTION:
-				//cout << "SDL_MOUSEMOTION" << endl;
-				self.current = self.mouse_on;
-				break;
-
-			case SDL_MOUSEBUTTONDOWN:
-				cout << "SDL_MOUSEBUTTONDOWN" << endl;
-				self.current = self.button_pressed;
-				break;
-
-			case SDL_MOUSEBUTTONUP:
-				cout << "SDL_MOUSEBUTTONUP" << endl;
-				self.current = self.button_pressed;
-				break;
-			}
-		}
-	}
-}

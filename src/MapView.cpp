@@ -1,16 +1,39 @@
 #include "MapView.h"
+#include "TileView.h"
 
-MapView::MapView(SDL_Rect quad) :UIView(quad) {
+MapView::MapView(SDL_Rect quad, UIView * parent) :UIView(quad, parent), map(nullptr), tilewidth(0), tileheight(0){
 
 }
 
-bool MapView::setMap(Map * new_map)
+void MapView::postRender()
+{
+	for (auto minion : map->minions) {
+		auto coordinates = minion.getCoordinates();
+		auto dims = minion.getDimensions();
+
+		SDL_Rect fillRect = { int(coordinates.x * tilewidth),  int(coordinates.y * tileheight), int(dims.width * tilewidth), int(dims.height * tileheight) };
+		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
+
+		if (!minion.getTexture()) {
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+		}
+		else {
+			SDL_RenderCopy(renderer, minion.getTexture(), nullptr, &fillRect);
+		}
+	}
+}
+
+
+
+void  MapView::setMap(Map * new_map)
 {
 	map = new_map;
 
-	float tilewidth = quad.w / map->x_tiles;
-	float tileheight = quad.h / map->y_tiles;
-	//SDL_Texture * path_texture = loadTexture("resources/sprites/path_tile.bmp");
+	tilewidth = quad.w / map->x_tiles;
+	tileheight = quad.h / map->y_tiles;
+
+	children.clear();
 	for (uint8_t i = 0; i < map->path.size(); i++) {
 		SDL_Rect quad;
 		auto coordinates = map->path[i].getCoordinates();
@@ -20,7 +43,7 @@ bool MapView::setMap(Map * new_map)
 		quad.w = dims.width * tilewidth;
 		quad.h = dims.height * tileheight;
 
-		UIView * child = new UIView(quad);
+		TileView * child = new TileView(quad, map->path[i].getType(), this);
 		child->loadTexture("resources/sprites/path_tile.bmp");
 		addChild(child);
 		//cout << "setting path tile textures " << i << endl;
@@ -32,4 +55,9 @@ bool MapView::setMap(Map * new_map)
 
 MapView::~MapView()
 {
+}
+
+void MapView::preRender()
+{
+	SDL_RenderSetViewport(renderer, &quad);
 }

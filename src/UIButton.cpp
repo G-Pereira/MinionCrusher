@@ -1,8 +1,7 @@
 #include "UIButton.h"
 
-UIButton::UIButton(SDL_Rect renderer, SDL_Texture *current, SDL_Texture *mouse_on, SDL_Texture *mouse_off, SDL_Texture *button_pressed, void funct(UIButton & self, SDL_Event &)):
-	UIView(renderer), mouse_on(mouse_on), mouse_off(mouse_off), button_pressed(button_pressed), eventhandler(funct){
-	background = current ? current : mouse_off;
+UIButton::UIButton(SDL_Rect quad, void funct(UIButton & self, SDL_Event &), UIView * parent):
+	UIView(quad, parent), eventhandler(funct){
 }
 
 UIButton::~UIButton()
@@ -10,7 +9,9 @@ UIButton::~UIButton()
 }
 
 
-void UIButton::handleEvent(SDL_Event* e)
+void UIButton::handleEvents(SDL_Event* e)
 {
-	eventhandler(*this, *e);
+	std::cout << "UIButton SDL_event\n";
+	if(eventhandler)
+		eventhandler(*this, *e);
 }

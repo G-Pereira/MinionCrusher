@@ -1,6 +1,12 @@
+/**
+ * Author: Leon Klute
+ * Created on: 04-12-18
+ * Last Modified: 04-12-18
+ */
+
 #pragma once
-#include <SDL.h>
 #include "UIView.h"
+#include <SDL.h>
 
 class UIButton: public UIView
 {
@@ -15,20 +21,16 @@ public:
 	* @param: button_pressed Texture to show after user has clicked this button
 	* @param: funct call back function to call when button is clicked
 	*/
-	UIButton(SDL_Rect renderer, SDL_Texture *current, SDL_Texture *mouse_on, SDL_Texture *mouse_off, SDL_Texture *button_pressed, void funct(UIButton & self, SDL_Event &));
+	UIButton(SDL_Rect , void funct(UIButton & self, SDL_Event &), UIView * parent);
 
 	~UIButton();
 
 	/**
 	*Should be called on SDL_event to handel them
 	*/
-	void handleEvent(SDL_Event* e);
-
-	SDL_Texture * mouse_on;
-	SDL_Texture * mouse_off;
-	SDL_Texture * button_pressed;
-
-private:
+	virtual void handleEvents(SDL_Event* e);
+	
+protected:
 	/**
 	* pointer to callback function
 	*/
