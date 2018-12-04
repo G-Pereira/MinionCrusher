@@ -8,10 +8,13 @@
 #define MINIONCRUSHER_MAPOBJECT_H
 
 #include "types.h"
+
 #ifdef _WIN32
 #include <SDL.h>
 #else
+
 #include "SDL2/SDL.h"
+
 #endif
 
 /**
@@ -59,33 +62,34 @@ public:
      */
     void setCoordinates(float x, float y);
 
-	/**
-	 * Get a reference to the dimensions of this object.
-	 * @return ObjectSize&
-	 */
-	const ObjectSize &getDimensions() const;
+    /**
+     * Get a reference to the dimensions of this object.
+     * @return ObjectSize&
+     */
+    const ObjectSize &getDimensions() const;
 
-	/**
-	 * Set the dimensions of this object;
-	 * @param size
-	 */
-	void setDimensions(ObjectSize size);
+    /**
+     * Set the dimensions of this object;
+     * @param size
+     */
+    void setDimensions(ObjectSize size);
 
-	/**
-	 * Get a reference to the texture of this object.
-	 * @return SDL_Texture *
-	 */
-	SDL_Texture * getTexture() const;
-	/**
-	 * Srt a reference to the dimensions of this object.
-	 * @return ObjectSize&
-	 */
-	bool setTexture(SDL_Texture *);
+    /**
+     * Get a reference to the texture of this object.
+     * @return SDL_Texture *
+     */
+    SDL_Texture *getTexture() const;
+
+    /**
+     * Srt a reference to the dimensions of this object.
+     * @return ObjectSize&
+     */
+    bool setTexture(SDL_Texture *);
 
 private:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map
-	SDL_Texture * texture;
+    SDL_Texture *texture;
 };
 
 

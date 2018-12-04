@@ -30,10 +30,10 @@ public:
 
     ~Map();
 
-    Base base = Base(0,0,1,1,100);
+    Base base = Base(0, 0, 1, 1, 100);
     std::vector<PathTile> path;
     std::vector<Tower> towers;
-	std::list<Minion> minions;
+    std::list<Minion> minions;
 
     uint8_t x_tiles;
     uint8_t y_tiles;

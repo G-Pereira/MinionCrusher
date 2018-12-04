@@ -40,7 +40,7 @@ struct AmmoType {
 /**
  * Enumeration defining diffent types of tiles
  */
-enum class MapSlots :int {
+enum class MapSlots : int {
     EMPTY = 0,
     RIGHT = 1,
     UP = 2,
