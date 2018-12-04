@@ -1,11 +1,6 @@
-/**
- * Author: Leon Klute
- * Created on: 26-11-18
- * Last Modified: 28-11-18
- */
 #pragma once
-#ifndef MINIONCRUSHER_UI_H
-#define MINIONCRUSHER_UI_H
+#ifndef MINIONCRUSHER_UIVIEW_H
+#define MINIONCRUSHER_UIVIEW_H
 
 #include <SDL.h>
 #include <string>
@@ -14,20 +9,22 @@
 #include "UIButton.h"
 #include <vector>
 #include "Map.h"
-#include "MapView.h"
 
-class UI:UIView {
+
+class UIView {
 public:
 	/**
 	 * Constructor
 	 * @param w width in pixels
 	 * @param h height in pixels
 	 */
-	UI(int w, int h);
+	UIView(int x, int y, int w, int h);
+	UIView(int w, int h);
+	UIView(SDL_Rect);
 	/**
 	 * Destructor of the UI, calls the UI close method
 	 */
-	~UI();
+	~UIView();
 	/**
 	 * Initilialize the UI
 	 */
@@ -38,7 +35,7 @@ public:
 	 * @param info the texture which will be in the background of the info
 	 * @param buildings the texture which will be in the building buttons
 	 */
-	void Render(/*MapObjects*/);
+	virtual void Render();
 	/**
 	 * returns a pointer to the renderer
 	 * @return pointer to the used renderer
@@ -49,16 +46,25 @@ public:
 	 * @param path path to the file containing a bitmap
 	 * @return pointer to texture
 	 */
-	SDL_Texture * loadTexture(std::string path);
-	void HandleButtons(SDL_Event &e);
-private:
-	/**
-	 * Perform all closing action to clean the memory of the UI
-	 */
-	void close();
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+	void loadTexture(std::string path);
 
+	void setQuad(SDL_Rect);
+	void addChild(UIView * new_child);
+	std::vector<UIView*> getChildren();
+
+	virtual void HandleEvents(SDL_Event &e);
+
+	void close();
+
+	SDL_Texture * background;
+	SDL_Renderer * renderer;
+	SDL_Rect quad;
+	std::vector<UIView*> children;
 };
+
+
+
+
+
 
 #endif

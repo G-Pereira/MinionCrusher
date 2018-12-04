@@ -1,7 +1,8 @@
 #pragma once
 #include <SDL.h>
+#include "UIView.h"
 
-class UIButton
+class UIButton: public UIView
 {
 public:
 	//Initializes internal variables
@@ -17,26 +18,12 @@ public:
 	UIButton(SDL_Rect renderer, SDL_Texture *current, SDL_Texture *mouse_on, SDL_Texture *mouse_off, SDL_Texture *button_pressed, void funct(UIButton & self, SDL_Event &));
 
 	~UIButton();
-	/**
-	*Sets the postion of the this button
-	*/
-	void setPosition(int x, int y);
-	/**
-	* Sets the size of the this button
-	*/
-	void setSize(int x, int y);
 
 	/**
 	*Should be called on SDL_event to handel them
 	*/
 	void handleEvent(SDL_Event* e);
 
-	/*
-	*defines the shape and position of this button
-	*/
-	SDL_Rect rect;
-	void render(SDL_Renderer * renderer);
-	SDL_Texture * current;
 	SDL_Texture * mouse_on;
 	SDL_Texture * mouse_off;
 	SDL_Texture * button_pressed;

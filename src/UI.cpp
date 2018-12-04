@@ -19,21 +19,9 @@ using namespace std;
 //	void operator()(SDL_Texture *p) const { SDL_DestroyTexture(p); }
 //};
 
-UI::UI(int w, int h): width(w), height(h){
+UI::UI(int w, int h): UIView(w,h){
 	window = nullptr;
 	renderer = nullptr;
-	map_texture = nullptr;
-	buildings_texture = nullptr;
-	info_texture = nullptr;
-	map = nullptr;
-	buttons[static_cast<int>(viewPorts::buildingsview)] = vector<UIButton>();
-	buttons[static_cast<int>(viewPorts::infoview)] = vector<UIButton>();
-	buttons[static_cast<int>(viewPorts::mapview)] = vector<UIButton>();
-
-	buildingViewport = SDL_Rect();
-	infoViewport = SDL_Rect();
-	mapViewport = SDL_Rect();
-
 }
 
 UI::~UI()
@@ -53,8 +41,8 @@ void UI::init()
 
 	// Create a Window in the middle of the screen
 	window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, width,
-		height, SDL_WINDOW_SHOWN);
+		SDL_WINDOWPOS_CENTERED, quad.w,
+		quad.h, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 		throw std::runtime_error("Window could not be created!");
 
@@ -81,63 +69,66 @@ void UI::init()
 	|	info	|g	|
 	|___________|s__|
 	*/
+	SDL_Rect mapViewport;
 	mapViewport.x = 0;
 	mapViewport.y = 0;
-	mapViewport.w = width * 8 / 10;
-	mapViewport.h = height * 8 / 10;
+	mapViewport.w = quad.w * 8 / 10;
+	mapViewport.h = quad.h * 8 / 10;
 
-	buildingViewport.x = width * 8 / 10;
+	SDL_Rect buildingViewport;
+	buildingViewport.x = quad.w * 8 / 10;
 	buildingViewport.y = 0;
-	buildingViewport.w = width * 2 / 10;
-	buildingViewport.h = height;
+	buildingViewport.w = quad.w * 2 / 10;
+	buildingViewport.h = quad.h;
 
+	SDL_Rect infoViewport;
 	infoViewport.x = 0;
-	infoViewport.y = height * 8 / 10;
-	infoViewport.w = width * 8 / 10;
-	infoViewport.h = height * 2 / 10;
+	infoViewport.y = quad.h * 8 / 10;
+	infoViewport.w = quad.w * 8 / 10;
+	infoViewport.h = quad.h * 2 / 10;
+	children.push_back(new MapView());
 
-
-
+/*
 	map_texture = loadTexture("resources/sprites/map_background.bmp");
 	info_texture = loadTexture("resources/sprites/info.bmp");
-	buildings_texture = loadTexture("resources/sprites/right_side.bmp");
+	buildings_texture = loadTexture("resources/sprites/right_side.bmp");*/
 }
-
-void UI::SetMap(Map * new_map)
-{
-	map = new_map;
-
-	float tilewidth = mapViewport.w / map->x_tiles;
-	float tileheight = mapViewport.h / map->y_tiles;
-	SDL_Texture * path_texture = loadTexture("resources/sprites/path_tile.bmp");
-	for (uint8_t i = 0; i < map->path.size(); i++) {
-		map->path[i].setTexture(path_texture);
-		auto coordinates = map->path[i].getCoordinates();
-		coordinates.x *= tilewidth;
-		coordinates.y *= tileheight;
-		map->path[i].setCoordinates(coordinates);
-		auto dims = map->path[i].getDimensions();
-		dims.width *= tilewidth;
-		dims.height *= tileheight;
-		map->path[i].setDimensions(dims);
-		//cout << "setting path tile textures " << i << endl;
-		//cout << coordinates.x << " " << coordinates.y << endl;
-		//cout << dims.height << " " << dims.width << endl;
-
-	}
-}
-void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &)) {
-	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture, funct));
-}
+//
+//void UI::SetMap(Map * new_map)
+//{
+//	map = new_map;
+//
+//	float tilewidth = mapViewport.w / map->x_tiles;
+//	float tileheight = mapViewport.h / map->y_tiles;
+//	SDL_Texture * path_texture = loadTexture("resources/sprites/path_tile.bmp");
+//	for (uint8_t i = 0; i < map->path.size(); i++) {
+//		map->path[i].setTexture(path_texture);
+//		auto coordinates = map->path[i].getCoordinates();
+//		coordinates.x *= tilewidth;
+//		coordinates.y *= tileheight;
+//		map->path[i].setCoordinates(coordinates);
+//		auto dims = map->path[i].getDimensions();
+//		dims.width *= tilewidth;
+//		dims.height *= tileheight;
+//		map->path[i].setDimensions(dims);
+//		//cout << "setting path tile textures " << i << endl;
+//		//cout << coordinates.x << " " << coordinates.y << endl;
+//		//cout << dims.height << " " << dims.width << endl;
+//
+//	}
+//}
+//void UI::AddButton(viewPorts port, SDL_Rect rect, SDL_Texture* texture, void funct(UIButton & self, SDL_Event &)) {
+//	buttons[static_cast<int>(port)].push_back(UIButton(rect, texture, texture, texture, texture, funct));
+//}
 void UI::close()
 {
-	//Free loaded images
-	SDL_DestroyTexture(map_texture);
-	map_texture = nullptr;
-	SDL_DestroyTexture(info_texture);
-	info_texture = nullptr;
-	SDL_DestroyTexture(buildings_texture);
-	buildings_texture = nullptr;
+	////Free loaded images
+	//SDL_DestroyTexture(map_texture);
+	//map_texture = nullptr;
+	//SDL_DestroyTexture(info_texture);
+	//info_texture = nullptr;
+	//SDL_DestroyTexture(buildings_texture);
+	//buildings_texture = nullptr;
 
 	//Destroy window	
 	SDL_DestroyRenderer(renderer);
