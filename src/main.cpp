@@ -23,21 +23,26 @@ Uint32 gameUpdate(Uint32 interval , void *m)
 
 
 	// Move all minions in the right direction
-	for (Minion &minion : (map->minions)) {
+	bool finished;
+	do {
+		finished = true;
+		for (Minion &minion : (map->minions)) {
 
-		int dir = (int) map->path[minion.moveCount].getType();
-		minion.setCoordinates(
-			{ minion.getCoordinates().x + - (dir == 1) + (dir == 4),
-			 minion.getCoordinates().y + -(dir == 3) + (dir == 2) }
-		);
-		if (minion.moveCount == (int)map->path.size() - 1) {
-			map->minions.pop_front();
-			break;
+			int dir = (int)map->path[minion.moveCount].getType();
+			minion.setCoordinates(
+				{ minion.getCoordinates().x + -(dir == 1) + (dir == 4),
+				 minion.getCoordinates().y + -(dir == 3) + (dir == 2) }
+			);
+			if (minion.moveCount == (int)map->path.size() - 1) {
+				map->minions.pop_front();
+				finished = false;
+				break;
+			}
+			minion.moveCount = minion.moveCount + 1;
+
+			//cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
 		}
-		minion.moveCount = minion.moveCount + 1;
-
-		//cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
-	}
+	} while (!finished);
 	// Add minions to the battlefield on an interval
 	if (tickCount >= ticksToNextMinion) {
 		tickCount = 0;
