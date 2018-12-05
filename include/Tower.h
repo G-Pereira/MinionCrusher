@@ -29,6 +29,10 @@ public:
 
     void setAmmo(AmmoType ammo);
 
+    const float &getRange() const;
+
+    void setRange(float range);
+
 private:
     float firePeriod;
 	float range;

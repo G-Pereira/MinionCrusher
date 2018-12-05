@@ -32,6 +32,10 @@ public:
 
     float moveCount = 0;
 
+	bool operator==(const Minion &rhs) const;
+
+	bool operator!=(const Minion &rhs) const;
+
 private:
 	float health; // Health of the minion
 	float max_health; // Health of the minion

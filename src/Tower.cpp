@@ -38,3 +38,11 @@ const AmmoType &Tower::getAmmo() const {
 void Tower::setAmmo(AmmoType ammo) {
     Tower::ammo = ammo;
 }
+
+const float &Tower::getRange() const {
+    return range;
+}
+
+void Tower::setRange(float range) {
+    Tower::range = range;
+}
