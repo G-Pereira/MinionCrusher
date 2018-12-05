@@ -18,8 +18,8 @@ struct CartesianCoordinates {
     float x;
     float y;
 
-    bool isInRange(const CartesianCoordinates target, float range) {
-        return (sqrt(pow(target.x - x, 2) + pow(target.y - y, 2)) < range);
+    bool isInRange(CartesianCoordinates const target, float const range) {
+        return (sqrt(pow(target.x - x, 2) + pow(target.y - y, 2)) < (double) range);
     }
 };
 
