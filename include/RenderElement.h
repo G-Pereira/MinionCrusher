@@ -8,16 +8,15 @@ class RenderElement
 public:
 	/**
 	 * Overloaded Constructor
-	 * @param viewport rectacngle defining the shape and position of the element
+	 * @param quad rectacngle defining the shape and position of the element
 	 */
-	RenderElement(SDL_Rect viewport, SDL_Renderer * rend, SDL_Texture * text);
+	RenderElement(SDL_Rect quad, SDL_Renderer * rend, SDL_Texture * text);
 	/**
-	* overloaded contstructor for when the first UIView, which does not yet have a parent to inherit a renderer from;
-	* @param: w width of the element
-	* @param: h height of the element
-	* @param: rend renderer that goes with the window it is in.
-	*/
-	RenderElement(SDL_Rect viewport, SDL_Renderer * rend);
+	 * overloaded contstructor for when the first UIView, which does not yet have a parent to inherit a renderer from;
+	 * @param quad rectacngle defining the shape and position of the element
+	 * @param: rend renderer that goes with the window it is in.
+	 */
+	RenderElement(SDL_Rect quad, SDL_Renderer * rend);
 	~RenderElement();
 	/**
 	 * Render all parts of the user interface
@@ -62,7 +61,7 @@ public:
 	* receives SDL_Events
 	* @param e SDL_Event
 	*/
-	virtual void HandleEvents(SDL_Event &e);
+	virtual void HandleEvents(SDL_Event &e) = 0;
 
 	bool hasTexture();
 	SDL_Renderer * renderer;

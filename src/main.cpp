@@ -165,6 +165,6 @@ void addMinions(Map *map) {
 
 void shootTowers(Map *map) {
 	for (Tower &tower : map->towers) {
-
+		tower.getDamage();// should be deleted harharhar
 	}
 }

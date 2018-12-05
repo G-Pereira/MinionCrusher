@@ -45,30 +45,30 @@ void UI::init()
 	|	info			|g	|
 	|___________________|s__|
 	*/
-	SDL_Rect mapViewport;
-	mapViewport.x = 0;
-	mapViewport.y = 0;
-	mapViewport.w = quad.w * 8 / 10;
-	mapViewport.h = quad.h * 8 / 10;
+	SDL_Rect map_quad;
+	map_quad.x = 0;
+	map_quad.y = 0;
+	map_quad.w = quad.w * 8 / 10;
+	map_quad.h = quad.h * 8 / 10;
 
-	SDL_Rect buildingViewport;
-	buildingViewport.x = quad.w * 8 / 10;
-	buildingViewport.y = 0;
-	buildingViewport.w = quad.w * 2 / 10;
-	buildingViewport.h = quad.h;
+	SDL_Rect building_quad;
+	building_quad.x = quad.w * 8 / 10;
+	building_quad.y = 0;
+	building_quad.w = quad.w * 2 / 10;
+	building_quad.h = quad.h;
 
-	SDL_Rect infoViewport;
-	infoViewport.x = 0;
-	infoViewport.y = quad.h * 8 / 10;
-	infoViewport.w = quad.w * 8 / 10;
-	infoViewport.h = quad.h * 2 / 10;
+	SDL_Rect info_quad;
+	info_quad.x = 0;
+	info_quad.y = quad.h * 8 / 10;
+	info_quad.w = quad.w * 8 / 10;
+	info_quad.h = quad.h * 2 / 10;
 
 	cout << "creating map_view" << endl;
-	MapView * map_view = new MapView(mapViewport, this);
+	MapView * map_view = new MapView(map_quad, this);
 	cout << "creating building_view" << endl;
-	BuildView * building_view = new BuildView(buildingViewport, this);
+	BuildView * building_view = new BuildView(building_quad, this);
 	cout << "creating info_view" << endl;
-	UIView * info_view = new UIView(infoViewport, this);
+	UIView * info_view = new UIView(info_quad, this);
 
 	map_view->loadTexture("resources/sprites/map_background.bmp");
 	building_view->loadTexture("resources/sprites/right_side.bmp");
@@ -80,8 +80,8 @@ void UI::init()
 
 
 	// add some buttons
-	SDL_Rect quad = SDL_Rect{20,20, 100,100};
-	BuildButton *button = new BuildButton(quad, nullptr, building_view);
+	SDL_Rect button_quad = SDL_Rect{20,20, 100,100};
+	BuildButton *button = new BuildButton(button_quad, nullptr, building_view);
 	button->loadTexture("resources/sprites/tower1_tile.bmp");
 	building_view->addChild(button);
 

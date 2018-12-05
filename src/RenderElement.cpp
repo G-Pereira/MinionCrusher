@@ -1,10 +1,10 @@
 #include "RenderElement.h"
 
 
-RenderElement::RenderElement(SDL_Rect viewport, SDL_Renderer * rend, SDL_Texture * text) : quad(viewport), renderer(rend), background(text) {
+RenderElement::RenderElement(SDL_Rect quad, SDL_Renderer * rend, SDL_Texture * text) : quad(quad), renderer(rend), background(text) {
 
 }
-RenderElement::RenderElement(SDL_Rect viewport, SDL_Renderer * rend) :RenderElement(viewport,rend, nullptr){
+RenderElement::RenderElement(SDL_Rect quad, SDL_Renderer * rend) :RenderElement(quad,rend, nullptr){
 
 }
 
@@ -58,9 +58,6 @@ SDL_Rect RenderElement::getQuad()
 	return quad;
 }
 
-void RenderElement::HandleEvents(SDL_Event & e)
-{
-}
 
 bool RenderElement::hasTexture()
 {
@@ -86,7 +83,7 @@ void RenderElement::Render()
 {
 	preRender();
 	//Render texture to screen
-	SDL_RenderCopy(renderer, background, nullptr, &getQuad());
+	SDL_RenderCopy(renderer, background, nullptr, &quad);
 
 	postRender();
 }
