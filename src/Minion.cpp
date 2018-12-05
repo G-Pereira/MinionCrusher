@@ -44,3 +44,15 @@ void Minion::setDamage(float damage) {
 const float &Minion::getDamage() const {
     return this->damage;
 }
+
+bool Minion::operator==(const Minion &rhs) const {
+    return moveCount == rhs.moveCount &&
+           health == rhs.health &&
+           max_health == rhs.max_health &&
+           damage == rhs.damage &&
+           speed == rhs.speed;
+}
+
+bool Minion::operator!=(const Minion &rhs) const {
+    return !(rhs == *this);
+}
