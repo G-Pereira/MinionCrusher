@@ -163,9 +163,10 @@ void shootTowers(Map *map) {
         for (Minion &minion : map->minions) {
             if (minion.getCoordinates().isInRange(tower.getCoordinates(), tower.getRange())) {
                 minion.setHealth(minion.getHealth() - tower.getDamage());
+                if (minion.getHealth() <= 0)
+                    map->minions.remove(minion);
+                break;
             }
-            if (minion.getHealth() <= 0)
-                map->minions.remove(minion);
         }
     }
 }
