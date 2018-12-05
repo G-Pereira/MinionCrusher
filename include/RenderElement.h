@@ -10,13 +10,13 @@ public:
 	 * Overloaded Constructor
 	 * @param quad rectacngle defining the shape and position of the element
 	 */
-	RenderElement(SDL_Rect quad, SDL_Renderer * renderer, SDL_Texture * text);
+	RenderElement(SDL_Renderer * renderer, SDL_Rect quad, SDL_Texture * text);
 	/**
 	 * overloaded contstructor for when the first UIView, which does not yet have a parent to inherit a renderer from;
 	 * @param quad rectacngle defining the shape and position of the element
 	 * @param: rend renderer that goes with the window it is in.
 	 */
-	RenderElement(SDL_Rect quad, SDL_Renderer * renderer);
+	RenderElement(SDL_Renderer * renderer, SDL_Rect quad);
 	~RenderElement();
 	/**
 	 * Render all parts of the user interface

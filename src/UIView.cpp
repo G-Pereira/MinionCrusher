@@ -1,7 +1,7 @@
 #include "UIView.h"
 
 
-UIView::UIView(SDL_Rect viewport, UIView  *parent, SDL_Renderer * rend):RenderElement(viewport, rend),parent(parent)
+UIView::UIView(SDL_Rect viewport, UIView  *parent, SDL_Renderer * rend):RenderElement(rend, viewport),parent(parent)
 {
 	//if no renderer is created try to inherit from parent
 	if (!renderer) {

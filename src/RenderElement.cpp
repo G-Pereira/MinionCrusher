@@ -1,10 +1,10 @@
 #include "RenderElement.h"
 
 
-RenderElement::RenderElement(SDL_Rect quad, SDL_Renderer * renderer, SDL_Texture * text) : quad(quad), renderer(renderer), background(text) {
+RenderElement::RenderElement(SDL_Renderer * renderer, SDL_Rect quad, SDL_Texture * text) : renderer(renderer), quad(quad), background(text) {
 
 }
-RenderElement::RenderElement(SDL_Rect quad, SDL_Renderer * renderer) :RenderElement(quad,renderer, nullptr){
+RenderElement::RenderElement(SDL_Renderer * renderer, SDL_Rect quad) :RenderElement(renderer, quad, nullptr){
 
 }
 
