@@ -33,7 +33,7 @@ void MapView::postRender()
 		fillRect.h = (int)(health_rect.h);
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 		SDL_RenderFillRect(renderer, &fillRect);
-		fillRect.w *= (int)((minion.getHealth() > 0 ? minion.getHealth() : 0) / minion.getMaxHealth());
+		fillRect.w = (int)(fillRect.w * (minion.getHealth() > 0 ? minion.getHealth() : 0) / minion.getMaxHealth());
 		SDL_SetRenderDrawColor(renderer,  0x00, 0xFF, 0x00, 0xFF);
 		SDL_RenderFillRect(renderer, &fillRect);
 	}
