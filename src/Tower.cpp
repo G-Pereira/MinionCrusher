@@ -4,6 +4,8 @@
  * Last Modified: 28-11-18
  */
 
+#include <Tower.h>
+
 #include "Tower.h"
 
 Tower::Tower(float x, float y, float width, float height, float firePeriod, float range, float damage, AmmoType ammo)
@@ -45,4 +47,12 @@ const float &Tower::getRange() const {
 
 void Tower::setRange(float range) {
     Tower::range = range;
+}
+
+const float &Tower::getTicks() const {
+    return ticks;
+}
+
+void Tower::setTicks(float ticks) {
+    Tower::ticks = ticks;
 }

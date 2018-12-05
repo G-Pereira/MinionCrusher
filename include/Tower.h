@@ -33,7 +33,12 @@ public:
 
     void setRange(float range);
 
+	const float &getTicks() const;
+
+	void setTicks(float ticks);
+
 private:
+	float ticks;
     float firePeriod;
 	float range;
     float damage;

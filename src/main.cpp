@@ -160,6 +160,12 @@ void addMinions(Map *map) {
 
 void shootTowers(Map *map) {
     for (Tower &tower : map->towers) {
+        if(tower.getTicks() >= tower.getFirePeriod()){
+            tower.setTicks(0);
+        } else{
+            tower.setTicks(tower.getTicks()+0.05);
+            continue;
+        }
         for (Minion &minion : map->minions) {
             if (minion.getCoordinates().isInRange(tower.getCoordinates(), tower.getRange())) {
                 minion.setHealth(minion.getHealth() - tower.getDamage());
