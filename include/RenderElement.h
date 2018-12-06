@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include <iostream>
 #include "SDL.h"
 
 class RenderElement

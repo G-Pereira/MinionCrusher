@@ -1,7 +1,7 @@
 #include "BuildView.h"
 
 
-BuildView::BuildView(SDL_Rect quad, UIView * parent) :UIView(quad, parent)
+BuildView::BuildView(SDL_Rect quad, UIElement * parent) :UIElement(quad, parent)
 {
 }
 

@@ -17,7 +17,7 @@ using namespace std;
 //	void operator()(SDL_Texture *p) const { SDL_DestroyTexture(p); }
 //};
 
-UI::UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend) : UIView(SDL_Rect{0,0, w,h }, nullptr, rend) {
+UI::UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend) : UIElement(SDL_Rect{0,0, w,h }, nullptr, rend) {
 	window = wind;
 	init();
 }
@@ -68,7 +68,7 @@ void UI::init()
 	cout << "creating building_view" << endl;
 	BuildView * building_view = new BuildView(building_quad, this);
 	cout << "creating info_view" << endl;
-	UIView * info_view = new UIView(info_quad, this);
+	UIElement * info_view = new UIElement(info_quad, this);
 
 	map_view->loadTexture("resources/sprites/map_background.bmp");
 	building_view->loadTexture("resources/sprites/right_side.bmp");

@@ -1,7 +1,6 @@
 #include "MapView.h"
-#include "TileView.h"
 
-MapView::MapView(SDL_Rect quad, UIView * parent) :UIView(quad, parent), map(nullptr), tilewidth(0), tileheight(0){
+MapView::MapView(SDL_Rect quad, UIElement * parent) :UIElement(quad, parent), map(nullptr), tilewidth(0), tileheight(0){
 
 }
 

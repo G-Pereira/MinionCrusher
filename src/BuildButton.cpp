@@ -1,6 +1,6 @@
 #include "BuildButton.h"
 
-BuildButton::BuildButton(SDL_Rect quad, void funct(UIButton &self, SDL_Event &), UIView * parent)
+BuildButton::BuildButton(SDL_Rect quad, void funct(UIButton &self, SDL_Event &), UIElement * parent)
 	:UIButton(quad, funct, parent)
 {
 }
@@ -19,7 +19,7 @@ void BuildButton::HandleEvents(SDL_Event &e)
 		y -= quad.y;
 		//std::cout << "after quad substraction :" << x << ", " << y << std::endl;
 		// go through all parents to substracct the total offset
-		UIView * UI_elem = getParent();
+		UIElement * UI_elem = getParent();
 		while (UI_elem) {
 			x -= UI_elem->getQuad().x;
 			y -= UI_elem->getQuad().y;

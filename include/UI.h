@@ -10,15 +10,12 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
-#include "MapObject.h"
-#include "UIButton.h"
-#include <vector>
-#include "Map.h"
+
 #include "MapView.h"
 #include "BuildButton.h"
 #include "BuildView.h"
 
-class UI:public UIView {
+class UI:public UIElement {
 public:
 	/**
 	 * Constructor

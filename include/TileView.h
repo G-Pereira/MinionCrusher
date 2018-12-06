@@ -5,13 +5,13 @@
  */
 #pragma once
 
-#include "UIView.h"
+#include "UIElement.h"
 #include "PathTile.h"
 
-class TileView:public UIView
+class TileView:public UIElement
 {
 public:
-	TileView(SDL_Rect, MapSlots type, UIView * parent);
+	TileView(SDL_Rect, MapSlots type, UIElement * parent);
 	~TileView();
 	void postRender();
 

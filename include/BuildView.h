@@ -1,10 +1,10 @@
 #pragma once
-#include "UIView.h"
+#include "UIElement.h"
 class BuildView :
-	public UIView
+	public UIElement
 {
 public:
-	BuildView(SDL_Rect, UIView * parent);
+	BuildView(SDL_Rect, UIElement * parent);
 	~BuildView();
 	void preRender();
 };

@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <Map.h>
-#include "UIView.h"
+#include "UIElement.h"
 #include "UI.h"
 
 using namespace std;

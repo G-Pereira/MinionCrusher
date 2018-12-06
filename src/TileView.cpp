@@ -1,6 +1,6 @@
 #include "TileView.h"
 
-TileView::TileView(SDL_Rect quad, MapSlots type, UIView *parent) : UIView(quad, parent), type(type) {
+TileView::TileView(SDL_Rect quad, MapSlots type, UIElement *parent) : UIElement(quad, parent), type(type) {
 }
 
 

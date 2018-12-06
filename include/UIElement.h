@@ -5,14 +5,14 @@
 #ifndef MINIONCRUSHER_UIVIEW_H
 #define MINIONCRUSHER_UIVIEW_H
 
-#include <SDL.h>
+//#include <SDL.h>
 #include <string>
 #include <vector>
-#include "MapObject.h"
-#include "Map.h"
+//#include "MapObject.h"
+//#include "Map.h"
 #include "RenderElement.h"
 
-class UIView:public RenderElement {
+class UIElement:public RenderElement {
 public:
 
 	/**
@@ -22,13 +22,13 @@ public:
 	* @param: parent pointer to the parent UIView of the element
 	* @param: rend renderer that goes with the window it is in.
 	*/
-	UIView(SDL_Rect viewport, UIView  *parent, SDL_Renderer * rend);
+	UIElement(SDL_Rect viewport, UIElement  *parent, SDL_Renderer * rend);
 	/**
 	 * Overloaded Constructor
 	 * @param viewport rectacngle defining the shape and position of the element
 	 * @param: parent pointer to the parent UIView of the element
 	 */
-	UIView(SDL_Rect viewport, UIView * parent);
+	UIElement(SDL_Rect viewport, UIElement * parent);
 	/**
 	 * Constructor
 	 * @param w width in pixels
@@ -37,11 +37,11 @@ public:
 	 * @param y y position in pixels
 	 * @param: parent pointer to the parent UIView of the element
 	 */
-	UIView(int x, int y, int w, int h, UIView * parent);
+	UIElement(int x, int y, int w, int h, UIElement * parent);
 	/**
 	 * Destructor of the UI, calls the UI close method
 	 */
-	~UIView();
+	~UIElement();
 
 	/**
 	 * Render all parts of the user interface
@@ -54,22 +54,22 @@ public:
 	* add to the children of the Element
 	* @param new_child UIView element to add to children
 	*/
-	void addChild(UIView * new_child);
+	void addChild(UIElement * new_child);
 	/**
 	* return the vector of the children
 	* @return a vector with all its children
 	*/
-	std::vector<UIView*> getChildren();
+	std::vector<UIElement*> getChildren();
 	/**
 	* passes the SDL_events to children and optionally acts upon them.
 	* @param e SDL_Event
 	*/
 	virtual void HandleEvents(SDL_Event &e);
 
-	UIView * getParent();
+	UIElement * getParent();
 protected:
-	std::vector<UIView*> children;
-	UIView * parent;
+	std::vector<UIElement*> children;
+	UIElement * parent;
 private:
 
 };

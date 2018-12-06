@@ -5,30 +5,29 @@
  */
 
 #pragma once
-#include "UIView.h"
 #include <SDL.h>
 
-class UIButton: public UIView
+#include "UIElement.h"
+
+class UIButton: public UIElement
 {
 public:
 	//Initializes internal variables
 	//UIButton();
 	/**
-	* @param: renderer Rectangle that defines the size and position
-	* @param: current Texture to start off with, if left to zero will be same as param off
-	* @param: mouse_on Texture to show when mouse is on the button
-	* @param: mouse_off Texture to show when user is not interacting with the button
-	* @param: button_pressed Texture to show after user has clicked this button
+	* @param: quad that defines position and size of the element on screen
 	* @param: funct call back function to call when button is clicked
+	* @param: parent pointer to the element that contains this element
 	*/
-	UIButton(SDL_Rect , void funct(UIButton & self, SDL_Event &), UIView * parent);
+	UIButton(SDL_Rect quad, void funct(UIButton & self, SDL_Event &), UIElement * parent);
 
 	~UIButton();
 
 	/**
-	*Should be called on SDL_event to handel them
+	* Should be called on SDL_event to handel them
+	* @param: e SDL_Event to be passed
 	*/
-	virtual void handleEvents(SDL_Event* e);
+	virtual void handleEvents(SDL_Event& e);
 	
 protected:
 	/**
