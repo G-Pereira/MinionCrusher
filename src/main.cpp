@@ -56,7 +56,7 @@ int main(int argc, char *args[]) {
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/simple.blueprint");
 
-    map.towers.push_back(Tower(2, 2, 1, 1, 1, 5, 10, AmmoType{}));
+    map.towers.push_back(Tower(2, 2, 1, 1, 25, 5, 10, AmmoType{}));
 
     // INITIALIZE THE USER INTERFACE
     SDL_Window *window;
@@ -163,7 +163,7 @@ void shootTowers(Map *map) {
         if(tower.getTicks() >= tower.getFirePeriod()){
             tower.setTicks(0);
         } else{
-            tower.setTicks(tower.getTicks()+0.05);
+            tower.setTicks(tower.getTicks()+1);
             continue;
         }
         for (Minion &minion : map->minions) {

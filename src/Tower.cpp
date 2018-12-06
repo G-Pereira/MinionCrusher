@@ -8,7 +8,7 @@
 
 #include "Tower.h"
 
-Tower::Tower(float x, float y, float width, float height, float firePeriod, float range, float damage, AmmoType ammo)
+Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, float damage, AmmoType ammo)
         : MapObject(x, y, width, height), firePeriod(firePeriod), range(range), damage(damage), ammo(ammo) {
 
 }
@@ -17,11 +17,11 @@ Tower::~Tower() {
 
 }
 
-const float &Tower::getFirePeriod() const {
+const int &Tower::getFirePeriod() const {
     return firePeriod;
 }
 
-void Tower::setFirePeriod(float firePeriod) {
+void Tower::setFirePeriod(int firePeriod) {
     Tower::firePeriod = firePeriod;
 }
 
@@ -49,10 +49,10 @@ void Tower::setRange(float range) {
     Tower::range = range;
 }
 
-const float &Tower::getTicks() const {
+const int &Tower::getTicks() const {
     return ticks;
 }
 
-void Tower::setTicks(float ticks) {
+void Tower::setTicks(int ticks) {
     Tower::ticks = ticks;
 }

@@ -11,15 +11,15 @@
 
 class Tower : public MapObject {
 public:
-    Tower(float x, float y, float width, float height, float firePeriod, float range, float damage, AmmoType ammo);
+    Tower(float x, float y, float width, float height, int firePeriod, float range, float damage, AmmoType ammo);
 
     virtual ~Tower();
 
     // Getters and setters below
 
-    const float &getFirePeriod() const;
+    const int &getFirePeriod() const;
 
-    void setFirePeriod(float firePeriod);
+    void setFirePeriod(int firePeriod);
 
     const float &getDamage() const;
 
@@ -33,13 +33,13 @@ public:
 
     void setRange(float range);
 
-	const float &getTicks() const;
+	const int &getTicks() const;
 
-	void setTicks(float ticks);
+	void setTicks(int ticks);
 
 private:
-	float ticks;
-    float firePeriod;
+	int ticks;
+	int firePeriod;
 	float range;
     float damage;
 	float rangeSquared;
