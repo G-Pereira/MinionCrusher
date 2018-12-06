@@ -12,6 +12,8 @@ using namespace std;
 
 constexpr int WINDOW_HEIGHT = 720;
 constexpr int WINDOW_WIDTH = 1280;
+constexpr Uint32 UPDATE_FREQUENCY = 50;
+constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
 CartesianCoordinates spawnLocation = {0, 1};
@@ -72,7 +74,7 @@ int main(int argc, char *args[]) {
     ui.setMap(&map);
 
     // INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(20, gameUpdate, &map);
+    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
     if (timer_id == 0) {
         cout << "SDL was unable to create a timer. " << endl;
     }
