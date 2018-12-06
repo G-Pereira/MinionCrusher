@@ -12,6 +12,8 @@ using namespace std;
 
 constexpr int WINDOW_HEIGHT = 720;
 constexpr int WINDOW_WIDTH = 1280;
+constexpr Uint32 UPDATE_FREQUENCY = 50;
+constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
 CartesianCoordinates spawnLocation = {0, 1};
@@ -56,7 +58,7 @@ int main(int argc, char *args[]) {
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/simple.blueprint");
 
-    map.towers.push_back(Tower(2, 2, 1, 1, 1, 5, 10, AmmoType{}));
+    map.towers.push_back(Tower(2, 2, 1, 1, 25, 5, 10, AmmoType{}));
 
     // INITIALIZE THE USER INTERFACE
     SDL_Window *window;
@@ -72,7 +74,7 @@ int main(int argc, char *args[]) {
     ui.setMap(&map);
 
     // INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(20, gameUpdate, &map);
+    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
     if (timer_id == 0) {
         cout << "SDL was unable to create a timer. " << endl;
     }
@@ -163,7 +165,7 @@ void shootTowers(Map *map) {
         if(tower.getTicks() >= tower.getFirePeriod()){
             tower.setTicks(0);
         } else{
-            tower.setTicks(tower.getTicks()+0.05);
+            tower.setTicks(tower.getTicks()+1);
             continue;
         }
         for (Minion &minion : map->minions) {
