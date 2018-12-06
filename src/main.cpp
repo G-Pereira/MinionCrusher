@@ -12,7 +12,7 @@ using namespace std;
 
 constexpr int WINDOW_HEIGHT = 720;
 constexpr int WINDOW_WIDTH = 1280;
-constexpr Uint32 UPDATE_FREQUENCY = 50;
+constexpr Uint32 UPDATE_FREQUENCY = 300;
 constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
