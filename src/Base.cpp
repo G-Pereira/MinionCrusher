@@ -22,3 +22,7 @@ const float &Base::getHealth() const {
 void Base::setHealth(float health) {
     this->health = health;
 }
+
+void Base::doDamage(float damage) {
+    this->health -= damage;
+}

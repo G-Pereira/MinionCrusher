@@ -136,6 +136,7 @@ void moveMinions(Map *map) {
                      minion.getCoordinates().y + minion.getSpeed() * (-(dir == 3) + (dir == 2))}
             );
             if (int(minion.moveCount) >= (int) map->path.size() - 1) {
+                map->base.doDamage(map->minions.front().getDamage());
                 map->minions.pop_front();
                 finished = false;
                 break;
@@ -152,7 +153,7 @@ void addMinions(Map *map) {
     static float speed = 0.1F;
     if (speed * tickCount >= ticksToNextMinion) {
         tickCount = 0;
-        Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 1, 0.02F);
+        Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 50, 0.02F);
         map->minions.push_back(minion);
         speed = minion.getSpeed();
     } else {
