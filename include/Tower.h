@@ -38,7 +38,7 @@ public:
 	void setTicks(int ticks);
 
 private:
-	int ticks;
+	int ticks = 0;
 	int firePeriod;
 	float range;
     float damage;

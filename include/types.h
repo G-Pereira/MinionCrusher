@@ -18,6 +18,7 @@ struct CartesianCoordinates {
     float x;
     float y;
 
+	/** Checks whether the the distance between the operator and the target is within the defined range */
     bool isInRange(CartesianCoordinates const target, float const range) const{
         return sqrt(pow(target.x - x, 2) + pow(target.y - y, 2)) < (double) range;
     }
