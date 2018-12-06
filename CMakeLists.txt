@@ -17,9 +17,6 @@ include_directories(${INCLUDE_DIR})
 include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(${SDL2IMAGE_INCLUDE_DIRS})
 
-file(GLOB_RECURSE SOURCE_FILES ${HEADER_FILES}/*.h)
-file(GLOB_RECURSE SOURCE_FILES ${SOURCE_DIR}/*.cpp)
-
 # Search SDL2
 include(FindPkgConfig)
 
@@ -28,6 +25,9 @@ pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 
 configure_file(resources/blueprints/simple.blueprint resources/blueprints/simple.blueprint COPYONLY)
 configure_file(resources/blueprints/simple.blueprint resources/blueprints/simple.blueprint COPYONLY)
+
+file(GLOB_RECURSE HEADER_FILES ${INCLUDE_DIR}/*.h)
+file(GLOB_RECURSE SOURCE_FILES ${SOURCE_DIR}/*.cpp)
 
 add_executable(MinionCrusher ${HEADER_FILES} ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
