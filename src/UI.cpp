@@ -80,10 +80,21 @@ void UI::init()
 
 
 	// add some buttons
-	SDL_Rect button_quad = SDL_Rect{20,20, 100,100};
-	BuildButton *button = new BuildButton(button_quad, nullptr, building_view);
-	button->loadTexture("resources/sprites/tower1_tile.bmp");
-	building_view->addChild(button);
+	SDL_Rect button_quad = SDL_Rect{ 20,20, 100,100 };
+	BuildButton *button1 = new BuildButton(button_quad, nullptr, building_view);
+	button1->loadTexture("resources/sprites/tower1_tile.bmp");
+	building_view->addChild(button1);
+
+	button_quad.x += 120;
+	BuildButton *button2 = new BuildButton(button_quad, nullptr, building_view);
+	button2->loadTexture("resources/sprites/tower2_tile.bmp");
+	building_view->addChild(button2);
+
+	button_quad.x -= 120;
+	button_quad.y += 120;
+	BuildButton *button3 = new BuildButton(button_quad, nullptr, building_view);
+	button3->loadTexture("resources/sprites/tower3_tile.bmp");
+	building_view->addChild(button3);
 
 }
 
