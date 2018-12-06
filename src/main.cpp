@@ -4,8 +4,8 @@
  */
 
 #include <iostream>
-#include <Map.h>
-#include "UIElement.h"
+
+#include "Map.h"
 #include "UI.h"
 
 using namespace std;
