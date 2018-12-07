@@ -31,13 +31,18 @@ public:
 
     ~Map();
 
+	void createPath(int x, int y);
+
     Base base = Base(0, 0, 1, 1, 100);
-    std::vector<PathTile> path;
-    std::vector<Tower> towers;
-    std::list<Minion> minions;
+    std::vector<PathTile> path;						/// Vector containing all path tiles, in order the minions should cross them
+    std::vector<Tower> towers;						/// Vector containing all towers.
+    std::list<Minion> minions;						/// List containing all minions currently in the game.
+	std::vector<std::vector<int>> mapBlueprint;		/// Vector containing a blueprint of the map. Used to initialize the map.
 
     uint8_t x_tiles;
     uint8_t y_tiles;
+
+	CartesianCoordinates spawnPos;
 	std::mutex &getMutex();
 private:
 	std::mutex mutex;

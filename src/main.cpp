@@ -1,5 +1,5 @@
 /*! \mainpage Minion Crusher
- * Minion Crusher is a tower defense game, where the player builds and upgrades towers to defend his base from the enemy minions.
+ * Minion Crusher is a tower defense game where the player builds and upgrades towers to defend his base from the enemy minions.
  *
  */
 
@@ -40,9 +40,7 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
     addMinions(map);
 
     shootTowers(map);
-    // For each tower: Check if it can fire by checking its ticks.
-    // If yes: Find closest minion. If in range: damage it. Set ticks back to firing period.
-    // If no: reduce tower ticks by one.
+
     return interval;
 }
 
@@ -56,9 +54,8 @@ int main(int argc, char *args[]) {
     }
 
     // CREATE MAP FROM BLUEPRINT
-    Map map("resources/blueprints/simple.blueprint");
-
-    map.towers.push_back(Tower(2, 2, 1, 1, 25, 5, 10, AmmoType{}));
+    Map map("resources/blueprints/1.blueprint");
+    map.towers.push_back(Tower(2, 2, 1, 1, 25, 3, 10, AmmoType{}));
 
     // INITIALIZE THE USER INTERFACE
     SDL_Window *window;
@@ -123,8 +120,8 @@ void UIInit(SDL_Window *&window, SDL_Renderer *&renderer) {
         throw std::runtime_error("Renderer could not be created!");
 }
 
-void moveMinions(Map *map) {
-    // Move all minions in the right direction
+/** Move all minions in the right direction along the path */
+void moveMinions(Map *map) { 
     bool finished;
     do {
         finished = true;
@@ -148,12 +145,13 @@ void moveMinions(Map *map) {
     } while (!finished);
 }
 
+/** Spawn new minions on a timed interval */
 void addMinions(Map *map) {
     // Add minions to the battlefield on an interval
     static float speed = 0.1F;
     if (speed * tickCount >= ticksToNextMinion) {
         tickCount = 0;
-        Minion minion = Minion(spawnLocation.x, spawnLocation.y, 1, 1, 100, 50, 0.02F);
+        Minion minion = Minion(map->spawnPos.x, map->spawnPos.y, 1, 1, 100, 1, 0.02F);
         map->minions.push_back(minion);
         speed = minion.getSpeed();
     } else {
@@ -161,6 +159,7 @@ void addMinions(Map *map) {
     }
 }
 
+/** Check for all towers if they are allowed to shoot and check whether they have a minion in range */
 void shootTowers(Map *map) {
     for (Tower &tower : map->towers) {
         if(tower.getTicks() >= tower.getFirePeriod()){
