@@ -19,7 +19,7 @@ void MapView::postRender()
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
 		if (!minion.getTexture()) {
-			SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
 		}
 		else {
@@ -113,7 +113,7 @@ MapView::~MapView()
 {
 }
 
-void MapView::preRender()
-{
-	SDL_RenderSetViewport(renderer, &quad);
-}
+//void MapView::preRender()
+//{
+//	SDL_RenderSetViewport(renderer, &quad);
+//}

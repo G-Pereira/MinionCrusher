@@ -13,7 +13,7 @@ class MapView : public UIElement {
 public:
 	MapView(SDL_Rect, UIElement * parent);
 	~MapView();
-	void preRender();
+	//void preRender();
 	void postRender();
 	void setMap(Map *);
 	Map *map;
