@@ -7,17 +7,13 @@ TileView::TileView(SDL_Rect quad, MapSlots type, UIElement *parent) : UIElement(
 TileView::~TileView() {
 }
 
-template <class T> void swap(T& a, T& b)
-{
-	T c(std::move(a)); a = std::move(b); b = std::move(c);
-}
-
 void TileView::Render(SDL_Renderer * renderer) {
 
 	preRender(renderer);
     //Render texture to screen
     SDL_RendererFlip flip = (SDL_RendererFlip) 0;
     double angle = 0.0;
+	SDL_Rect quad_rotated = quad;
     switch (type) {
         case (MapSlots) 0:
             break;
@@ -26,7 +22,6 @@ void TileView::Render(SDL_Renderer * renderer) {
             break;
         case (MapSlots) 2:
             angle = 90.0;
-			//swap(quad.x, quad.y);
             break;
         case (MapSlots) 3:
             angle = -90.0;
@@ -34,10 +29,10 @@ void TileView::Render(SDL_Renderer * renderer) {
         case (MapSlots) 4:
             break;
     }
-    SDL_RenderCopyEx(renderer, background, nullptr, &quad, angle, nullptr, flip);
+    SDL_RenderCopyEx(renderer, background, nullptr, &quad_rotated, angle, nullptr, flip);
 
 	for (UIElement* child : children) {
-		SDL_RenderSetViewport(renderer, &quad);
+		SDL_RenderSetViewport(renderer, &quad_rotated);
 		child->Render(renderer);
 	}
 	postRender(renderer);

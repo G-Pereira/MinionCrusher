@@ -85,16 +85,47 @@ void  MapView::setMap(SDL_Renderer * renderer, Map * new_map)
 	tileheight = (float)quad.h / (float)map->y_tiles;
 
 	children.clear();
-	for (uint8_t i = 0; i < map->path.size(); i++) {
+	//for (uint8_t i = 0; i < map->path.size(); i++) {
+	//	SDL_Rect tile_quad;
+	//	auto coordinates = map->path[i].getCoordinates();
+	//	tile_quad.x = (int)(coordinates.x * tilewidth);
+	//	tile_quad.y = (int)(coordinates.y * tileheight);
+	//	auto dims = map->path[i].getDimensions();
+	//	tile_quad.w = (int)(dims.width * tilewidth);
+	//	tile_quad.h = (int)(dims.height * tileheight);
+	//	std::unique_ptr<TileView>;
+	//	TileView * child = new TileView(tile_quad, map->path[i].getType(), this);
+	//	child->loadTexture(renderer, "resources/sprites/path_tile.bmp");
+	//	addChild(child);
+	//	//cout << "setting path tile textures " << i << endl;
+	//	//cout << coordinates.x << " " << coordinates.y << endl;
+	//	//cout << dims.height << " " << dims.width << endl;
+
+	//}
+	for (auto tile: map->path) {
 		SDL_Rect tile_quad;
-		auto coordinates = map->path[i].getCoordinates();
-		tile_quad.x = (int)(coordinates.x * tilewidth);
-		tile_quad.y = (int)(coordinates.y * tileheight);
-		auto dims = map->path[i].getDimensions();
-		tile_quad.w = (int)(dims.width * tilewidth);
-		tile_quad.h = (int)(dims.height * tileheight);
+		auto tile_type = tile.getType();
+		auto coordinates = tile.getCoordinates();
+		auto dims = tile.getDimensions();
+		float dif = tileheight - tilewidth;
+
+		switch (tile_type) {
+			case (MapSlots)2:
+			case (MapSlots)3:
+				tile_quad.x = (int)(coordinates.x * tilewidth - dif * 0.5F);
+				tile_quad.y = (int)(coordinates.y * tileheight + dif * 0.5F);
+				tile_quad.w = (int)(dims.width * tileheight);
+				tile_quad.h = (int)(dims.height * tilewidth);
+			break;
+			default:
+				tile_quad.x = (int)(coordinates.x * tilewidth);
+				tile_quad.y = (int)(coordinates.y * tileheight);
+				tile_quad.w = (int)(dims.width * tilewidth);
+				tile_quad.h = (int)(dims.height * tileheight);
+				break;
+		}
 		std::unique_ptr<TileView>;
-		TileView * child = new TileView(tile_quad, map->path[i].getType(), this);
+		TileView * child = new TileView(tile_quad, tile_type, this);
 		child->loadTexture(renderer, "resources/sprites/path_tile.bmp");
 		addChild(child);
 		//cout << "setting path tile textures " << i << endl;
