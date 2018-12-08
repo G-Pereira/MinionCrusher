@@ -1,7 +1,14 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include "SDL.h"
+
+#ifdef _WIN32
+#include <SDL.h>
+#else
+
+#include "SDL2/SDL.h"
+
+#endif
 
 class RenderElement
 {
@@ -61,7 +68,7 @@ public:
 	* receives SDL_Events
 	* @param e SDL_Event
 	*/
-	virtual void HandleEvents(SDL_Event &e) = 0;
+	virtual void HandleEvents(SDL_Event &e) { std::cout << e.type << std::endl; };
 
 	bool hasTexture();
 	//SDL_Renderer * renderer;

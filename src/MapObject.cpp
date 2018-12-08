@@ -7,19 +7,14 @@
 #include "MapObject.h"
 
 MapObject::MapObject(float x, float y, float width, float height)
-        : coordinates({x, y}), dimensions({width, height}) {
-    texture = nullptr;
+	: MapObject(CartesianCoordinates{x,y}, ObjectSize{ width, height }, nullptr) {
 }
 
-MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensions)
-        : coordinates(coordinates), dimensions(dimensions) {
-    texture = nullptr;
-    // No body yet
+MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensions, SDL_Texture * texture)
+	:RenderElement(SDL_Rect{}, texture), coordinates(coordinates), dimensions(dimensions) {
 }
 
 MapObject::~MapObject() {
-    if (texture)
-        SDL_DestroyTexture(texture);
 }
 
 const CartesianCoordinates &MapObject::getCoordinates() const {
@@ -42,13 +37,18 @@ void MapObject::setDimensions(ObjectSize size) {
     dimensions = size;
 }
 
-SDL_Texture *MapObject::getTexture() const {
-    return texture;
+void MapObject::Render(SDL_Renderer * renderer)
+{
+
 }
 
-bool MapObject::setTexture(SDL_Texture *nTexture) {
-    if (!nTexture)
-        return false;
-    texture = nTexture;
-    return true;
-}
+//SDL_Texture *MapObject::getTexture() const {
+//    return texture;
+//}
+//
+//bool MapObject::setTexture(SDL_Texture *nTexture) {
+//    if (!nTexture)
+//        return false;
+//    texture = nTexture;
+//    return true;
+//}

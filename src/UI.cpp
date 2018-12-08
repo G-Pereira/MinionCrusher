@@ -17,7 +17,8 @@ using namespace std;
 //	void operator()(SDL_Texture *p) const { SDL_DestroyTexture(p); }
 //};
 
-UI::UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend) : UIElement(SDL_Rect{0,0, w,h }, nullptr),renderer(rend), window(wind){
+UI::UI(int w, int h) : UIElement(SDL_Rect{0,0, w,h }, nullptr){
+
 	init();
 }
 
@@ -27,6 +28,29 @@ UI::~UI() {
 
 void UI::init()
 {
+	// INITIALIZE THE USER INTERFACE
+
+// Init SDL
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+		throw std::runtime_error("SDL could not initialize!");
+
+	//Set texture filtering to linear
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+		throw std::runtime_error("Warning: Linear texture filtering not enabled!");
+
+	// Create a Window in the middle of the screen
+	window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED, quad.w,
+		quad.h, SDL_WINDOW_SHOWN);
+	if (window == nullptr)
+		throw std::runtime_error("Window could not be created!");
+
+	// Create a new renderer
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
+		SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr)
+		throw std::runtime_error("Renderer could not be created!");
+
 	//Initialize renderer color
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -73,9 +97,10 @@ void UI::init()
 	building_view->loadTexture(renderer, "resources/sprites/right_side.bmp");
 	info_view->loadTexture(renderer, "resources/sprites/info.bmp");
 
-	children.push_back(map_view);
-	children.push_back(building_view);
-	children.push_back(info_view);
+	children.reserve(3);
+	addChild(map_view);
+	addChild(building_view);
+	addChild(info_view);
 
 
 	// add some buttons
@@ -109,11 +134,11 @@ void UI::close() {
     SDL_Quit();
 }
 
-void UI::postRender(SDL_Renderer * rend) {
+void UI::postRender(SDL_Renderer * renderer) {
 	
 	SDL_RenderPresent(renderer);
 }
-void UI::preRender(SDL_Renderer * rend)
+void UI::preRender(SDL_Renderer * renderer)
 {
 }
 
@@ -124,5 +149,5 @@ SDL_Renderer * UI::getRenderer() const {
 
 void UI::setMap(Map *new_map)
 {
-	((MapView*)children[0])->setMap(renderer, new_map);// this is not very nice
+	((MapView*)children[(int)elements::map])->setMap(renderer, new_map);// this is not very nice
 }

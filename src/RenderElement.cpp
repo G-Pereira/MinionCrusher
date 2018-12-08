@@ -70,17 +70,24 @@ void RenderElement::close()
 	SDL_DestroyTexture(background);
 	background = nullptr;
 
-
-	//Quit SDL subsystems
-	//IMG_Quit();
-	SDL_Quit();
 }
 
 void RenderElement::Render(SDL_Renderer * renderer)
 {
 	preRender(renderer);
 	//Render texture to screen
-	SDL_RenderCopy(renderer, background, nullptr, &quad);
+	if (renderer) {
+		if (background) {
+			SDL_RenderCopy(renderer, background, nullptr, &quad);
+		}
+		else {
+			SDL_SetRenderDrawColor(renderer, 0xAA, 0x00, 0xFF, 0xFF);
+			SDL_RenderFillRect(renderer, &quad);
+		}
+	}
+	else {
+		throw std::runtime_error("No renderer passed to RenderElement::Render()!");
+	}
 
 	postRender(renderer);
 }

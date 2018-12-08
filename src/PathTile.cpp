@@ -12,7 +12,7 @@ PathTile::PathTile(float x, float y, float width, float height, const MapSlots t
 }
 
 PathTile::PathTile(CartesianCoordinates coordinates, ObjectSize dimensions, const MapSlots type)
-        : MapObject(coordinates, dimensions), type(type) {
+        : MapObject(coordinates, dimensions, nullptr), type(type) {
 
 }
 

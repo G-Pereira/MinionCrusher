@@ -20,7 +20,7 @@ public:
 	 * @param w width in pixels
 	 * @param h height in pixels
 	 */
-	UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend);
+	UI(int w, int h);
 	/**
 	 * Destructor of the UI, calls the UI close method
 	 */
@@ -45,6 +45,11 @@ private:
 	 * Perform all closing action to clean the memory of the UI
 	 */
 	SDL_Renderer * renderer;
+	enum class elements : int{
+		map,
+		building,
+		info
+	};
 	void close();
 	SDL_Window *window;
 

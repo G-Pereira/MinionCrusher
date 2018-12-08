@@ -7,14 +7,6 @@
 #ifndef MINIONCRUSHER_MAPOBJECT_H
 #define MINIONCRUSHER_MAPOBJECT_H
 
-#ifdef _WIN32
-#include <SDL.h>
-#else
-
-#include "SDL2/SDL.h"
-
-#endif
-
 #include "types.h"
 #include "RenderElement.h"
 
@@ -23,7 +15,7 @@
  * In the Minioncrusher, any object that is drawn on the map is a MapObject. These objects are easily recognized
  * as they have a position on the map. The coordinates are currently defined as floats.
  */
-class MapObject/*: public RenderElement*/ {
+class MapObject: public RenderElement {
 public:
     /**
      * The object is constructed with both X and Y coordinates as every object must have an initial position. Dimensions
@@ -36,7 +28,7 @@ public:
     /**
      * Overloaded constructor if one gives an object of type CartesianCoordinates as parameter. Dimensions are fixed.
      */
-    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions);
+    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions, SDL_Texture * texture);
 
     /**
      * Empty destructor.
@@ -80,18 +72,20 @@ public:
      * Get a reference to the texture of this object.
      * @return SDL_Texture *
      */
-    SDL_Texture *getTexture() const;
+    //SDL_Texture *getTexture() const;
 
     /**
      * Srt a reference to the dimensions of this object.
      * @return ObjectSize&
      */
-    bool setTexture(SDL_Texture *);
+    //bool setTexture(SDL_Texture *);
+
+	void Render(SDL_Renderer * renderer) override;
 
 private:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map
-    SDL_Texture *texture;
+    //SDL_Texture *texture;
 };
 
 

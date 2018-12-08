@@ -43,10 +43,16 @@ UIElement * UIElement::getParent()
 
 void UIElement::Render(SDL_Renderer * renderer)
 {
+	if (!renderer) {
+		std::cout << "no renderer in UIElement\n";
+		return;
+	}
+
 	preRender(renderer);
 	// Render texture to screen
 	// render children recursively
-	SDL_RenderCopy(renderer, background, nullptr, &quad);
+	if(background)
+		SDL_RenderCopy(renderer, background, nullptr, &quad);
 
 	for (UIElement* child : children) {
 		SDL_RenderSetViewport(renderer, &quad);

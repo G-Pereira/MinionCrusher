@@ -8,7 +8,10 @@ TileView::~TileView() {
 }
 
 void TileView::Render(SDL_Renderer * renderer) {
-
+	if (!renderer) {
+		std::cout << "no renderer in tileview\n";
+		return;
+	}
 	preRender(renderer);
     //Render texture to screen
     SDL_RendererFlip flip = (SDL_RendererFlip) 0;
@@ -29,7 +32,13 @@ void TileView::Render(SDL_Renderer * renderer) {
         case (MapSlots) 4:
             break;
     }
-    SDL_RenderCopyEx(renderer, background, nullptr, &quad_rotated, angle, nullptr, flip);
+
+	if (background) {
+		SDL_RenderCopyEx(renderer, background, nullptr, &quad_rotated, angle, nullptr, flip);
+	}else{
+		std::cout << "no background in tileview\n";
+		return;
+	}
 
 	for (UIElement* child : children) {
 		SDL_RenderSetViewport(renderer, &quad_rotated);

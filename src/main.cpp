@@ -53,20 +53,12 @@ int main(int argc, char *args[]) {
         }
     }
 
+	UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
+
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
     map.towers.emplace_back(2, 2, 1, 1, 25, 3, 10, AmmoType{});
 
-    // INITIALIZE THE USER INTERFACE
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-    try {
-        UIInit(window, renderer);
-    }
-    catch (std::exception &e) {
-        std::cout << e.what();
-    }
-    UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT, window, renderer);
     //Initialize the map
     ui.setMap(&map);
 
@@ -78,7 +70,6 @@ int main(int argc, char *args[]) {
 
     bool quit = false;
     while (!quit) {
-        //update screen
         ui.Render(ui.getRenderer());
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
@@ -87,38 +78,15 @@ int main(int argc, char *args[]) {
             //User requests quit
             if (e.type == SDL_QUIT) {
                 cout << "quitting" << endl;
+				SDL_RemoveTimer(timer_id);
                 quit = true;
-
             }
         }
     }
+	
     return 0;
 }
 
-void UIInit(SDL_Window *&window, SDL_Renderer *&renderer) {
-    // INITIALIZE THE USER INTERFACE
-
-// Init SDL
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-        throw std::runtime_error("SDL could not initialize!");
-
-    //Set texture filtering to linear
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-        throw std::runtime_error("Warning: Linear texture filtering not enabled!");
-
-    // Create a Window in the middle of the screen
-    window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
-                              WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    if (window == nullptr)
-        throw std::runtime_error("Window could not be created!");
-
-    // Create a new renderer
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
-                                              SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr)
-        throw std::runtime_error("Renderer could not be created!");
-}
 
 /** Move all minions in the right direction along the path */
 void moveMinions(Map *map) { 

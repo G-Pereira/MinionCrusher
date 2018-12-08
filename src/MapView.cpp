@@ -18,12 +18,12 @@ void MapView::postRender(SDL_Renderer * renderer)
 		fillRect.y = (int)(coordinates.y * tileheight + 0.1 * fillRect.h);
 		//cout << fillRect.x << " " << fillRect.y << " " << fillRect.w << " " << fillRect.h << " " << endl;
 
-		if (!minion.getTexture()) {
+		if (!minion.hasTexture()) {
 			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-			SDL_RenderFillRect(renderer, &fillRect);//SDL_RenderCopy(renderer, map_object.texture, nullptr, &fillRect);
+			SDL_RenderFillRect(renderer, &fillRect);
 		}
 		else {
-			SDL_RenderCopy(renderer, minion.getTexture(), nullptr, &fillRect);
+			//SDL_RenderCopy(renderer, minion.getTexture(), nullptr, &fillRect);
 		}
 		SDL_Rect health_rect = getHealthbar();
 		fillRect.x = (int)(health_rect.x + coordinates.x * tilewidth);
@@ -47,12 +47,12 @@ void MapView::postRender(SDL_Renderer * renderer)
 		fillRect.x = (int)(coordinates.x * tilewidth + 0.1 * fillRect.w);
 		fillRect.y = (int)(coordinates.y * tileheight + 0.1 * fillRect.h);
 
-		if (!tower.getTexture()) {
+		if (!tower.hasTexture()) {
 			SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
 			SDL_RenderFillRect(renderer, &fillRect);
 		}
 		else {
-			SDL_RenderCopy(renderer, tower.getTexture(), nullptr, &fillRect);
+			//SDL_RenderCopy(renderer, tower.getTexture(), nullptr, &fillRect);
 		}
 	}
 	auto coordinates = map->base.getCoordinates();
@@ -64,12 +64,12 @@ void MapView::postRender(SDL_Renderer * renderer)
 	fillRect.x = (int)(coordinates.x * tilewidth - 0.05 * fillRect.w);
 	fillRect.y = (int)(coordinates.y * tileheight - 0.05 * fillRect.h);
 
-	if (!map->base.getTexture()) {
+	if (!map->base.hasTexture()) {
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
 		SDL_RenderFillRect(renderer, &fillRect);
 	}
 	else {
-		SDL_RenderCopy(renderer, map->base.getTexture(), nullptr, &fillRect);
+		//SDL_RenderCopy(renderer, map->base.getTexture(), nullptr, &fillRect);
 	}
 
 	
@@ -85,23 +85,6 @@ void  MapView::setMap(SDL_Renderer * renderer, Map * new_map)
 	tileheight = (float)quad.h / (float)map->y_tiles;
 
 	children.clear();
-	//for (uint8_t i = 0; i < map->path.size(); i++) {
-	//	SDL_Rect tile_quad;
-	//	auto coordinates = map->path[i].getCoordinates();
-	//	tile_quad.x = (int)(coordinates.x * tilewidth);
-	//	tile_quad.y = (int)(coordinates.y * tileheight);
-	//	auto dims = map->path[i].getDimensions();
-	//	tile_quad.w = (int)(dims.width * tilewidth);
-	//	tile_quad.h = (int)(dims.height * tileheight);
-	//	std::unique_ptr<TileView>;
-	//	TileView * child = new TileView(tile_quad, map->path[i].getType(), this);
-	//	child->loadTexture(renderer, "resources/sprites/path_tile.bmp");
-	//	addChild(child);
-	//	//cout << "setting path tile textures " << i << endl;
-	//	//cout << coordinates.x << " " << coordinates.y << endl;
-	//	//cout << dims.height << " " << dims.width << endl;
-
-	//}
 	for (auto tile: map->path) {
 		SDL_Rect tile_quad;
 		auto tile_type = tile.getType();
@@ -124,7 +107,6 @@ void  MapView::setMap(SDL_Renderer * renderer, Map * new_map)
 				tile_quad.h = (int)(dims.height * tileheight);
 				break;
 		}
-		std::unique_ptr<TileView>;
 		TileView * child = new TileView(tile_quad, tile_type, this);
 		child->loadTexture(renderer, "resources/sprites/path_tile.bmp");
 		addChild(child);
