@@ -1,10 +1,10 @@
 #include "RenderElement.h"
 
 
-RenderElement::RenderElement(SDL_Renderer * renderer, SDL_Rect quad, SDL_Texture * text) : renderer(renderer), quad(quad), background(text) {
+RenderElement::RenderElement(SDL_Rect quad, SDL_Texture * texture) : quad(quad), background(texture) {
 
 }
-RenderElement::RenderElement(SDL_Renderer * renderer, SDL_Rect quad) :RenderElement(renderer, quad, nullptr){
+RenderElement::RenderElement(SDL_Rect quad) :RenderElement(quad, nullptr){
 
 }
 
@@ -13,15 +13,15 @@ RenderElement::~RenderElement()
 	close();
 }
 
-void RenderElement::preRender()
+void RenderElement::preRender(SDL_Renderer * renderer)
 {
 }
 
-void RenderElement::postRender()
+void RenderElement::postRender(SDL_Renderer * renderer)
 {
 }
 
-void RenderElement::loadTexture(std::string path)
+void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path)
 {
 	//The final texture
 	SDL_Texture* newTexture = nullptr;
@@ -70,25 +70,22 @@ void RenderElement::close()
 	SDL_DestroyTexture(background);
 	background = nullptr;
 
-	//Destroy window	
-	SDL_DestroyRenderer(renderer);
-	renderer = nullptr;
 
 	//Quit SDL subsystems
 	//IMG_Quit();
 	SDL_Quit();
 }
 
-void RenderElement::Render()
+void RenderElement::Render(SDL_Renderer * renderer)
 {
-	preRender();
+	preRender(renderer);
 	//Render texture to screen
 	SDL_RenderCopy(renderer, background, nullptr, &quad);
 
-	postRender();
+	postRender(renderer);
 }
 
-SDL_Renderer * RenderElement::getRenderer() const
-{
-	return renderer;
-}
+//SDL_Renderer * RenderElement::getRenderer() const
+//{
+//	return renderer;
+//}

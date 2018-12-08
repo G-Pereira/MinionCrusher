@@ -55,7 +55,7 @@ int main(int argc, char *args[]) {
 
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
-    map.towers.push_back(Tower(2, 2, 1, 1, 25, 3, 10, AmmoType{}));
+    map.towers.emplace_back(2, 2, 1, 1, 25, 3, 10, AmmoType{});
 
     // INITIALIZE THE USER INTERFACE
     SDL_Window *window;
@@ -79,7 +79,7 @@ int main(int argc, char *args[]) {
     bool quit = false;
     while (!quit) {
         //update screen
-        ui.Render();
+        ui.Render(ui.getRenderer());
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
             //Handle button events

@@ -7,8 +7,6 @@
 #ifndef MINIONCRUSHER_MAPOBJECT_H
 #define MINIONCRUSHER_MAPOBJECT_H
 
-#include "types.h"
-
 #ifdef _WIN32
 #include <SDL.h>
 #else
@@ -17,11 +15,15 @@
 
 #endif
 
+#include "types.h"
+#include "RenderElement.h"
+
+
 /**
  * In the Minioncrusher, any object that is drawn on the map is a MapObject. These objects are easily recognized
  * as they have a position on the map. The coordinates are currently defined as floats.
  */
-class MapObject {
+class MapObject/*: public RenderElement*/ {
 public:
     /**
      * The object is constructed with both X and Y coordinates as every object must have an initial position. Dimensions

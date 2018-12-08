@@ -30,8 +30,8 @@ public:
 	 */
 	void init();
 
-	void postRender();
-	void preRender();
+	void postRender(SDL_Renderer * renderer) override;
+	void preRender(SDL_Renderer * renderer) override;
 	/**
 	 * returns a pointer to the renderer
 	 * @return pointer to the used renderer
@@ -44,6 +44,7 @@ private:
 	/**
 	 * Perform all closing action to clean the memory of the UI
 	 */
+	SDL_Renderer * renderer;
 	void close();
 	SDL_Window *window;
 

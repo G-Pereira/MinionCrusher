@@ -17,8 +17,7 @@ using namespace std;
 //	void operator()(SDL_Texture *p) const { SDL_DestroyTexture(p); }
 //};
 
-UI::UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend) : UIElement(SDL_Rect{0,0, w,h }, nullptr, rend) {
-	window = wind;
+UI::UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend) : UIElement(SDL_Rect{0,0, w,h }, nullptr),renderer(rend), window(wind){
 	init();
 }
 
@@ -70,9 +69,9 @@ void UI::init()
 	cout << "creating info_view" << endl;
 	UIElement * info_view = new UIElement(info_quad, this);
 
-	map_view->loadTexture("resources/sprites/map_background.bmp");
-	building_view->loadTexture("resources/sprites/right_side.bmp");
-	info_view->loadTexture("resources/sprites/info.bmp");
+	map_view->loadTexture(renderer, "resources/sprites/map_background.bmp");
+	building_view->loadTexture(renderer, "resources/sprites/right_side.bmp");
+	info_view->loadTexture(renderer, "resources/sprites/info.bmp");
 
 	children.push_back(map_view);
 	children.push_back(building_view);
@@ -82,18 +81,18 @@ void UI::init()
 	// add some buttons
 	SDL_Rect button_quad = SDL_Rect{ 20,20, 100,100 };
 	BuildButton *button1 = new BuildButton(button_quad, nullptr, building_view);
-	button1->loadTexture("resources/sprites/tower1_tile.bmp");
+	button1->loadTexture(renderer, "resources/sprites/tower1_tile.bmp");
 	building_view->addChild(button1);
 
 	button_quad.x += 120;
 	BuildButton *button2 = new BuildButton(button_quad, nullptr, building_view);
-	button2->loadTexture("resources/sprites/tower2_tile.bmp");
+	button2->loadTexture(renderer, "resources/sprites/tower2_tile.bmp");
 	building_view->addChild(button2);
 
 	button_quad.x -= 120;
 	button_quad.y += 120;
 	BuildButton *button3 = new BuildButton(button_quad, nullptr, building_view);
-	button3->loadTexture("resources/sprites/tower3_tile.bmp");
+	button3->loadTexture(renderer, "resources/sprites/tower3_tile.bmp");
 	building_view->addChild(button3);
 
 }
@@ -110,11 +109,11 @@ void UI::close() {
     SDL_Quit();
 }
 
-void UI::postRender() {
+void UI::postRender(SDL_Renderer * rend) {
 	
 	SDL_RenderPresent(renderer);
 }
-void UI::preRender()
+void UI::preRender(SDL_Renderer * rend)
 {
 }
 
@@ -125,5 +124,5 @@ SDL_Renderer * UI::getRenderer() const {
 
 void UI::setMap(Map *new_map)
 {
-	((MapView*)children[0])->setMap(new_map);// this is not very nice
+	((MapView*)children[0])->setMap(renderer, new_map);// this is not very nice
 }

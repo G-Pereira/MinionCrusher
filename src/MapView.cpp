@@ -4,7 +4,7 @@ MapView::MapView(SDL_Rect quad, UIElement * parent) :UIElement(quad, parent), ma
 
 }
 
-void MapView::postRender()
+void MapView::postRender(SDL_Renderer * renderer)
 {
 	std::lock_guard<std::mutex> lock(map->getMutex());
 	for (auto minion : map->minions) {
@@ -77,7 +77,7 @@ void MapView::postRender()
 
 
 
-void  MapView::setMap(Map * new_map)
+void  MapView::setMap(SDL_Renderer * renderer, Map * new_map)
 {
 	map = new_map;
 
@@ -93,9 +93,9 @@ void  MapView::setMap(Map * new_map)
 		auto dims = map->path[i].getDimensions();
 		tile_quad.w = (int)(dims.width * tilewidth);
 		tile_quad.h = (int)(dims.height * tileheight);
-
+		std::unique_ptr<TileView>;
 		TileView * child = new TileView(tile_quad, map->path[i].getType(), this);
-		child->loadTexture("resources/sprites/path_tile.bmp");
+		child->loadTexture(renderer, "resources/sprites/path_tile.bmp");
 		addChild(child);
 		//cout << "setting path tile textures " << i << endl;
 		//cout << coordinates.x << " " << coordinates.y << endl;
@@ -111,9 +111,5 @@ SDL_Rect MapView::getHealthbar()
 
 MapView::~MapView()
 {
-}
 
-//void MapView::preRender()
-//{
-//	SDL_RenderSetViewport(renderer, &quad);
-//}
+}
