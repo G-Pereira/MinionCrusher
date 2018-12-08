@@ -26,8 +26,6 @@ void addMinions(Map *map);
 
 void shootTowers(Map *map);
 
-void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
-
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
@@ -51,17 +49,21 @@ int main(int argc, char *args[]) {
         for (int i = 0; i < argc; i++) {
             cout << args[i] << " ";
         }
-    }
+	}
 
+	cout << "Create UI" << endl;
+	// create the UI
 	UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
 
+	cout << "Read map" << endl;
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
     map.towers.emplace_back(2, 2, 1, 1, 25, 3, 10, AmmoType{});
 
-    //Initialize the map
+    //load the map into the UI
     ui.setMap(&map);
 
+	cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER
     SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
     if (timer_id == 0) {

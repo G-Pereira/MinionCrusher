@@ -31,7 +31,6 @@ public:
 	void init();
 
 	void postRender(SDL_Renderer * renderer) override;
-	void preRender(SDL_Renderer * renderer) override;
 	/**
 	 * returns a pointer to the renderer
 	 * @return pointer to the used renderer

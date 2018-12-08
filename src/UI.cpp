@@ -18,19 +18,7 @@ using namespace std;
 //};
 
 UI::UI(int w, int h) : UIElement(SDL_Rect{0,0, w,h }, nullptr){
-
-	init();
-}
-
-UI::~UI() {
-    close();
-}
-
-void UI::init()
-{
-	// INITIALIZE THE USER INTERFACE
-
-// Init SDL
+	// Init SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		throw std::runtime_error("SDL could not initialize!");
 
@@ -50,11 +38,15 @@ void UI::init()
 		SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr)
 		throw std::runtime_error("Renderer could not be created!");
+	init();
+}
 
-	//Initialize renderer color
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+UI::~UI() {
+    close();
+}
 
-
+void UI::init()
+{
 	/* ratio of UI elements
 	current shape:
 	_________________________
@@ -86,11 +78,8 @@ void UI::init()
 	info_quad.w = quad.w * 8 / 10;
 	info_quad.h = quad.h * 2 / 10;
 
-	cout << "creating map_view" << endl;
 	MapView * map_view = new MapView(map_quad, this);
-	cout << "creating building_view" << endl;
 	BuildView * building_view = new BuildView(building_quad, this);
-	cout << "creating info_view" << endl;
 	UIElement * info_view = new UIElement(info_quad, this);
 
 	map_view->loadTexture(renderer, "resources/sprites/map_background.bmp");
@@ -137,9 +126,6 @@ void UI::close() {
 void UI::postRender(SDL_Renderer * renderer) {
 	
 	SDL_RenderPresent(renderer);
-}
-void UI::preRender(SDL_Renderer * renderer)
-{
 }
 
 
