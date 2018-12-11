@@ -69,23 +69,20 @@ public:
     void setDimensions(ObjectSize size);
 
     /**
-     * Get a reference to the texture of this object.
-     * @return SDL_Texture *
+     * update the quad to match the current position and size.
+     * @param tilewidth the width of tiles in pixels
+     * @param tileheight the height of tiles in pixels
      */
-    //SDL_Texture *getTexture() const;
-
-    /**
-     * Srt a reference to the dimensions of this object.
-     * @return ObjectSize&
-     */
-    //bool setTexture(SDL_Texture *);
-
+	void updateQuad(float tilewidth, float tileheight);
+	/**
+	* Render this object using this renderer
+	* @param renderer renderer to render with
+	*/
 	void Render(SDL_Renderer * renderer) override;
 
 private:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map
-    //SDL_Texture *texture;
 };
 
 

@@ -36,6 +36,8 @@ public:
 
 	bool operator!=(const Minion &rhs) const;
 
+	void postRender(SDL_Renderer * renderer) override;
+
 private:
 	float health; // Health of the minion
 	float max_health; // Health of the minion

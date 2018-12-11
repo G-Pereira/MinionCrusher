@@ -13,15 +13,17 @@ RenderElement::~RenderElement()
 	close();
 }
 
-void RenderElement::preRender(SDL_Renderer * renderer)
-{
-}
-
 void RenderElement::postRender(SDL_Renderer * renderer)
 {
+	SDL_assert(renderer);
 }
 
 void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path)
+{
+	loadTexture(renderer, path, SDL_Color{ 0,0,0,0 });
+}
+
+void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path, SDL_Color color)
 {
 	//The final texture
 	SDL_Texture* newTexture = nullptr;
@@ -35,6 +37,7 @@ void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path)
 	else
 	{
 		//Create texture from surface pixels
+		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, color.r, color.g, color.b));
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == nullptr)
 		{
@@ -48,12 +51,12 @@ void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path)
 	background = newTexture;
 }
 
-void RenderElement::setQuad(SDL_Rect new_quad)
-{
-	quad = new_quad;
-}
-
-SDL_Rect RenderElement::getQuad()
+//void RenderElement::setQuad(SDL_Rect new_quad)
+//{
+//	quad = new_quad;
+//}
+//
+SDL_Rect& RenderElement::getQuad()
 {
 	return quad;
 }
@@ -71,28 +74,3 @@ void RenderElement::close()
 	background = nullptr;
 
 }
-
-void RenderElement::Render(SDL_Renderer * renderer)
-{
-	preRender(renderer);
-	//Render texture to screen
-	if (renderer) {
-		if (background) {
-			SDL_RenderCopy(renderer, background, nullptr, &quad);
-		}
-		else {
-			SDL_SetRenderDrawColor(renderer, 0xAA, 0x00, 0xFF, 0xFF);
-			SDL_RenderFillRect(renderer, &quad);
-		}
-	}
-	else {
-		throw std::runtime_error("No renderer passed to RenderElement::Render()!");
-	}
-
-	postRender(renderer);
-}
-
-//SDL_Renderer * RenderElement::getRenderer() const
-//{
-//	return renderer;
-//}

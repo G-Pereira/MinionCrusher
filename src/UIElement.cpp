@@ -48,7 +48,6 @@ void UIElement::Render(SDL_Renderer * renderer)
 		return;
 	}
 
-	preRender(renderer);
 	// Render texture to screen
 	// render children recursively
 	if(background)

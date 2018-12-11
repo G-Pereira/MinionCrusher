@@ -12,7 +12,6 @@ void TileView::Render(SDL_Renderer * renderer) {
 		std::cout << "no renderer in tileview\n";
 		return;
 	}
-	preRender(renderer);
     //Render texture to screen
     SDL_RendererFlip flip = (SDL_RendererFlip) 0;
     double angle = 0.0;

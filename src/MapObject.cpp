@@ -37,18 +37,29 @@ void MapObject::setDimensions(ObjectSize size) {
     dimensions = size;
 }
 
-void MapObject::Render(SDL_Renderer * renderer)
+void MapObject::updateQuad(float tilewidth, float tileheight)
 {
-
+	quad.w = (int)(dimensions.width * tilewidth);
+	quad.h = (int)(dimensions.height * tileheight);
+	quad.x = (int)(coordinates.x * tilewidth);
+	quad.y = (int)(coordinates.y * tileheight);
 }
 
-//SDL_Texture *MapObject::getTexture() const {
-//    return texture;
-//}
-//
-//bool MapObject::setTexture(SDL_Texture *nTexture) {
-//    if (!nTexture)
-//        return false;
-//    texture = nTexture;
-//    return true;
-//}
+void MapObject::Render(SDL_Renderer * renderer)
+{
+	//Render texture to screen
+	if (renderer) {
+		if (background) {
+			SDL_RenderCopy(renderer, background, nullptr, &quad);
+		}
+		else {
+			SDL_SetRenderDrawColor(renderer, 0xAA, 0x00, 0xFF, 0xFF);
+			SDL_RenderFillRect(renderer, &quad);
+		}
+	}
+	else {
+		throw std::runtime_error("No renderer passed to RenderElement::Render()!");
+	}
+
+	postRender(renderer);
+}

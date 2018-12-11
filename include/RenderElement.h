@@ -31,18 +31,11 @@ public:
 	 * @param info the texture which will be in the background of the info
 	 * @param buildings the texture which will be in the building buttons
 	 */
-	virtual void preRender(SDL_Renderer * renderer);
-	/**
-	 * Render all parts of the user interface
-	 * @param Map the texture which will be in the background of the map
-	 * @param info the texture which will be in the background of the info
-	 * @param buildings the texture which will be in the building buttons
-	 */
 	virtual void postRender(SDL_Renderer * renderer);
 	/**
 	 * Render this object
 	 */
-	virtual void Render(SDL_Renderer * renderer);
+	virtual void Render(SDL_Renderer * renderer) = 0;
 	/**
 	 * returns a pointer to the renderer
 	 * @return pointer to the used renderer
@@ -55,20 +48,21 @@ public:
 	 */
 	void loadTexture(SDL_Renderer * renderer, std::string path);
 	/**
+	 * overloaded Load an image from a link and turn it into a texture with a color key to leave out
+	 * @param path path to the file containing a bitmap
+	 * @return pointer to texture
+	 */
+	void loadTexture(SDL_Renderer * renderer, std::string path, SDL_Color color);
+	/**
 	* set the rectangle that defines the position and shape of the element
 	* @param quad the new quad to use
 	*/
-	void setQuad(SDL_Rect quad);
+	//void setQuad(SDL_Rect quad);
 	/**
 	* get the rectangle that defines the position and shape of the element
 	* @return quad of this element
 	*/
-	SDL_Rect getQuad();
-	/**
-	* receives SDL_Events
-	* @param e SDL_Event
-	*/
-	virtual void HandleEvents(SDL_Event &e) { std::cout << e.type << std::endl; };
+	SDL_Rect& getQuad();
 
 	bool hasTexture();
 	//SDL_Renderer * renderer;

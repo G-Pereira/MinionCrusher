@@ -58,7 +58,7 @@ void Map::createPath(int x, int y)
 		createPath(x - (dir == 1) + (dir == 4), y - (dir == 3) + (dir == 2));
 	}
 	else if(dir == 5){
-		base = Base(x, y, 1, 1, 100);
+		base = Base(x, y, 1.0F, 1.0F, 100.0F);
 	}
 
 }
