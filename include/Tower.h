@@ -17,32 +17,32 @@ public:
 
     // Getters and setters below
 
-    const int &getFirePeriod() const;
+    const int &getFirePeriod() const;		/// Get the time between two shots
 
-    void setFirePeriod(int firePeriod);
+    void setFirePeriod(int firePeriod);		/// Set the time between two shots
 
-    const float &getDamage() const;
+    const float &getDamage() const;			/// Get the damage the tower does to minions
 
-    void setDamage(float damage);
+    void setDamage(float damage);			/// Set the damage the tower does to minions
 
-    const AmmoType &getAmmo() const;
+    const AmmoType &getAmmo() const;		/// Get the ammotype the tower shoots with (not implemented)
 
-    void setAmmo(AmmoType ammo);
+    void setAmmo(AmmoType ammo);			/// Set the ammotype the tower shoots with (not implemented)
 
-    const float &getRange() const;
+    const float &getRange() const;			/// Get the maximum distance the tower can still shoot
 
-    void setRange(float range);
+    void setRange(float range);				/// Set the maximum distance the tower can still shoot			
 
-	const int &getTicks() const;
+	const int &getTicks() const;			/// Get the amount of ticks since the last shot of the tower
 
-	void setTicks(int ticks);
+	void setTicks(int ticks);				/// Set the amount of ticks since the last shot of the tower
 
 private:
 	int ticks = 0;
 	int firePeriod;
 	float range;
     float damage;
-	float rangeSquared;
+	float rangeSquared;	
     AmmoType ammo;
 };
 

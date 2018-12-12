@@ -21,7 +21,7 @@ public:
 
     virtual ~Base();
 
-    void doDamage(float damage);
+    void doDamage(float damage);	/// Damage the base by a determined amount
 
 private:
     float health; // Health of the base the minions attack

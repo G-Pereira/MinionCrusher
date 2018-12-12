@@ -16,25 +16,25 @@ public:
     virtual ~Minion();
 
 
-    void setHealth(float health);
+    void setHealth(float health);		/// Set the health of the minion
 
-	const float &getHealth() const;
+	const float &getHealth() const;		/// Get the health of the minion
 
-	const float &getMaxHealth() const;
+	const float &getMaxHealth() const;	/// Get the maximum health of the minion (health it starts with)
 
-    void setSpeed(float speed);
+    void setSpeed(float speed);			/// Set the movement speed of the minion
 
-    const float &getSpeed() const;
+    const float &getSpeed() const;		/// Get the movement speed of the minion
 
-    void setDamage(float damage);
+    void setDamage(float damage);		/// Set the damage the minion does to the base when it hits the base.
 
-    const float &getDamage() const;
+    const float &getDamage() const;		/// Get the damage the minion does to the base when it hits the base.
 
-    float moveCount = 0;
+    float traversedDistance = 0;				/// Counter that holds the distance traversed by a minion.
 
-	bool operator==(const Minion &rhs) const;
+	bool operator==(const Minion &rhs) const;	/// Operator that checks if two minions are the same
 
-	bool operator!=(const Minion &rhs) const;
+	bool operator!=(const Minion &rhs) const;	/// Operator that checks if two minions are the different
 
 private:
 	float health; // Health of the minion

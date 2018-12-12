@@ -127,18 +127,18 @@ void moveMinions(Map *map) {
         finished = true;
         for (Minion &minion : (map->minions)) {
 
-            int dir = (int) map->path[(int) minion.moveCount].getType();
+            int dir = (int) map->path[(int) minion.traversedDistance].getType();
             minion.setCoordinates(
                     {minion.getCoordinates().x + minion.getSpeed() * (-(dir == 1) + (dir == 4)),
                      minion.getCoordinates().y + minion.getSpeed() * (-(dir == 3) + (dir == 2))}
             );
-            if (int(minion.moveCount) >= (int) map->path.size() - 1) {
+            if (int(minion.traversedDistance) >= (int) map->path.size() - 1) {
                 map->base.doDamage(map->minions.front().getDamage());
                 map->minions.pop_front();
                 finished = false;
                 break;
             }
-            minion.moveCount = minion.moveCount + minion.getSpeed();
+            minion.traversedDistance = minion.traversedDistance + minion.getSpeed();
 
             //cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
         }

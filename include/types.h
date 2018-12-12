@@ -1,4 +1,4 @@
-/**
+/*
  * Author: Remi Jonkman
  * Created on: 28-11-18
  * Last Modified: 28-11-18
@@ -37,7 +37,6 @@ struct CartesianCoordinates {
 /**
  * Structure holding the width and height of an object.
  */
-
 struct ObjectSize {
     float width;
     float height;
@@ -55,7 +54,7 @@ struct AmmoType {
 };
 
 /**
- * Enumeration defining diffent types of tiles
+ * Enumeration defining diffent types of tiles. This determines in which direction a minion should move.
  */
 enum class MapSlots : int {
     EMPTY = 0,

@@ -30,8 +30,8 @@ public:
     Map(std::string blueprintFile = "resources/blueprints/simple.blueprint");
 
     ~Map();
-
-	void createPath(int x, int y);
+	/** This function adds pathTiles to the path vector in the right order */
+	void createPath(int x, int y);					
 
     Base base = Base(0, 0, 1, 1, 100);
     std::vector<PathTile> path;						/// Vector containing all path tiles, in order the minions should cross them
@@ -42,7 +42,7 @@ public:
     uint8_t x_tiles;
     uint8_t y_tiles;
 
-	CartesianCoordinates spawnPos;
+	CartesianCoordinates spawnPos;					/// Position where minions spawn. Read from the blueprintFile
 	std::mutex &getMutex();
 private:
 	std::mutex mutex;

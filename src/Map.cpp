@@ -52,7 +52,6 @@ void Map::createPath(int x, int y)
 {
 	int dir = mapBlueprint[y][x];
 	if (dir > 0 && dir < 5) {
-		//std::cout << x << " " << y << " " << dir << std::endl;
 		path.emplace_back(x, y, 1, 1, MapSlots(dir));
 		createPath(x - (dir == 1) + (dir == 4), y - (dir == 3) + (dir == 2));
 	}
