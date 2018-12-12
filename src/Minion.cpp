@@ -46,7 +46,7 @@ const float &Minion::getDamage() const {
 }
 
 bool Minion::operator==(const Minion &rhs) const {
-    return moveCount == rhs.moveCount &&
+    return traversedDistance == rhs.traversedDistance &&
            health == rhs.health &&
            max_health == rhs.max_health &&
            damage == rhs.damage &&

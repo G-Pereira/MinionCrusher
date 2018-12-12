@@ -162,19 +162,6 @@ void addMinions(Map *map) {
 /** Check for all towers if they are allowed to shoot and check whether they have a minion in range */
 void shootTowers(Map *map) {
     for (Tower &tower : map->towers) {
-        if(tower.getTicks() >= tower.getFirePeriod()){
-            tower.setTicks(0);
-        } else{
-            tower.setTicks(tower.getTicks()+1);
-            continue;
-        }
-        for (Minion &minion : map->minions) {
-            if (minion.getCoordinates().isInRange(tower.getCoordinates(), tower.getRange())) {
-                minion.setHealth(minion.getHealth() - tower.getDamage());
-                if (minion.getHealth() <= 0)
-                    map->minions.remove(minion);
-                break;
-            }
-        }
+		tower.towerUpdate(map->minions);
     }
 }

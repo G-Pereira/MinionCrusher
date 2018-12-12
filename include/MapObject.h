@@ -86,7 +86,7 @@ public:
      */
     bool setTexture(SDL_Texture *);
 
-private:
+protected:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map
     SDL_Texture *texture;

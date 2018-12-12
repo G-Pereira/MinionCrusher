@@ -7,13 +7,17 @@
 #ifndef MINIONCRUSHER_TOWER_H
 #define MINIONCRUSHER_TOWER_H
 
+#include <list>
 #include "MapObject.h"
+#include "Minion.h"
 
 class Tower : public MapObject {
 public:
     Tower(float x, float y, float width, float height, int firePeriod, float range, float damage, AmmoType ammo);
 
     virtual ~Tower();
+
+	void towerUpdate(std::list<Minion> &minions);
 
     // Getters and setters below
 
