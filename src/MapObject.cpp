@@ -26,8 +26,8 @@ const CartesianCoordinates &MapObject::getCoordinates() const {
     return this->coordinates;
 }
 
-void MapObject::setCoordinates(CartesianCoordinates coordinates) {
-    this->coordinates = coordinates;
+void MapObject::setCoordinates(CartesianCoordinates inputCoordinates) {
+    this->coordinates = inputCoordinates;
 }
 
 void MapObject::setCoordinates(float x, float y) {

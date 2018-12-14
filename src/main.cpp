@@ -7,6 +7,7 @@
 
 #include "Map.h"
 #include "UI.h"
+#include "gameManager.h"
 
 using namespace std;
 
@@ -16,17 +17,10 @@ constexpr Uint32 UPDATE_FREQUENCY = 300;
 constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
-CartesianCoordinates spawnLocation = {0, 1};
-int ticksToNextMinion = 3;
-int tickCount = 2;
-
-void moveMinions(Map *map);
-
-void addMinions(Map *map);
-
-void shootTowers(Map *map);
 
 void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
+
+GameManager gameManager;
 
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
@@ -34,13 +28,7 @@ void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
 Uint32 gameUpdate(Uint32 interval, void *m) {
     Map *map = reinterpret_cast<Map *>(m);
     std::lock_guard<std::mutex> lock(map->getMutex());
-
-    moveMinions(map);
-
-    addMinions(map);
-
-    shootTowers(map);
-
+	gameManager.update();
     return interval;
 }
 
@@ -56,6 +44,7 @@ int main(int argc, char *args[]) {
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
     map.towers.push_back(Tower(2, 2, 1, 1, 25, 3, 10, AmmoType{}));
+	gameManager.map = &map;
 
     // INITIALIZE THE USER INTERFACE
     SDL_Window *window;
@@ -120,48 +109,4 @@ void UIInit(SDL_Window *&window, SDL_Renderer *&renderer) {
         throw std::runtime_error("Renderer could not be created!");
 }
 
-/** Move all minions in the right direction along the path */
-void moveMinions(Map *map) { 
-    bool finished;
-    do {
-        finished = true;
-        for (Minion &minion : (map->minions)) {
 
-            int dir = (int) map->path[(int) minion.traversedDistance].getType();
-            minion.setCoordinates(
-                    {minion.getCoordinates().x + minion.getSpeed() * (-(dir == 1) + (dir == 4)),
-                     minion.getCoordinates().y + minion.getSpeed() * (-(dir == 3) + (dir == 2))}
-            );
-            if (int(minion.traversedDistance) >= (int) map->path.size() - 1) {
-                map->base.doDamage(map->minions.front().getDamage());
-                map->minions.pop_front();
-                finished = false;
-                break;
-            }
-            minion.traversedDistance = minion.traversedDistance + minion.getSpeed();
-
-            //cout << "moveCount: " << minion.moveCount << " Direction: " << dir << endl;
-        }
-    } while (!finished);
-}
-
-/** Spawn new minions on a timed interval */
-void addMinions(Map *map) {
-    // Add minions to the battlefield on an interval
-    static float speed = 0.1F;
-    if (speed * tickCount >= ticksToNextMinion) {
-        tickCount = 0;
-        Minion minion = Minion(map->spawnPos.x, map->spawnPos.y, 1, 1, 100, 1, 0.02F);
-        map->minions.push_back(minion);
-        speed = minion.getSpeed();
-    } else {
-        tickCount++;
-    }
-}
-
-/** Check for all towers if they are allowed to shoot and check whether they have a minion in range */
-void shootTowers(Map *map) {
-    for (Tower &tower : map->towers) {
-		tower.towerUpdate(map->minions);
-    }
-}

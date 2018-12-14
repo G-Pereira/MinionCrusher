@@ -37,8 +37,8 @@ Map::Map(std::string blueprintFile) {
                 }
             }
         }
-		int dir = mapBlueprint[spawnPos.y][spawnPos.x] - 5;
-		createPath(spawnPos.x - (dir == 1) + (dir == 4), spawnPos.y - (dir == 3) + (dir == 2));
+		int dir = mapBlueprint[(int)spawnPos.y][(int)spawnPos.x] - 5;
+		createPath((int)spawnPos.x - (int)(dir == 1) + (int)(dir == 4), (int)spawnPos.y - (int)(dir == 3) + (int)(dir == 2));
 
     } catch (std::exception &e) {
         std::cout << e.what();
@@ -56,7 +56,7 @@ void Map::createPath(int x, int y)
 		createPath(x - (dir == 1) + (dir == 4), y - (dir == 3) + (dir == 2));
 	}
 	else if(dir == 5){
-		base = Base(x, y, 1, 1, 100);
+		base = Base((float)x, (float)y, 1., 1., 100.);
 	}
 
 }

@@ -24,9 +24,9 @@ const float & Minion::getMaxHealth() const
 	return max_health;
 }
 
-void Minion::setHealth(float health) {
-    this->health = health;
-	max_health = health > max_health ? health : max_health;
+void Minion::setHealth(float inputHealth) {
+    this->health = inputHealth;
+	max_health = inputHealth > max_health ? inputHealth : max_health;
 }
 
 void Minion::setSpeed(float speed) {

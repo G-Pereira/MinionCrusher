@@ -19,6 +19,6 @@ const AmmoType &Bullet::getAmmo() const {
     return ammo;
 }
 
-void Bullet::setAmmo(AmmoType ammo) {
-    Bullet::ammo = ammo;
+void Bullet::setAmmo(AmmoType inputAmmo) {
+    Bullet::ammo = inputAmmo;
 }

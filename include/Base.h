@@ -25,7 +25,7 @@ public:
 
 private:
     float health; // Health of the base the minions attack
-    void setHealth(float health);
+    void setHealth(float inputHealth);
 
     const float &getHealth() const;
 };

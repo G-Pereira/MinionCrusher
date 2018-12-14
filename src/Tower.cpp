@@ -1,4 +1,4 @@
-/**
+/*
  * Author: Remi Jonkman
  * Created on: 28-11-18
  * Last Modified: 28-11-18
@@ -17,7 +17,7 @@ Tower::~Tower() {
 
 }
 
-void Tower::towerUpdate(std::list<Minion> &minions)
+void Tower::update(std::list<Minion> &minions)
 {
 	if (ticks >= firePeriod) {
 		for (Minion &minion : minions) {

@@ -17,7 +17,7 @@ public:
 
     const AmmoType &getAmmo() const;
 
-    void setAmmo(AmmoType ammo);
+    void setAmmo(AmmoType inputAmmo);
 
 private:
     AmmoType ammo;

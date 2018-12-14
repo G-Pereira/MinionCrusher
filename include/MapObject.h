@@ -53,7 +53,7 @@ public:
      * Set the coordinates.
      * @param coordinates
      */
-    void setCoordinates(CartesianCoordinates coordinates);
+    void setCoordinates(CartesianCoordinates inputCoordinates);
 
     /**
      * Overloading setter to set the coordinates.
