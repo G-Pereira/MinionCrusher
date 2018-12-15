@@ -15,7 +15,7 @@
  * In the Minioncrusher, any object that is drawn on the map is a MapObject. These objects are easily recognized
  * as they have a position on the map. The coordinates are currently defined as floats.
  */
-class MapObject: public RenderElement {
+class MapObject : public RenderElement {
 public:
     /**
      * The object is constructed with both X and Y coordinates as every object must have an initial position. Dimensions
@@ -28,7 +28,7 @@ public:
     /**
      * Overloaded constructor if one gives an object of type CartesianCoordinates as parameter. Dimensions are fixed.
      */
-    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions, SDL_Texture * texture);
+    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions, SDL_Texture *texture);
 
     /**
      * Empty destructor.
@@ -73,12 +73,13 @@ public:
      * @param tilewidth the width of tiles in pixels
      * @param tileheight the height of tiles in pixels
      */
-	void updateQuad(float tilewidth, float tileheight);
-	/**
-	* Render this object using this renderer
-	* @param renderer renderer to render with
-	*/
-	void Render(SDL_Renderer * renderer) override;
+    void updateQuad(float tilewidth, float tileheight);
+
+    /**
+    * Render this object using this renderer
+    * @param renderer renderer to render with
+    */
+    void Render(SDL_Renderer *renderer) override;
 
 protected:
     CartesianCoordinates coordinates; // Position on the map

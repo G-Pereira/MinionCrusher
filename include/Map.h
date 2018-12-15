@@ -30,22 +30,24 @@ public:
     Map(std::string blueprintFile = "resources/blueprints/simple.blueprint");
 
     ~Map();
-	/** This function adds pathTiles to the path vector in the right order */
-	void createPath(int x, int y);					
+
+    /** This function adds pathTiles to the path vector in the right order */
+    void createPath(int x, int y);
 
     Base base = Base(0, 0, 1, 1, 100);
-    std::vector<PathTile> path;						/// Vector containing all path tiles, in order the minions should cross them
-    std::vector<Tower> towers;						/// Vector containing all towers.
-    std::list<Minion> minions;						/// List containing all minions currently in the game.
-	std::vector<std::vector<int>> mapBlueprint;		/// Vector containing a blueprint of the map. Used to initialize the map.
+    std::vector<PathTile> path;                        /// Vector containing all path tiles, in order the minions should cross them
+    std::vector<Tower> towers;                        /// Vector containing all towers.
+    std::list<Minion> minions;                        /// List containing all minions currently in the game.
+    std::vector<std::vector<int>> mapBlueprint;        /// Vector containing a blueprint of the map. Used to initialize the map.
 
     uint8_t x_tiles;
     uint8_t y_tiles;
 
-	CartesianCoordinates spawnPos;					/// Position where minions spawn. Read from the blueprintFile
-	std::mutex &getMutex();
+    CartesianCoordinates spawnPos;                    /// Position where minions spawn. Read from the blueprintFile
+    std::mutex &getMutex();
+
 private:
-	std::mutex mutex;
+    std::mutex mutex;
 };
 
 #endif //MINIONCRUSHER_MAP_H

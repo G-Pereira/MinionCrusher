@@ -18,18 +18,18 @@ struct CartesianCoordinates {
     float x;
     float y;
 
-	/** Allows subtracting two CartesianCoordinates */
-	CartesianCoordinates operator-(const CartesianCoordinates& lhs) { 
-		return CartesianCoordinates{ x - lhs.x , y - lhs.y };
-	}
+    /** Allows subtracting two CartesianCoordinates */
+    CartesianCoordinates operator-(const CartesianCoordinates &lhs) {
+        return CartesianCoordinates{x - lhs.x, y - lhs.y};
+    }
 
-	/** Allows summing two CartesianCoordinates */
-	CartesianCoordinates operator+(const CartesianCoordinates& lhs) {
-		return CartesianCoordinates{ x + lhs.x , y + lhs.y };
-	}
+    /** Allows summing two CartesianCoordinates */
+    CartesianCoordinates operator+(const CartesianCoordinates &lhs) {
+        return CartesianCoordinates{x + lhs.x, y + lhs.y};
+    }
 
-	/** Checks whether the the distance between the operator and the target is within the defined range */
-    bool isInRange(CartesianCoordinates const target, float const range) const{
+    /** Checks whether the the distance between the operator and the target is within the defined range */
+    bool isInRange(CartesianCoordinates const target, float const range) const {
         return sqrt(pow(target.x - x, 2) + pow(target.y - y, 2)) < (double) range;
     }
 };

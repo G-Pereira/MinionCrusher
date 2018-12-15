@@ -27,7 +27,7 @@ GameManager gameManager;
 Uint32 gameUpdate(Uint32 interval, void *m) {
     Map *map = reinterpret_cast<Map *>(m);
     std::lock_guard<std::mutex> lock(map->getMutex());
-	gameManager.update();
+    gameManager.update();
     return interval;
 }
 
@@ -35,11 +35,11 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
 * Updates screen
 */
 Uint32 uiUpdate(Uint32 interval, void *ptr) {
-	UI* ui = (UI*)ptr;
-	//std::lock_guard<std::mutex> lock(ui->mutex);
-	ui->Render(ui->getRenderer());
+    UI *ui = (UI *) ptr;
+    //std::lock_guard<std::mutex> lock(ui->mutex);
+    ui->Render(ui->getRenderer());
 
-	return interval;
+    return interval;
 }
 
 int main(int argc, char *args[]) {
@@ -48,49 +48,49 @@ int main(int argc, char *args[]) {
         for (int i = 0; i < argc; i++) {
             cout << args[i] << " ";
         }
-	}
+    }
 
-	cout << "Create UI" << endl;
-	// create the UI
-	UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
+    cout << "Create UI" << endl;
+    // create the UI
+    UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	cout << "Read map" << endl;
+    cout << "Read map" << endl;
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
-	gameManager.map = &map;
+    gameManager.map = &map;
     map.towers.emplace_back(2, 2, 1, 1, 25, 3, 10, AmmoType{});
 
     //load the map into the UI
     ui.setMap(&map);
 
-	cout << "Start updating gamestate" << endl;
+    cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER
-	SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
-	if (timer_id == 0) {
-		cout << "SDL was unable to create a timer. " << endl;
-	}
-	SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
-	if (ui_timer_id == 0) {
-		cout << "SDL was unable to create a timer. " << endl;
-	}
+    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
+    if (timer_id == 0) {
+        cout << "SDL was unable to create a timer. " << endl;
+    }
+    SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
+    if (ui_timer_id == 0) {
+        cout << "SDL was unable to create a timer. " << endl;
+    }
 
     bool quit = false;
     while (!quit) {
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
-			//User requests quit
-			if (e.type == SDL_QUIT) {
-				cout << "quitting" << endl;
-				SDL_RemoveTimer(timer_id);
-				SDL_RemoveTimer(ui_timer_id);
-				quit = true;
-			}
+            //User requests quit
+            if (e.type == SDL_QUIT) {
+                cout << "quitting" << endl;
+                SDL_RemoveTimer(timer_id);
+                SDL_RemoveTimer(ui_timer_id);
+                quit = true;
+            }
             //Handle button events
-			//std::lock_guard<std::mutex> lock(ui.mutex);
+            //std::lock_guard<std::mutex> lock(ui.mutex);
             ui.HandleEvents(e);
         }
     }
-	
+
     return 0;
 }
 

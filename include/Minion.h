@@ -16,31 +16,31 @@ public:
     virtual ~Minion();
 
 
-    void setHealth(float health);		/// Set the health of the minion
+    void setHealth(float health);        /// Set the health of the minion
 
-	const float &getHealth() const;		/// Get the health of the minion
+    const float &getHealth() const;        /// Get the health of the minion
 
-	const float &getMaxHealth() const;	/// Get the maximum health of the minion (health it starts with)
+    const float &getMaxHealth() const;    /// Get the maximum health of the minion (health it starts with)
 
-    void setSpeed(float speed);			/// Set the movement speed of the minion
+    void setSpeed(float speed);            /// Set the movement speed of the minion
 
-    const float &getSpeed() const;		/// Get the movement speed of the minion
+    const float &getSpeed() const;        /// Get the movement speed of the minion
 
-    void setDamage(float damage);		/// Set the damage the minion does to the base when it hits the base.
+    void setDamage(float damage);        /// Set the damage the minion does to the base when it hits the base.
 
-    const float &getDamage() const;		/// Get the damage the minion does to the base when it hits the base.
+    const float &getDamage() const;        /// Get the damage the minion does to the base when it hits the base.
 
-    float traversedDistance = 0;				/// Counter that holds the distance traversed by a minion.
+    float traversedDistance = 0;                /// Counter that holds the distance traversed by a minion.
 
-	bool operator==(const Minion &rhs) const;	/// Operator that checks if two minions are the same
+    bool operator==(const Minion &rhs) const;    /// Operator that checks if two minions are the same
 
-	bool operator!=(const Minion &rhs) const;	/// Operator that checks if two minions are the different
+    bool operator!=(const Minion &rhs) const;    /// Operator that checks if two minions are the different
 
-	void postRender(SDL_Renderer * renderer) override;
+    void postRender(SDL_Renderer *renderer) override;
 
 private:
-	float health; // Health of the minion
-	float max_health; // Health of the minion
+    float health; // Health of the minion
+    float max_health; // Health of the minion
     float damage; // The damage a minion does when attacking the base
     float speed; // The speed of a minion in distance/tick
 };

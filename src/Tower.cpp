@@ -6,8 +6,6 @@
 
 #include <Tower.h>
 
-#include "Tower.h"
-
 Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, float damage, AmmoType ammo)
         : MapObject(x, y, width, height), firePeriod(firePeriod), range(range), damage(damage), ammo(ammo) {
 
@@ -17,23 +15,21 @@ Tower::~Tower() {
 
 }
 
-void Tower::update(std::list<Minion> &minions)
-{
-	if (ticks >= firePeriod) {
-		for (Minion &minion : minions) {
-			if (minion.getCoordinates().isInRange(coordinates, range)) {
-				minion.setHealth(minion.getHealth() - damage);
-				ticks = 0;
-				if (minion.getHealth() <= 0)
-					minions.remove(minion);
-				break;
-			}
-		}
-	}
-	else {
-		ticks++;
-	}
-	
+void Tower::update(std::list<Minion> &minions) {
+    if (ticks >= firePeriod) {
+        for (Minion &minion : minions) {
+            if (minion.getCoordinates().isInRange(coordinates, range)) {
+                minion.setHealth(minion.getHealth() - damage);
+                ticks = 0;
+                if (minion.getHealth() <= 0)
+                    minions.remove(minion);
+                break;
+            }
+        }
+    } else {
+        ticks++;
+    }
+
 }
 
 const int &Tower::getFirePeriod() const {
