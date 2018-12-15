@@ -39,6 +39,7 @@ public:
 
 	void setMap(Map *);
 
+	//std::mutex mutex;
 private:
 	/**
 	 * Perform all closing action to clean the memory of the UI
@@ -49,7 +50,6 @@ private:
 		building,
 		info
 	};
-	void close();
 	SDL_Window *window;
 
 };

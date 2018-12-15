@@ -16,6 +16,7 @@ void TileView::Render(SDL_Renderer * renderer) {
     SDL_RendererFlip flip = (SDL_RendererFlip) 0;
     double angle = 0.0;
 	SDL_Rect quad_rotated = quad;
+
     switch (type) {
         case (MapSlots) 0:
             break;

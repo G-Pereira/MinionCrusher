@@ -16,6 +16,8 @@ public:
 
     const MapSlots &getType() const;
 
+	void Render(SDL_Renderer * renderer) override;
+
 private:
     const MapSlots type;
 };

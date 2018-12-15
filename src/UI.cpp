@@ -42,7 +42,15 @@ UI::UI(int w, int h) : UIElement(SDL_Rect{0,0, w,h }, nullptr){
 }
 
 UI::~UI() {
-    close();
+	//Destroy window
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	window = nullptr;
+	renderer = nullptr;
+
+	//Quit SDL subsystems
+	//IMG_Quit();
+	SDL_Quit();
 }
 
 void UI::init()
@@ -109,18 +117,6 @@ void UI::init()
 	button3->loadTexture(renderer, "resources/sprites/tower3_tile.bmp");
 	building_view->addChild(button3);
 
-}
-
-void UI::close() {
-    //Destroy window
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    window = nullptr;
-    renderer = nullptr;
-
-    //Quit SDL subsystems
-    //IMG_Quit();
-    SDL_Quit();
 }
 
 void UI::postRender(SDL_Renderer * renderer) {

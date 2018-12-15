@@ -10,12 +10,13 @@ RenderElement::RenderElement(SDL_Rect quad) :RenderElement(quad, nullptr){
 
 RenderElement::~RenderElement()
 {
-	close();
+	//Free loaded images
+	SDL_DestroyTexture(background);
 }
 
 void RenderElement::postRender(SDL_Renderer * renderer)
 {
-	SDL_assert(renderer);
+	//SDL_assert(renderer);
 }
 
 void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path)
@@ -51,6 +52,11 @@ void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path, SDL_C
 	background = newTexture;
 }
 
+void RenderElement::loadTexture(SDL_Texture * texture)
+{
+	background = texture;
+}
+
 //void RenderElement::setQuad(SDL_Rect new_quad)
 //{
 //	quad = new_quad;
@@ -65,12 +71,4 @@ SDL_Rect& RenderElement::getQuad()
 bool RenderElement::hasTexture()
 {
 	return background ? true : false;
-}
-
-void RenderElement::close()
-{
-	//Free loaded images
-	SDL_DestroyTexture(background);
-	background = nullptr;
-
 }

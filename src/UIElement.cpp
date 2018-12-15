@@ -13,7 +13,6 @@ UIElement::UIElement(int x, int y, int w, int h, UIElement * parent) : UIElement
 
 UIElement::~UIElement()
 {
-	close();
 }
 
 

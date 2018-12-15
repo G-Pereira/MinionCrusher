@@ -37,22 +37,20 @@ public:
 	 */
 	virtual void Render(SDL_Renderer * renderer) = 0;
 	/**
-	 * returns a pointer to the renderer
-	 * @return pointer to the used renderer
-	 */
-	//SDL_Renderer *getRenderer() const;
-	/**
 	 * Load an image from a link and turn it into a texture
 	 * @param path path to the file containing a bitmap
-	 * @return pointer to texture
 	 */
 	void loadTexture(SDL_Renderer * renderer, std::string path);
 	/**
 	 * overloaded Load an image from a link and turn it into a texture with a color key to leave out
 	 * @param path path to the file containing a bitmap
-	 * @return pointer to texture
 	 */
 	void loadTexture(SDL_Renderer * renderer, std::string path, SDL_Color color);
+	/**
+	 * overloaded Load an image from a link and turn it into a texture with a color key to leave out
+	 * @param texture pointer to an instantiated texture
+	 */
+	void loadTexture(SDL_Texture * texture);
 	/**
 	* set the rectangle that defines the position and shape of the element
 	* @param quad the new quad to use
@@ -69,6 +67,5 @@ public:
 protected:
 	SDL_Rect quad;
 	SDL_Texture * background;
-	void close();
 };
 
