@@ -16,7 +16,7 @@ constexpr Uint32 UPDATE_FREQUENCY = 300;
 constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
-CartesianCoordinates spawnLocation = {0, 1};
+//CartesianCoordinates spawnLocation = {0, 1};
 int ticksToNextMinion = 3;
 int tickCount = 2;
 
@@ -42,6 +42,16 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
     return interval;
 }
 
+/**
+* Updates screen
+*/
+Uint32 uiUpdate(Uint32 interval, void *ptr) {
+	UI* ui = (UI*)ptr;
+	//std::lock_guard<std::mutex> lock(ui->mutex);
+	ui->Render(ui->getRenderer());
+
+	return interval;
+}
 
 int main(int argc, char *args[]) {
     if (argc > 1) {
@@ -65,24 +75,29 @@ int main(int argc, char *args[]) {
 
 	cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
-    if (timer_id == 0) {
-        cout << "SDL was unable to create a timer. " << endl;
-    }
+	SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
+	if (timer_id == 0) {
+		cout << "SDL was unable to create a timer. " << endl;
+	}
+	SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
+	if (ui_timer_id == 0) {
+		cout << "SDL was unable to create a timer. " << endl;
+	}
 
     bool quit = false;
     while (!quit) {
-        ui.Render(ui.getRenderer());
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
-            //Handle button events
-            ui.HandleEvents(e);
-            //User requests quit
-            if (e.type == SDL_QUIT) {
-                cout << "quitting" << endl;
+			//User requests quit
+			if (e.type == SDL_QUIT) {
+				cout << "quitting" << endl;
 				SDL_RemoveTimer(timer_id);
-                quit = true;
-            }
+				SDL_RemoveTimer(ui_timer_id);
+				quit = true;
+			}
+            //Handle button events
+			//std::lock_guard<std::mutex> lock(ui.mutex);
+            ui.HandleEvents(e);
         }
     }
 	
