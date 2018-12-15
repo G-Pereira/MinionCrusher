@@ -13,7 +13,7 @@ class TileView:public UIElement
 public:
 	TileView(SDL_Rect, MapSlots type, UIElement * parent);
 	~TileView();
-	void postRender();
+	void Render(SDL_Renderer * renderer) override;
 
 	const MapSlots type;
 

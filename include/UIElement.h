@@ -22,13 +22,7 @@ public:
 	* @param: parent pointer to the parent UIView of the element
 	* @param: rend renderer that goes with the window it is in.
 	*/
-	UIElement(SDL_Rect viewport, UIElement  *parent, SDL_Renderer * rend);
-	/**
-	 * Overloaded Constructor
-	 * @param viewport rectacngle defining the shape and position of the element
-	 * @param: parent pointer to the parent UIView of the element
-	 */
-	UIElement(SDL_Rect viewport, UIElement * parent);
+	UIElement(SDL_Rect viewport, UIElement  *parent);
 	/**
 	 * Constructor
 	 * @param w width in pixels
@@ -49,7 +43,7 @@ public:
 	 * @param info the texture which will be in the background of the info
 	 * @param buildings the texture which will be in the building buttons
 	 */
-	void Render();
+	void Render(SDL_Renderer * renderer) override;
 	/**
 	* add to the children of the Element
 	* @param new_child UIView element to add to children

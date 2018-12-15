@@ -1,27 +1,30 @@
 #include "RenderElement.h"
 
 
-RenderElement::RenderElement(SDL_Renderer * renderer, SDL_Rect quad, SDL_Texture * text) : renderer(renderer), quad(quad), background(text) {
+RenderElement::RenderElement(SDL_Rect quad, SDL_Texture * texture) : quad(quad), background(texture) {
 
 }
-RenderElement::RenderElement(SDL_Renderer * renderer, SDL_Rect quad) :RenderElement(renderer, quad, nullptr){
+RenderElement::RenderElement(SDL_Rect quad) :RenderElement(quad, nullptr){
 
 }
 
 RenderElement::~RenderElement()
 {
-	close();
+	//Free loaded images
+	SDL_DestroyTexture(background);
 }
 
-void RenderElement::preRender()
+void RenderElement::postRender(SDL_Renderer * renderer)
 {
+	//SDL_assert(renderer);
 }
 
-void RenderElement::postRender()
+void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path)
 {
+	loadTexture(renderer, path, SDL_Color{ 0,0,0,0 });
 }
 
-void RenderElement::loadTexture(std::string path)
+void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path, SDL_Color color)
 {
 	//The final texture
 	SDL_Texture* newTexture = nullptr;
@@ -35,6 +38,7 @@ void RenderElement::loadTexture(std::string path)
 	else
 	{
 		//Create texture from surface pixels
+		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, color.r, color.g, color.b));
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == nullptr)
 		{
@@ -48,12 +52,17 @@ void RenderElement::loadTexture(std::string path)
 	background = newTexture;
 }
 
-void RenderElement::setQuad(SDL_Rect new_quad)
+void RenderElement::loadTexture(SDL_Texture * texture)
 {
-	quad = new_quad;
+	background = texture;
 }
 
-SDL_Rect RenderElement::getQuad()
+//void RenderElement::setQuad(SDL_Rect new_quad)
+//{
+//	quad = new_quad;
+//}
+//
+SDL_Rect& RenderElement::getQuad()
 {
 	return quad;
 }
@@ -62,33 +71,4 @@ SDL_Rect RenderElement::getQuad()
 bool RenderElement::hasTexture()
 {
 	return background ? true : false;
-}
-
-void RenderElement::close()
-{
-	//Free loaded images
-	SDL_DestroyTexture(background);
-	background = nullptr;
-
-	//Destroy window	
-	SDL_DestroyRenderer(renderer);
-	renderer = nullptr;
-
-	//Quit SDL subsystems
-	//IMG_Quit();
-	SDL_Quit();
-}
-
-void RenderElement::Render()
-{
-	preRender();
-	//Render texture to screen
-	SDL_RenderCopy(renderer, background, nullptr, &quad);
-
-	postRender();
-}
-
-SDL_Renderer * RenderElement::getRenderer() const
-{
-	return renderer;
 }

@@ -20,7 +20,7 @@ public:
 	 * @param w width in pixels
 	 * @param h height in pixels
 	 */
-	UI(int w, int h, SDL_Window * wind, SDL_Renderer * rend);
+	UI(int w, int h);
 	/**
 	 * Destructor of the UI, calls the UI close method
 	 */
@@ -30,8 +30,7 @@ public:
 	 */
 	void init();
 
-	void postRender();
-	void preRender();
+	void postRender(SDL_Renderer * renderer) override;
 	/**
 	 * returns a pointer to the renderer
 	 * @return pointer to the used renderer
@@ -40,11 +39,17 @@ public:
 
 	void setMap(Map *);
 
+	//std::mutex mutex;
 private:
 	/**
 	 * Perform all closing action to clean the memory of the UI
 	 */
-	void close();
+	SDL_Renderer * renderer;
+	enum class elements : int{
+		map,
+		building,
+		info
+	};
 	SDL_Window *window;
 
 };

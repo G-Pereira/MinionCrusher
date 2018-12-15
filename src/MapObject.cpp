@@ -7,19 +7,14 @@
 #include "MapObject.h"
 
 MapObject::MapObject(float x, float y, float width, float height)
-        : coordinates({x, y}), dimensions({width, height}) {
-    texture = nullptr;
+	: MapObject(CartesianCoordinates{x,y}, ObjectSize{ width, height }, nullptr) {
 }
 
-MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensions)
-        : coordinates(coordinates), dimensions(dimensions) {
-    texture = nullptr;
-    // No body yet
+MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensions, SDL_Texture * texture)
+	:RenderElement(SDL_Rect{}, texture), coordinates(coordinates), dimensions(dimensions) {
 }
 
 MapObject::~MapObject() {
-    if (texture)
-        SDL_DestroyTexture(texture);
 }
 
 const CartesianCoordinates &MapObject::getCoordinates() const {
@@ -42,13 +37,29 @@ void MapObject::setDimensions(ObjectSize size) {
     dimensions = size;
 }
 
-SDL_Texture *MapObject::getTexture() const {
-    return texture;
+void MapObject::updateQuad(float tilewidth, float tileheight)
+{
+	quad.w = (int)(dimensions.width * tilewidth);
+	quad.h = (int)(dimensions.height * tileheight);
+	quad.x = (int)(coordinates.x * tilewidth);
+	quad.y = (int)(coordinates.y * tileheight);
 }
 
-bool MapObject::setTexture(SDL_Texture *nTexture) {
-    if (!nTexture)
-        return false;
-    texture = nTexture;
-    return true;
+void MapObject::Render(SDL_Renderer * renderer)
+{
+	//Render texture to screen
+	if (renderer) {
+		if (background) {
+			SDL_RenderCopy(renderer, background, nullptr, &quad);
+		}
+		else {
+			SDL_SetRenderDrawColor(renderer, 0xAA, 0x00, 0xFF, 0xFF);
+			SDL_RenderFillRect(renderer, &quad);
+		}
+	}
+	else {
+		throw std::runtime_error("No renderer passed to RenderElement::Render()!");
+	}
+
+	postRender(renderer);
 }

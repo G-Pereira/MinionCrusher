@@ -18,7 +18,6 @@ constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
 
-void UIInit(SDL_Window *&window, SDL_Renderer *&renderer);
 
 GameManager gameManager;
 
@@ -32,6 +31,16 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
     return interval;
 }
 
+/**
+* Updates screen
+*/
+Uint32 uiUpdate(Uint32 interval, void *ptr) {
+	UI* ui = (UI*)ptr;
+	//std::lock_guard<std::mutex> lock(ui->mutex);
+	ui->Render(ui->getRenderer());
+
+	return interval;
+}
 
 int main(int argc, char *args[]) {
     if (argc > 1) {
@@ -39,74 +48,52 @@ int main(int argc, char *args[]) {
         for (int i = 0; i < argc; i++) {
             cout << args[i] << " ";
         }
-    }
+	}
 
+	cout << "Create UI" << endl;
+	// create the UI
+	UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	cout << "Read map" << endl;
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
-    map.towers.push_back(Tower(2, 2, 1, 1, 25, 3, 10, AmmoType{}));
 	gameManager.map = &map;
+    map.towers.emplace_back(2, 2, 1, 1, 25, 3, 10, AmmoType{});
 
-    // INITIALIZE THE USER INTERFACE
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-    try {
-        UIInit(window, renderer);
-    }
-    catch (std::exception &e) {
-        std::cout << e.what();
-    }
-    UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT, window, renderer);
-    //Initialize the map
+    //load the map into the UI
     ui.setMap(&map);
 
+	cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
-    if (timer_id == 0) {
-        cout << "SDL was unable to create a timer. " << endl;
-    }
+	SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
+	if (timer_id == 0) {
+		cout << "SDL was unable to create a timer. " << endl;
+	}
+	SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
+	if (ui_timer_id == 0) {
+		cout << "SDL was unable to create a timer. " << endl;
+	}
 
     bool quit = false;
     while (!quit) {
-        //update screen
-        ui.Render();
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
+			//User requests quit
+			if (e.type == SDL_QUIT) {
+				cout << "quitting" << endl;
+				SDL_RemoveTimer(timer_id);
+				SDL_RemoveTimer(ui_timer_id);
+				quit = true;
+			}
             //Handle button events
+			//std::lock_guard<std::mutex> lock(ui.mutex);
             ui.HandleEvents(e);
-            //User requests quit
-            if (e.type == SDL_QUIT) {
-                cout << "quitting" << endl;
-                quit = true;
-
-            }
         }
     }
+	
     return 0;
 }
 
-void UIInit(SDL_Window *&window, SDL_Renderer *&renderer) {
-    // INITIALIZE THE USER INTERFACE
 
-// Init SDL
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-        throw std::runtime_error("SDL could not initialize!");
-
-    //Set texture filtering to linear
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-        throw std::runtime_error("Warning: Linear texture filtering not enabled!");
-
-    // Create a Window in the middle of the screen
-    window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
-                              WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    if (window == nullptr)
-        throw std::runtime_error("Window could not be created!");
-
-    // Create a new renderer
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
-                                              SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr)
-        throw std::runtime_error("Renderer could not be created!");
-}
-
+/** Move all minions in the right direction along the path */
 

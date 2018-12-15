@@ -6,6 +6,7 @@
 Map::Map(std::string blueprintFile) {
 	y_tiles = 0;
 	x_tiles = 0;
+	spawnPos = { 0 };
     try {
         std::ifstream f(blueprintFile);
 		/**

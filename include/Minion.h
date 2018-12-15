@@ -36,6 +36,8 @@ public:
 
 	bool operator!=(const Minion &rhs) const;	/// Operator that checks if two minions are the different
 
+	void postRender(SDL_Renderer * renderer) override;
+
 private:
 	float health; // Health of the minion
 	float max_health; // Health of the minion
