@@ -36,7 +36,9 @@ public:
 	 * @return pointer to the used renderer
 	 */
 	SDL_Renderer *getRenderer() const;
-
+	/**
+	* Set the map in the appropriate UI Element
+	*/
 	void setMap(Map *);
 
 	//std::mutex mutex;

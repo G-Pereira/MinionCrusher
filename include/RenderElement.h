@@ -61,7 +61,10 @@ public:
 	* @return quad of this element
 	*/
 	SDL_Rect& getQuad();
-
+	/**
+	* check if this object currently has a texture
+	* @return true if texture present
+	*/
 	bool hasTexture();
 	//SDL_Renderer * renderer;
 protected:
