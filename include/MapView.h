@@ -6,7 +6,6 @@
 
 #include "UIElement.h"
 #include "Map.h"
-#include "TileView.h"
 
 
 class MapView : public UIElement {
