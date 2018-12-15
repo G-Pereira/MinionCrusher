@@ -131,5 +131,5 @@ SDL_Renderer * UI::getRenderer() const {
 
 void UI::setMap(Map *new_map)
 {
-	((MapView*)children[(int)elements::map])->setMap(renderer, new_map);// this is not very nice
+	((MapView*)children[(int)elements::map])->setMap(new_map);// this is not very nice
 }

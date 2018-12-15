@@ -14,9 +14,8 @@ RenderElement::~RenderElement()
 	SDL_DestroyTexture(background);
 }
 
-void RenderElement::postRender(SDL_Renderer * renderer)
+void RenderElement::postRender(SDL_Renderer * /*renderer*/)
 {
-	//SDL_assert(renderer);
 }
 
 void RenderElement::loadTexture(SDL_Renderer * renderer, std::string path)

@@ -38,7 +38,7 @@ void MapView::postRender(SDL_Renderer * renderer)
 
 
 
-void  MapView::setMap(SDL_Renderer * renderer, Map * new_map)
+void  MapView::setMap(Map * new_map)
 {
 	map = new_map;
 

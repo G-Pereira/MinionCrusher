@@ -14,7 +14,7 @@ public:
 	MapView(SDL_Rect, UIElement * parent);
 	~MapView();
 	void postRender(SDL_Renderer * renderer) override;
-	void setMap(SDL_Renderer * renderer, Map *);
+	void setMap(Map *);
 	Map *map;
 private:
 	float tilewidth;
