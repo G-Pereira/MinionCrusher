@@ -34,24 +34,24 @@ public:
      * @param info the texture which will be in the background of the info
      * @param buildings the texture which will be in the building buttons
      */
-    virtual void postRender(SDL_Renderer *renderer);
+    virtual void postRender();
 
     /**
      * Render this object
      */
-    virtual void Render(SDL_Renderer *renderer) = 0;
+    virtual void render() = 0;
 
     /**
      * Load an image from a link and turn it into a texture
      * @param path path to the file containing a bitmap
      */
-    void loadTexture(SDL_Renderer *renderer, std::string path);
+    void loadTexture(std::string path);
 
     /**
      * overloaded Load an image from a link and turn it into a texture with a color key to leave out
      * @param path path to the file containing a bitmap
      */
-    void loadTexture(SDL_Renderer *renderer, std::string path, SDL_Color color);
+    void loadTexture(std::string path, SDL_Color color);
 
     /**
      * overloaded Load an image from a link and turn it into a texture with a color key to leave out
@@ -74,7 +74,8 @@ public:
     * @return true if texture present
     */
     bool hasTexture();
-    //SDL_Renderer * renderer;
+
+    static SDL_Renderer* renderer;
 protected:
     SDL_Rect quad;
     SDL_Texture *background;

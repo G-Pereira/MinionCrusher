@@ -44,10 +44,6 @@ public:
     uint8_t y_tiles;
 
     CartesianCoordinates spawnPos;                    /// Position where minions spawn. Read from the blueprintFile
-    std::mutex &getMutex();
-
-private:
-    std::mutex mutex;
 };
 
 #endif //MINIONCRUSHER_MAP_H

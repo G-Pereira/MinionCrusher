@@ -44,18 +44,19 @@ void MapObject::updateQuad(float tilewidth, float tileheight) {
     quad.y = (int) (coordinates.y * tileheight);
 }
 
-void MapObject::Render(SDL_Renderer *renderer) {
-    //Render texture to screen
-    if (renderer) {
+void MapObject::render() {
+    //render texture to screen
+    std::cout << "Rendering MapObject" << std::endl;
+    if (RenderElement::renderer) {
         if (background) {
-            SDL_RenderCopy(renderer, background, nullptr, &quad);
+            SDL_RenderCopy(RenderElement::renderer, background, nullptr, &quad);
         } else {
-            SDL_SetRenderDrawColor(renderer, 0xAA, 0x00, 0xFF, 0xFF);
-            SDL_RenderFillRect(renderer, &quad);
+            SDL_SetRenderDrawColor(RenderElement::renderer, 0xAA, 0x00, 0xFF, 0xFF);
+            SDL_RenderFillRect(RenderElement::renderer, &quad);
         }
     } else {
-        throw std::runtime_error("No renderer passed to RenderElement::Render()!");
+        throw std::runtime_error("No renderer passed to RenderElement::render()!");
     }
 
-    postRender(renderer);
+    postRender();
 }

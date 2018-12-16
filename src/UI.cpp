@@ -34,9 +34,9 @@ UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
         throw std::runtime_error("Window could not be created!");
 
     // Create a new renderer
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
+    RenderElement::renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                               SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr)
+    if (RenderElement::renderer == nullptr)
         throw std::runtime_error("Renderer could not be created!");
     init();
 }
@@ -46,7 +46,7 @@ UI::~UI() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     window = nullptr;
-    renderer = nullptr;
+    RenderElement::renderer = nullptr;
 
     //Quit SDL subsystems
     //IMG_Quit();
@@ -89,9 +89,9 @@ void UI::init() {
     BuildView *building_view = new BuildView(building_quad, this);
     UIElement *info_view = new UIElement(info_quad, this);
 
-    map_view->loadTexture(renderer, "resources/sprites/map_background.bmp");
-    building_view->loadTexture(renderer, "resources/sprites/right_side.bmp");
-    info_view->loadTexture(renderer, "resources/sprites/info.bmp");
+    map_view->loadTexture("resources/sprites/map_background.bmp");
+    building_view->loadTexture("resources/sprites/right_side.bmp");
+    info_view->loadTexture("resources/sprites/info.bmp");
 
     children.reserve(3);
     addChild(map_view);
@@ -102,24 +102,23 @@ void UI::init() {
     // add some buttons
     SDL_Rect button_quad = SDL_Rect{20, 20, 100, 100};
     BuildButton *button1 = new BuildButton(button_quad, nullptr, building_view);
-    button1->loadTexture(renderer, "resources/sprites/tower1_tile.bmp");
+    button1->loadTexture("resources/sprites/tower1_tile.bmp");
     building_view->addChild(button1);
 
     button_quad.x += 120;
     BuildButton *button2 = new BuildButton(button_quad, nullptr, building_view);
-    button2->loadTexture(renderer, "resources/sprites/tower2_tile.bmp");
+    button2->loadTexture("resources/sprites/tower2_tile.bmp");
     building_view->addChild(button2);
 
     button_quad.x -= 120;
     button_quad.y += 120;
     BuildButton *button3 = new BuildButton(button_quad, nullptr, building_view);
-    button3->loadTexture(renderer, "resources/sprites/tower3_tile.bmp");
+    button3->loadTexture("resources/sprites/tower3_tile.bmp");
     building_view->addChild(button3);
 
 }
 
-void UI::postRender(SDL_Renderer *renderer) {
-
+void UI::postRender() {
     SDL_RenderPresent(renderer);
 }
 
@@ -131,3 +130,4 @@ SDL_Renderer *UI::getRenderer() const {
 void UI::setMap(Map *new_map) {
     ((MapView *) children[(int) elements::map])->setMap(new_map);// this is not very nice
 }
+

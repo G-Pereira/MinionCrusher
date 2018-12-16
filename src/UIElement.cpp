@@ -21,9 +21,9 @@ std::vector<UIElement *> UIElement::getChildren() {
     return children;
 }
 
-void UIElement::HandleEvents(SDL_Event &e) {
+void UIElement::handleEvents(SDL_Event &e) {
     for (UIElement *child : children) {
-        child->HandleEvents(e);
+        child->handleEvents(e);
     }
 }
 
@@ -32,20 +32,24 @@ UIElement *UIElement::getParent() {
 }
 
 
-void UIElement::Render(SDL_Renderer *renderer) {
-    if (!renderer) {
-        std::cout << "no renderer in UIElement\n";
+void UIElement::render() {
+    if (RenderElement::renderer == nullptr) {
+        std::cout << "SDL_Renderer not found!\n";
         return;
     }
 
-    // Render texture to screen
+    // render texture to screen
     // render children recursively
-    if (background)
-        SDL_RenderCopy(renderer, background, nullptr, &quad);
-
-    for (UIElement *child : children) {
-        SDL_RenderSetViewport(renderer, &quad);
-        child->Render(renderer);
+    if (background != nullptr) {
+        //std::cout << "Rendering background" << std::endl;
+        SDL_RenderCopy(RenderElement::renderer, background, nullptr, &quad);
     }
-    postRender(renderer);
+
+    if (children.size() > 0 && quad.h > 0 && quad.w > 0) {
+        for (UIElement *child : children) {
+            SDL_RenderSetViewport(RenderElement::renderer, &quad);
+            child->render();
+        }
+        postRender();
+    }
 }

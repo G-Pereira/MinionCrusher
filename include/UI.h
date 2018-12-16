@@ -32,7 +32,7 @@ public:
      */
     void init();
 
-    void postRender(SDL_Renderer *renderer) override;
+    void postRender() override;
 
     /**
      * returns a pointer to the renderer
@@ -45,19 +45,17 @@ public:
     */
     void setMap(Map *);
 
-    //std::mutex mutex;
 private:
     /**
      * Perform all closing action to clean the memory of the UI
      */
-    SDL_Renderer *renderer;
+    //SDL_Renderer *renderer;
     enum class elements : int {
         map,
         building,
         info
     };
     SDL_Window *window;
-
 };
 
 #endif

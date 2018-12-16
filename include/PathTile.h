@@ -16,7 +16,7 @@ public:
 
     const MapSlots &getType() const;    /// Get the direction of the tile
 
-    void Render(SDL_Renderer *renderer) override;    /// render this object in the right way (using tiletype)
+    void render() override;    /// render this object in the right way (using tiletype)
 
 private:
     const MapSlots type;                /// Holds the direction of the tile

@@ -59,7 +59,7 @@ bool Minion::operator!=(const Minion &rhs) const {
 constexpr float RELATIVE_HEIGHT = 0.1F;
 constexpr float RELATIVE_WIDTH = 0.8F;
 
-void Minion::postRender(SDL_Renderer *renderer) {
+void Minion::postRender() {
     if (max_health == 0.0F) {
         std::cerr << "no maximum health set" << std::endl;
         return;
