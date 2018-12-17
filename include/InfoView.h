@@ -5,7 +5,7 @@
 
 class InfoView : public UIElement {
         public:
-        InfoView(SDL_Rect, UIElement *parent);
+        InfoView(SDL_Rect quad, UIElement *parent);
 
         ~InfoView();
 

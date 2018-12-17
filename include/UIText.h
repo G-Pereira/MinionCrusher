@@ -2,8 +2,13 @@
 #define MINIONCRUSHER_TEXTFIELD_H
 
 
-class UIText {
+#include "UIElement.h"
 
+class UIText : public UIElement {
+public:
+    UIText(SDL_Rect quad, std::string text, UIElement *parent);
+
+    ~UIText();
 };
 
 

@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <UIText.h>
 #include "UI.h"
 
 using namespace std;
@@ -116,6 +117,9 @@ void UI::init() {
     button3->loadTexture(renderer, "resources/sprites/tower3_tile.bmp");
     building_view->addChild(button3);
 
+    SDL_Rect text_quad = SDL_Rect{0, 0, 100, 100};
+    UIText *text_health = new UIText(text_quad, std::string("Hello World!"), info_view);
+    info_view->addChild(text_health);
 }
 
 void UI::postRender(SDL_Renderer *renderer) {

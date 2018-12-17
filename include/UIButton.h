@@ -7,7 +7,6 @@
 #pragma once
 
 #include <SDL.h>
-
 #include "UIElement.h"
 
 class UIButton : public UIElement {
