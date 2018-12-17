@@ -118,7 +118,8 @@ void UI::init() {
     building_view->addChild(button3);
 
     SDL_Rect text_quad = SDL_Rect{0, 0, 100, 100};
-    UIText *text_health = new UIText(text_quad, std::string("Hello World!"), info_view);
+    UIText *text_health = new UIText(text_quad, info_view);
+	text_health->loadTexture(renderer, "text");
     info_view->addChild(text_health);
 }
 

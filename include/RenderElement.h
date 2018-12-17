@@ -5,9 +5,11 @@
 
 #ifdef _WIN32
 #include <SDL.h>
+#include <SDL_ttf.h>
 #else
 
 #include "SDL2/SDL.h"
+#include <SDL2/SDL_ttf.h>
 
 #endif
 
@@ -45,7 +47,7 @@ public:
      * Load an image from a link and turn it into a texture
      * @param path path to the file containing a bitmap
      */
-    void loadTexture(SDL_Renderer *renderer, std::string path);
+    virtual void loadTexture(SDL_Renderer *renderer, std::string path);
 
     /**
      * overloaded Load an image from a link and turn it into a texture with a color key to leave out

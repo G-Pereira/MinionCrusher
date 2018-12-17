@@ -414,3 +414,9 @@ fabric.properties
 src/17_mouse_events\.cpp
 
 docs/
+
+libfreetype-6\.dll
+
+SDL2_ttf\.dll
+
+zlib1\.dll
