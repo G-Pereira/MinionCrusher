@@ -12,6 +12,7 @@
 #include "MapView.h"
 #include "BuildButton.h"
 #include "BuildView.h"
+#include <InfoView.h>
 
 class UI : public UIElement {
 public:

@@ -5,12 +5,11 @@
 #ifndef MINIONCRUSHER_UIVIEW_H
 #define MINIONCRUSHER_UIVIEW_H
 
-//#include <SDL.h>
 #include <string>
 #include <vector>
-//#include "MapObject.h"
-//#include "Map.h"
 #include "RenderElement.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 class UIElement : public RenderElement {
 public:

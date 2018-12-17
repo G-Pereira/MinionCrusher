@@ -87,7 +87,7 @@ void UI::init() {
 
     MapView *map_view = new MapView(map_quad, this);
     BuildView *building_view = new BuildView(building_quad, this);
-    UIElement *info_view = new UIElement(info_quad, this);
+    InfoView *info_view = new InfoView(info_quad, this);
 
     map_view->loadTexture(renderer, "resources/sprites/map_background.bmp");
     building_view->loadTexture(renderer, "resources/sprites/right_side.bmp");
