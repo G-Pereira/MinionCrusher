@@ -46,7 +46,7 @@ void MapObject::updateQuad(float tilewidth, float tileheight) {
 
 void MapObject::render() {
     //render texture to screen
-    std::cout << "Rendering MapObject" << std::endl;
+    //std::cout << "Rendering MapObject" << std::endl;
     if (RenderElement::renderer) {
         if (background) {
             SDL_RenderCopy(RenderElement::renderer, background, nullptr, &quad);

@@ -10,6 +10,10 @@ UIElement::UIElement(int x, int y, int w, int h, UIElement *parent) : UIElement(
 }
 
 UIElement::~UIElement() {
+    // Delete all childs that have been allocated on the heap
+    for (UIElement *child : children) {
+        delete child;
+    }
 }
 
 
@@ -50,6 +54,6 @@ void UIElement::render() {
             SDL_RenderSetViewport(RenderElement::renderer, &quad);
             child->render();
         }
-        postRender();
     }
+    postRender();
 }

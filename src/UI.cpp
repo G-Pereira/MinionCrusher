@@ -49,7 +49,6 @@ UI::~UI() {
     RenderElement::renderer = nullptr;
 
     //Quit SDL subsystems
-    //IMG_Quit();
     SDL_Quit();
 }
 
