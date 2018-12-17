@@ -9,11 +9,18 @@ UIText::UIText(SDL_Rect quad, UIElement *parent) :
 
 void UIText::loadTexture(SDL_Renderer * renderer, std::string text)
 {
+
+    if(TTF_Init()==-1) {
+        std::cout << "TTF_Init: " << TTF_GetError();
+        exit(2);
+    }
 	//The final texture
 	SDL_Texture *newTexture = nullptr;
 
 	//Load image at specified path
 	TTF_Font* Sans = TTF_OpenFont("resources/fonts/lazy.ttf", 24); //this opens a font style and sets a size
+
+	std::cout << TTF_GetError(); // prints 0
 
 	SDL_Color White = { 255, 255, 255 };  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
 

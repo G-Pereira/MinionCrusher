@@ -117,10 +117,15 @@ void UI::init() {
     button3->loadTexture(renderer, "resources/sprites/tower3_tile.bmp");
     building_view->addChild(button3);
 
-    SDL_Rect text_quad = SDL_Rect{0, 0, 100, 100};
+    SDL_Rect text_quad = SDL_Rect{30, 30, 100, 30};
     UIText *text_health = new UIText(text_quad, info_view);
-	text_health->loadTexture(renderer, "text");
+	text_health->loadTexture(renderer, "Health:");
     info_view->addChild(text_health);
+
+    text_quad.y += 50;
+    UIText *text_kills = new UIText(text_quad, info_view);
+    text_kills->loadTexture(renderer, "Kills:");
+    info_view->addChild(text_kills);
 }
 
 void UI::postRender(SDL_Renderer *renderer) {
