@@ -47,7 +47,7 @@ public:
      * Load an image from a link and turn it into a texture
      * @param path path to the file containing a bitmap
      */
-    void loadTexture(std::string path);
+    virtual void loadTexture(std::string path);
 
     /**
      * overloaded Load an image from a link and turn it into a texture with a color key to leave out
