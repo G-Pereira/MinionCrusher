@@ -7,11 +7,12 @@
 #include "MapObject.h"
 
 MapObject::MapObject(float x, float y, float width, float height)
-        : MapObject(CartesianCoordinates{x, y}, ObjectSize{width, height}, nullptr) {
+        : MapObject(CartesianCoordinates{x, y}, ObjectSize{width, height}, nullptr){
 }
 
 MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensions, SDL_Texture *texture)
-        : RenderElement(SDL_Rect{}, texture), coordinates(coordinates), dimensions(dimensions) {
+        : RenderElement(SDL_Rect{}, texture), coordinates(coordinates), dimensions(dimensions),
+	needQuadUpdate(true) {
 }
 
 MapObject::~MapObject() {
@@ -22,6 +23,7 @@ const CartesianCoordinates &MapObject::getCoordinates() const {
 }
 
 void MapObject::setCoordinates(CartesianCoordinates inputCoordinates) {
+	needQuadUpdate = true;
     this->coordinates = inputCoordinates;
 }
 
@@ -34,6 +36,7 @@ const ObjectSize &MapObject::getDimensions() const {
 }
 
 void MapObject::setDimensions(ObjectSize size) {
+	needQuadUpdate = true;
     dimensions = size;
 }
 
@@ -42,6 +45,7 @@ void MapObject::updateQuad(float tilewidth, float tileheight) {
     quad.h = (int) (dimensions.height * tileheight);
     quad.x = (int) (coordinates.x * tilewidth);
     quad.y = (int) (coordinates.y * tileheight);
+	needQuadUpdate = false;
 }
 
 void MapObject::render() {

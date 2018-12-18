@@ -8,8 +8,6 @@ class InfoView : public UIElement {
         InfoView(SDL_Rect quad, UIElement *parent);
 
         ~InfoView();
-
-        void preRender();
 };
 
 

@@ -30,7 +30,9 @@ private:
     Map *map;
     float tilewidth;
     float tileheight;
-
+	/**
+	 * return the shape the healthbar should have
+	 */
     SDL_Rect getHealthbar();
 };
 

@@ -11,7 +11,5 @@ public:
     BuildView(SDL_Rect, UIElement *parent);
 
     ~BuildView();
-
-    void preRender();
 };
 

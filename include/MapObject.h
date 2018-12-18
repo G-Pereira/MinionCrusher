@@ -81,6 +81,7 @@ public:
     */
     void render() override;
 
+	bool needQuadUpdate;
 protected:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map

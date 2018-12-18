@@ -8,7 +8,3 @@ BuildView::~BuildView() {
     SDL_DestroyTexture(background);
 }
 
-void BuildView::preRender() {
-    //SDL_RenderSetViewport(renderer, &quad);
-}
-

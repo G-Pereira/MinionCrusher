@@ -36,11 +36,11 @@ public:
 
     bool operator!=(const Minion &rhs) const;    /// Operator that checks if two minions are the different
 
-    void postRender() override;
+    void postRender() override;		/// show the health bar of the minion
 
 private:
     float health; // Health of the minion
-    float max_health; // Health of the minion
+    float max_health; // max health of the minion
     float damage; // The damage a minion does when attacking the base
     float speed; // The speed of a minion in distance/tick
 };
