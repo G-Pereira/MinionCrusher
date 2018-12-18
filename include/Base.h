@@ -23,8 +23,11 @@ public:
 
     void doDamage(float damage);    /// Damage the base by a determined amount
 
+	void postRender() override;
+
 private:
     float health; // Health of the base the minions attack
+	float max_health; // Health of the minion
     void setHealth(float inputHealth);
 
     const float &getHealth() const;

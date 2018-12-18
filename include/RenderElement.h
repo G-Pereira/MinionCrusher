@@ -4,8 +4,8 @@
 #include <iostream>
 
 #ifdef _WIN32
-#include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL.h>
 #else
 
 #include "SDL2/SDL.h"
@@ -60,6 +60,11 @@ public:
      * @param texture pointer to an instantiated texture
      */
     void loadTexture(SDL_Texture *texture);
+	/**
+	 * create a texture from a string and load it as background
+	 * @param path path to the file containing a bitmap
+	 */
+	void loadText2Texture(std::string text);
     /**
     * set the rectangle that defines the position and shape of the element
     * @param quad the new quad to use

@@ -39,6 +39,11 @@ UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
                                               SDL_RENDERER_PRESENTVSYNC);
     if (RenderElement::renderer == nullptr)
         throw std::runtime_error("Renderer could not be created!");
+
+	if (TTF_Init() == -1) {
+		std::cout << "TTF_Init: " << TTF_GetError();
+		exit(2);
+	}
     init();
 }
 
@@ -118,12 +123,12 @@ void UI::init() {
 
     SDL_Rect text_quad = SDL_Rect{30, 30, 100, 30};
     UIText *text_health = new UIText(text_quad, info_view);
-	text_health->loadTexture("Health:");
+	text_health->loadText2Texture("Health:");
     info_view->addChild(text_health);
 
     text_quad.y += 50;
     UIText *text_kills = new UIText(text_quad, info_view);
-    text_kills->loadTexture("Kills:");
+    text_kills->loadText2Texture("Kills:");
     info_view->addChild(text_kills);
 }
 
