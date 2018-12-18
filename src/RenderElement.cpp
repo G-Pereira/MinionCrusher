@@ -76,10 +76,11 @@ void RenderElement::loadText2Texture(std::string text)
 
 		//Get rid of old loaded surface
 		SDL_FreeSurface(surfaceMessage);
+
 	}
 
 	background = newTexture;
-	delete Sans;
+	TTF_CloseFont(Sans);
 
 }
 
