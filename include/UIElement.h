@@ -8,7 +8,6 @@
 #include <string>
 #include <vector>
 #include "RenderElement.h"
-#include <SDL2/SDL.h>
 
 class UIElement : public RenderElement {
 public:
