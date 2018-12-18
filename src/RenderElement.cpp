@@ -79,6 +79,8 @@ void RenderElement::loadText2Texture(std::string text)
 	}
 
 	background = newTexture;
+	delete Sans;
+
 }
 
 //void RenderElement::setQuad(SDL_Rect new_quad)
