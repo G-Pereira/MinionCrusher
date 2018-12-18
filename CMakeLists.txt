@@ -5,7 +5,7 @@ project(MinionCrusher)
 set(CMAKE_CXX_STANDARD 14)
 
 #Turn on warnings
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra -Werror")
 
 #Set your directories.  The dot representes the root application folder.
 #Thus my the path to my domain folder:
