@@ -37,9 +37,10 @@ UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
     // Create a new renderer
     RenderElement::renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                               SDL_RENDERER_PRESENTVSYNC);
-    if (RenderElement::renderer == nullptr)
+    if (RenderElement::renderer == nullptr){
         throw std::runtime_error("Renderer could not be created!");
-
+    }
+    
 	if (TTF_Init() == -1) {
 		std::cout << "TTF_Init: " << TTF_GetError();
 		exit(2);
