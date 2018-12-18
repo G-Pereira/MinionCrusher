@@ -10,20 +10,27 @@ In order to compile and run the application, the following packages are required
 - SDL2-TTF (sometimes already in SDL2)
 - gcc/g++
 - cmake
+- pkgconfig
 
 If one is using Ubuntu, these can all be installed with:
 
 ```
-sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev gcc g++ cmake
+sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev gcc g++ cmake pkgconfig
 ```
 
 ## Compilation
-
-
-In order to make the code easy to compile the scripts from the pacman provided example were adapted to our code. They can be found and executed in the project’s directory.
-
-As an alternative a CMake makefile was designed in order to compile the code in two easy steps in every platform that has GCC (g++ or clang) and SDL2 installed as well as PkgConfig. From the root directory execute:
+In all cases, CMake can be used to build the application. Assuming you are in the root of this repository, the program can 
+be compiled with:
+```
 cmake .
-cmake . --build
-And then a executable file is generated that can be run and the game can be played right away.
+cmake --build .
+```
+The second command will build the actual program, resulting in a ```CMakeFiles``` directory full with object files. 
+The actual program is compiled as ```MinionCrusher``` and is placed in the root directory.
 
+## Running
+### Linux
+After compilation with CMake, the executable is found in the root directory. It is executed with:
+```
+./MinionCrusher
+```
