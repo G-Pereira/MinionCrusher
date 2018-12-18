@@ -118,12 +118,12 @@ void UI::init() {
 
     SDL_Rect text_quad = SDL_Rect{30, 30, 100, 30};
     UIText *text_health = new UIText(text_quad, info_view);
-	text_health->loadTexture(renderer, "Health:");
+	text_health->loadTexture("Health:");
     info_view->addChild(text_health);
 
     text_quad.y += 50;
     UIText *text_kills = new UIText(text_quad, info_view);
-    text_kills->loadTexture(renderer, "Kills:");
+    text_kills->loadTexture("Kills:");
     info_view->addChild(text_kills);
 }
 
