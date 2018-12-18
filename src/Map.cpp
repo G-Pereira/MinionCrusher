@@ -61,7 +61,3 @@ void Map::createPath(int x, int y) {
     }
 
 }
-
-std::mutex &Map::getMutex() {
-    return mutex;
-}

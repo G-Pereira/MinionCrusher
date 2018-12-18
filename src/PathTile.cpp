@@ -20,11 +20,11 @@ const MapSlots &PathTile::getType() const {
     return type;
 }
 
-void PathTile::Render(SDL_Renderer *renderer) {
-    if (renderer) {
+void PathTile::render() {
+    if (RenderElement::renderer) {
         if (background) {
             int dif = quad.h - quad.w;
-            //Render texture to screen
+            //render texture to screen
             SDL_RendererFlip flip = (SDL_RendererFlip) 0;
             double angle = 0.0;
             SDL_Rect quad_rotated = quad;
@@ -51,14 +51,14 @@ void PathTile::Render(SDL_Renderer *renderer) {
                 case (MapSlots) 4:
                     break;
             }
-            SDL_RenderCopyEx(renderer, background, nullptr, &quad_rotated, angle, nullptr, flip);
+            SDL_RenderCopyEx(RenderElement::renderer, background, nullptr, &quad_rotated, angle, nullptr, flip);
         } else {
-            SDL_SetRenderDrawColor(renderer, 0xAA, 0x00, 0xFF, 0xFF);
-            SDL_RenderFillRect(renderer, &quad);
+            SDL_SetRenderDrawColor(RenderElement::renderer, 0xAA, 0x00, 0xFF, 0xFF);
+            SDL_RenderFillRect(RenderElement::renderer, &quad);
         }
     } else {
-        throw std::runtime_error("No renderer passed to RenderElement::Render()!");
+        throw std::runtime_error("No renderer passed to RenderElement::render()!");
     }
 
-    postRender(renderer);
+    postRender();
 }

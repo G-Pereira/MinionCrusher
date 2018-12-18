@@ -79,7 +79,7 @@ public:
     * Render this object using this renderer
     * @param renderer renderer to render with
     */
-    void Render(SDL_Renderer *renderer) override;
+    void render() override;
 
 protected:
     CartesianCoordinates coordinates; // Position on the map

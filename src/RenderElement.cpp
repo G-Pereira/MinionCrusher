@@ -1,5 +1,7 @@
 #include "RenderElement.h"
+#include <SDL2/SDL.h>
 
+SDL_Renderer* RenderElement::renderer = nullptr;
 
 RenderElement::RenderElement(SDL_Rect quad, SDL_Texture *texture) : quad(quad), background(texture) {
 
@@ -14,14 +16,14 @@ RenderElement::~RenderElement() {
     SDL_DestroyTexture(background);
 }
 
-void RenderElement::postRender(SDL_Renderer * /*renderer*/) {
+void RenderElement::postRender() {
 }
 
-void RenderElement::loadTexture(SDL_Renderer *renderer, std::string path) {
-    loadTexture(renderer, path, SDL_Color{0, 0, 0, 0});
+void RenderElement::loadTexture(std::string path) {
+    loadTexture(path, SDL_Color{0, 0, 0, 0});
 }
 
-void RenderElement::loadTexture(SDL_Renderer *renderer, std::string path, SDL_Color color) {
+void RenderElement::loadTexture(std::string path, SDL_Color color) {
     //The final texture
     SDL_Texture *newTexture = nullptr;
 

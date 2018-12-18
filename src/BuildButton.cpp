@@ -4,7 +4,7 @@ BuildButton::BuildButton(SDL_Rect quad, void funct(UIButton &self, SDL_Event &),
         : UIButton(quad, funct, parent) {
 }
 
-void BuildButton::HandleEvents(SDL_Event &e) {
+void BuildButton::handleEvents(SDL_Event &e) {
     //If mouse event happened
     if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
         //Get mouse position

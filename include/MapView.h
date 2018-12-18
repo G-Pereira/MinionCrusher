@@ -18,7 +18,7 @@ public:
      * Override the standard postRender to render the map elements
      * @param: map a pointer to the new map
      */
-    void postRender(SDL_Renderer *renderer) override;
+    void postRender() override;
 
     /**
      *Set a new map in the view to use

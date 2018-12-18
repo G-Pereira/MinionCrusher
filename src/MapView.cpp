@@ -5,35 +5,34 @@ MapView::MapView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent), ma
 
 }
 
-void MapView::postRender(SDL_Renderer *renderer) {
-    std::lock_guard<std::mutex> lock(map->getMutex());
+void MapView::postRender() {
     for (auto &path_tile : map->path) {
         if (!path_tile.hasTexture()) {
-            path_tile.loadTexture(renderer, "resources/sprites/path_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
+            path_tile.loadTexture("resources/sprites/path_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
         }
         path_tile.updateQuad(tilewidth, tileheight);
-        path_tile.Render(renderer);
+        path_tile.render();
     }
     for (auto &minion : map->minions) {
         if (!minion.hasTexture()) {
-            minion.loadTexture(renderer, "resources/sprites/minion1.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
+            minion.loadTexture("resources/sprites/minion1.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
         }
         minion.updateQuad(tilewidth, tileheight);
-        minion.Render(renderer);
+        minion.render();
     }
 
     for (auto &tower : map->towers) {
 
         if (!tower.hasTexture()) {
-            tower.loadTexture(renderer, "resources/sprites/tower1_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
+            tower.loadTexture("resources/sprites/tower1_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
         }
         tower.updateQuad(tilewidth, tileheight);
-        tower.Render(renderer);
+        tower.render();
     }
 
     map->base.updateQuad(tilewidth, tileheight);
     map->base.updateQuad(tilewidth, tileheight);
-    map->base.Render(renderer);
+    map->base.render();
 }
 
 

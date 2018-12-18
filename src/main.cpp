@@ -18,15 +18,15 @@ constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
 
-
+mutex test_mutex;
 GameManager gameManager;
 
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
 Uint32 gameUpdate(Uint32 interval, void *m) {
+    std::lock_guard<std::mutex> lock(test_mutex);
     Map *map = reinterpret_cast<Map *>(m);
-    std::lock_guard<std::mutex> lock(map->getMutex());
     gameManager.update();
     return interval;
 }
@@ -34,13 +34,12 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
 /**
 * Updates screen
 */
-Uint32 uiUpdate(Uint32 interval, void *ptr) {
-    UI *ui = (UI *) ptr;
-    //std::lock_guard<std::mutex> lock(ui->mutex);
-    ui->Render(ui->getRenderer());
-
-    return interval;
-}
+//Uint32 uiUpdate(Uint32 interval, void *ptr) {
+//    //std::lock_guard<std::mutex> lock(test_mutex);
+//    UI *ui = (UI *) ptr;
+//    ui->render();
+//    return interval;
+//}
 
 int main(int argc, char *args[]) {
     if (argc > 1) {
@@ -53,6 +52,7 @@ int main(int argc, char *args[]) {
     cout << "Create UI" << endl;
     // create the UI
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
+    RenderElement::renderer = ui.getRenderer();
 
     cout << "Read map" << endl;
     // CREATE MAP FROM BLUEPRINT
@@ -69,10 +69,10 @@ int main(int argc, char *args[]) {
     if (timer_id == 0) {
         cout << "SDL was unable to create a timer. " << endl;
     }
-    SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
-    if (ui_timer_id == 0) {
-        cout << "SDL was unable to create a timer. " << endl;
-    }
+    //SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
+    //if (ui_timer_id == 0) {
+    //    cout << "SDL was unable to create a timer. " << endl;
+    //}
 
     bool quit = false;
     while (!quit) {
@@ -82,13 +82,14 @@ int main(int argc, char *args[]) {
             if (e.type == SDL_QUIT) {
                 cout << "quitting" << endl;
                 SDL_RemoveTimer(timer_id);
-                SDL_RemoveTimer(ui_timer_id);
+                //SDL_RemoveTimer(ui_timer_id);
                 quit = true;
             }
             //Handle button events
             //std::lock_guard<std::mutex> lock(ui.mutex);
-            ui.HandleEvents(e);
+            ui.handleEvents(e);
         }
+        ui.render();
     }
 
     return 0;

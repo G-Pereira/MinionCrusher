@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "RenderElement.h"
+#include <SDL2/SDL.h>
 
 class UIElement : public RenderElement {
 public:
@@ -42,7 +43,7 @@ public:
      * @param info the texture which will be in the background of the info
      * @param buildings the texture which will be in the building buttons
      */
-    void Render(SDL_Renderer *renderer) override;
+    void render() override;
 
     /**
     * add to the children of the Element
@@ -60,7 +61,7 @@ public:
     * passes the SDL_events to children and optionally acts upon them.
     * @param e SDL_Event
     */
-    virtual void HandleEvents(SDL_Event &e);
+    virtual void handleEvents(SDL_Event &e);
 
     UIElement *getParent();
 

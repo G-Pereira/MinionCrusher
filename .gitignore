@@ -414,6 +414,13 @@ fabric.properties
 src/17_mouse_events\.cpp
 
 docs/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+MinionCrusher
+MinionCrusher.cbp
+cmake_install.cmake
+core
 
 libfreetype-6\.dll
 
