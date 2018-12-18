@@ -9,7 +9,6 @@ UIText::UIText(SDL_Rect quad, UIElement *parent) :
 
 void UIText::loadTexture(SDL_Renderer * renderer, std::string text)
 {
-
     if(TTF_Init()==-1) {
         std::cout << "TTF_Init: " << TTF_GetError();
         exit(2);
@@ -22,7 +21,7 @@ void UIText::loadTexture(SDL_Renderer * renderer, std::string text)
 
 	std::cout << TTF_GetError(); // prints 0
 
-	SDL_Color White = { 255, 255, 255 };  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
+	SDL_Color White = { 255, 255, 255 , 0};  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
 
 	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
 	if (surfaceMessage == nullptr) {
