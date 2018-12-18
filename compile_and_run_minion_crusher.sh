@@ -7,6 +7,6 @@
 # Stop upon error
 set -e
 
-g++ src/*.cpp -Wall -Wextra -std=c++14 -I include -o MinionCrusher -lSDL2 -I /opt/local/include -L /opt/local/lib
+g++ src/*.cpp -Wall -Wextra -std=c++14 -I include -o MinionCrusher -lSDL2 -lSDL2_image -lSDL2_ttf -I /opt/local/include -L /opt/local/lib
 
 ./MinionCrusher
