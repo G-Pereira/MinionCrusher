@@ -7,7 +7,7 @@ UIText::UIText(SDL_Rect quad, UIElement *parent) :
         UIElement(quad, parent) {
 }
 
-void UIText::loadTexture(SDL_Renderer * renderer, std::string text)
+void UIText::loadTexture(std::string text)
 {
     if(TTF_Init()==-1) {
         std::cout << "TTF_Init: " << TTF_GetError();
@@ -29,7 +29,7 @@ void UIText::loadTexture(SDL_Renderer * renderer, std::string text)
 	}
 	else {
 		//Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		newTexture = SDL_CreateTextureFromSurface(this->renderer, surfaceMessage);
 		if (newTexture == nullptr) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", text.c_str(), SDL_GetError());
 		}
