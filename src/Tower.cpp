@@ -15,21 +15,23 @@ Tower::~Tower() {
 
 }
 
-void Tower::update(std::list<Minion> &minions) {
+uint8_t Tower::update(std::list<Minion> &minions) {
     if (ticks >= firePeriod) {
         for (Minion &minion : minions) {
             if (minion.getCoordinates().isInRange(coordinates, range)) {
                 minion.setHealth(minion.getHealth() - damage);
                 ticks = 0;
-                if (minion.getHealth() <= 0)
+                if (minion.getHealth() <= 0) {
                     minions.remove(minion);
+                    return 1;
+                }
                 break;
             }
         }
     } else {
         ticks++;
     }
-
+    return 0;
 }
 
 const int &Tower::getFirePeriod() const {

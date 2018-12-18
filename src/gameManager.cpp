@@ -11,7 +11,8 @@ void GameManager::update() {
 
 void GameManager::shootTowers() {
     for (Tower &tower : map->towers) {
-        tower.update(map->minions);
+        if(tower.update(map->minions) == 1)
+            kills++;
     }
 }
 

@@ -17,7 +17,7 @@ public:
 
     virtual ~Tower();
 
-    void update(std::list<Minion> &minions);
+    uint8_t update(std::list<Minion> &minions);
 
     // Getters and setters below
 

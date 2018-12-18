@@ -17,6 +17,7 @@ private:
 
     int ticksToNextMinion = 3;    /// Temporary variable to determine the period of minion spawning.
     int tickCount = 2;            /// Temporary variable to compare if a new minion should be spawned.
+    uint8_t kills = 0;
 };
 
 
