@@ -1,7 +1,14 @@
 #include "BuildButton.h"
 
+int OnMouseClick(void* data, SDL_Event * e) {
+	BuildButton * button = (BuildButton *)data;
+	button->handleEvents(*e);
+	return 0;
+}
 BuildButton::BuildButton(SDL_Rect quad, void funct(UIButton &self, SDL_Event &), UIElement *parent)
         : UIButton(quad, funct, parent) {
+	
+	SDL_AddEventWatch(OnMouseClick,this);
 }
 
 void BuildButton::handleEvents(SDL_Event &e) {

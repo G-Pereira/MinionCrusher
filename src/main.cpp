@@ -87,7 +87,7 @@ int main(int argc, char *args[]) {
             }
             //Handle button events
             //std::lock_guard<std::mutex> lock(ui.mutex);
-            ui.handleEvents(e);
+            //ui.handleEvents(e);
         }
         ui.render();
     }
