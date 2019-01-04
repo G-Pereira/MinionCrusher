@@ -15,8 +15,9 @@ void BuildButton::handleEvents(SDL_Event &e) {
     //If mouse event happened
     if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
         //Get mouse position
-        int x, y;
-        SDL_GetMouseState(&x, &y);
+		int x = e.button.x;
+		int y = e.button.y;
+        //SDL_GetMouseState(&x, &y);
         //std::cout << "mouse event; mouse state:" << x << ", " << y << std::endl;
         // add the offset of the viewport
         x -= quad.x;
