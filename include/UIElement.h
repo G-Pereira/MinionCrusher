@@ -5,8 +5,11 @@
 #ifndef MINIONCRUSHER_UIVIEW_H
 #define MINIONCRUSHER_UIVIEW_H
 
+#pragma warning( push )
 #include <string>
 #include <vector>
+#pragma warning( pop )
+
 #include "RenderElement.h"
 
 class UIElement : public RenderElement {

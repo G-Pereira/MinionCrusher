@@ -7,7 +7,9 @@
 #ifndef MINIONCRUSHER_TOWER_H
 #define MINIONCRUSHER_TOWER_H
 
+#pragma warning( push )
 #include <list>
+#pragma warning( pop )
 #include "MapObject.h"
 #include "Minion.h"
 

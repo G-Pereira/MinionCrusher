@@ -1,6 +1,6 @@
 #include "gameManager.h"
 
-GameManager::GameManager() {
+GameManager::GameManager() : map(nullptr) {
 }
 
 void GameManager::update() {

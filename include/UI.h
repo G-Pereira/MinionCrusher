@@ -7,12 +7,14 @@
 #ifndef MINIONCRUSHER_UI_H
 #define MINIONCRUSHER_UI_H
 
+#pragma warning( push )
 #include <string>
+#pragma warning( pop )
 
 #include "MapView.h"
 #include "BuildButton.h"
 #include "BuildView.h"
-#include <InfoView.h>
+#include "InfoView.h"
 
 class UI : public UIElement {
 public:

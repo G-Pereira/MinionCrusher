@@ -3,7 +3,9 @@
  *
  */
 
+#pragma warning( push )
 #include <iostream>
+#pragma warning( pop )
 
 #include "Map.h"
 #include "UI.h"
