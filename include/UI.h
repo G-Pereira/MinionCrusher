@@ -44,17 +44,8 @@ public:
      * @return pointer to the used renderer
      */
     SDL_Renderer *getRenderer() const;
-
-    /**
-    * Set the map in the appropriate UI Element
-    */
-    void setMap(Map *);
-
+	
 private:
-    /**
-     * Perform all closing action to clean the memory of the UI
-     */
-    //SDL_Renderer *renderer;
     enum class elements : int {
         map,
         building,

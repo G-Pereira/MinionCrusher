@@ -1,5 +1,6 @@
 #include "UIElement.h"
 
+GameManager  * UIElement::gamemanager = nullptr;
 
 UIElement::UIElement(SDL_Rect viewport, UIElement *parent) : RenderElement(viewport), parent(parent) {
     background = nullptr;
