@@ -2,10 +2,11 @@
 #ifndef MINIONCRUSHER_MAPVIEW_H
 #define MINIONCRUSHER_MAPVIEW_H
 
+#pragma warning( push )
 #include <mutex>
+#pragma warning( pop )
 
 #include "UIElement.h"
-#include "Map.h"
 
 
 class MapView : public UIElement {
@@ -24,10 +25,9 @@ public:
      *Set a new map in the view to use
      * @param: map a pointer to the new map
      */
-    void setMap(Map *);
+    //void setMap(Map *);
 
 private:
-    Map *map;
     float tilewidth;
     float tileheight;
 	/**

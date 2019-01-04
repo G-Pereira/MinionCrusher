@@ -3,11 +3,13 @@
  *
  */
 
+#pragma warning( push )
 #include <iostream>
+#pragma warning( pop )
 
-#include "Map.h"
+//#include "Map.h"
 #include "UI.h"
-#include "gameManager.h"
+//#include "gameManager.h"
 
 using namespace std;
 
@@ -26,7 +28,7 @@ GameManager gameManager;
 */
 Uint32 gameUpdate(Uint32 interval, void *m) {
     std::lock_guard<std::mutex> lock(test_mutex);
-    Map *map = reinterpret_cast<Map *>(m);
+    //Map *map = reinterpret_cast<Map *>(m);
     gameManager.update();
     return interval;
 }
@@ -53,15 +55,12 @@ int main(int argc, char *args[]) {
     // create the UI
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
     RenderElement::renderer = ui.getRenderer();
-
+	UIElement::gamemanager = &gameManager;
     cout << "Read map" << endl;
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
     gameManager.map = &map;
     map.towers.emplace_back(2, 2, 1, 1, 25, 3, 10, AmmoType{});
-
-    //load the map into the UI
-    ui.setMap(&map);
 
     cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER

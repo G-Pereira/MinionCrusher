@@ -5,9 +5,13 @@
 #ifndef MINIONCRUSHER_UIVIEW_H
 #define MINIONCRUSHER_UIVIEW_H
 
+#pragma warning( push )
 #include <string>
 #include <vector>
+#pragma warning( pop )
+
 #include "RenderElement.h"
+#include "gameManager.h"
 
 class UIElement : public RenderElement {
 public:
@@ -63,6 +67,8 @@ public:
     virtual void handleEvents(SDL_Event &e);
 
     UIElement *getParent();
+
+	static GameManager *gamemanager;
 
 protected:
     std::vector<UIElement *> children;

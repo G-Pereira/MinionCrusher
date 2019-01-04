@@ -9,7 +9,9 @@
 #ifndef MINIONCRUSHER_TYPES_H
 #define MINIONCRUSHER_TYPES_H
 
+#pragma warning( push )
 #include <cmath>
+#pragma warning( pop )
 
 /**
  * Structure holding the X, Y coordinates in a cartesian frame.

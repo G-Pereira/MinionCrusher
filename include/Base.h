@@ -6,7 +6,9 @@
 #ifndef MINIONCRUSHER_BASE_H
 #define MINIONCRUSHER_BASE_H
 
+#pragma warning( push )
 #include <inttypes.h>
+#pragma warning( pop )
 #include "MapObject.h"
 
 class Base : public MapObject {
