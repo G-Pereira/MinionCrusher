@@ -60,7 +60,7 @@ int main(int argc, char *args[]) {
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
     gameManager.map = &map;
-    map.towers.emplace_back(2, 2, 1, 1, 25, 3, 10, AmmoType{});
+	map.addTower({ 2.F, 2.F });
 
     cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER
@@ -84,16 +84,10 @@ int main(int argc, char *args[]) {
                 //SDL_RemoveTimer(ui_timer_id);
                 quit = true;
             }
-            //Handle button events
-            //std::lock_guard<std::mutex> lock(ui.mutex);
-            //ui.handleEvents(e);
         }
         ui.render();
     }
 
     return 0;
 }
-
-
-/** Move all minions in the right direction along the path */
 

@@ -95,12 +95,10 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 
 bool MapView::addTowerToMap(CartesianCoordinates coordinates)
 {
-	if (gamemanager->map->towerSpotAvailable(coordinates)) {
-		gamemanager->map->towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, 10, AmmoType{});
+	bool retval = gamemanager->map->addTower(coordinates);
+	if(retval)
 		buildstate = MapView::towerBuildingStates::idle;
-		return true;
-	}
-	return false;
+	return retval;
 }
 
 SDL_Rect MapView::getHealthbar() {

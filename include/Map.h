@@ -12,7 +12,6 @@
 #include <iostream>
 #include <vector>
 #include <list>
-#include <set>
 #include <mutex>
 #pragma warning( pop )
 
@@ -48,12 +47,18 @@ public:
 
     CartesianCoordinates spawnPos;                    /// Position where minions spawn. Read from the blueprintFile
 	/**
+	 * build a tower on the specified location if  available
+	 * @param: coordinates the coordinates of where to build
+	 * @return: true if succesful, false if not
+	 */
+	bool addTower(CartesianCoordinates coordinates);
+private:
+	/**
 	 * checks if a location is available for building a tower
 	 * @param: coordinates the coordinates of where to build
 	 * @return: true if available, false if not
 	 */
 	bool towerSpotAvailable(CartesianCoordinates coordinates);
-private:
 	std::vector<CartesianCoordinates> unavailable_towerspots;        /// Set containing coordinates where you CANNOT build a tower
 };
 

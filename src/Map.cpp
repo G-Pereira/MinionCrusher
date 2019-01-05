@@ -98,3 +98,13 @@ bool Map::towerSpotAvailable(CartesianCoordinates coordinates)
 
 	return true;
 }
+
+bool Map::addTower(CartesianCoordinates coordinates)
+{
+	if (towerSpotAvailable(coordinates)) {
+		towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, 10, AmmoType{});
+		unavailable_towerspots.push_back(coordinates);
+		return true;
+	}
+	return false;
+}
