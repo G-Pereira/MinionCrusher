@@ -17,7 +17,7 @@ public:
     * @param: funct call back function to call when button is clicked
     * @param: parent pointer to the element that contains this element
     */
-    UIButton(SDL_Rect quad, void funct(UIButton &self, SDL_Event &), UIElement *parent);
+    UIButton(SDL_Rect quad, UIElement *parent, SDL_EventFilter filter);
 
     ~UIButton();
 
@@ -26,12 +26,16 @@ public:
     * @param: e SDL_Event to be passed
     */
     virtual void handleEvents(SDL_Event &e);
+	/**
+	* pointer to callback function
+	*/
+	SDL_EventFilter filter;
+
+	static int mouseClick(void * userdata, SDL_Event * e);
 
 protected:
-    /**
-    * pointer to callback function
-    */
-    void (*eventhandler)(UIButton &self, SDL_Event &e);
+    //void (*eventhandler)(UIButton &self, SDL_Event &e);
+
 
 };
 

@@ -21,11 +21,17 @@ public:
      */
     void postRender() override;
 
-    /**
-     *Set a new map in the view to use
-     * @param: map a pointer to the new map
-     */
-    //void setMap(Map *);
+	/**
+	 *
+	 * @param:
+	 */
+	static int setBuildTowerState(void* data, SDL_Event * e);
+
+	/**
+	 *
+	 * @param:
+	 */
+	static int mapClick(void* data, SDL_Event * e);
 
 private:
     float tilewidth;
@@ -34,6 +40,13 @@ private:
 	 * return the shape the healthbar should have
 	 */
     SDL_Rect getHealthbar();
+
+	enum class towerBuildingStates {
+		idle,
+		building,
+	};
+
+	static towerBuildingStates buildstate;
 };
 
 

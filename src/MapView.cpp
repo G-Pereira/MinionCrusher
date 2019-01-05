@@ -1,8 +1,9 @@
 #include "MapView.h"
+MapView::towerBuildingStates MapView::buildstate = MapView::towerBuildingStates::idle;
 
 MapView::MapView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent), tilewidth(0.0F),
-                                                     tileheight(0.0F) {
-
+                                                     tileheight(0.0F){
+	SDL_AddEventWatch(MapView::mapClick, this);
 }
 
 void MapView::postRender() {
@@ -35,6 +36,60 @@ void MapView::postRender() {
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);
 	gamemanager->map->base.render();
+}
+
+int MapView::setBuildTowerState(void * data, SDL_Event * e)
+{
+	std::cout << "MapView::setBuildTowerState()\n";
+	if (gamemanager) {
+		switch (buildstate) {
+		case towerBuildingStates::idle:
+			buildstate = towerBuildingStates::building;
+			break;
+		case towerBuildingStates::building:
+			break;
+		}
+	}
+	else {
+		std::cout << "no gamemanager\n";
+	}
+	return 0;
+}
+
+int MapView::mapClick(void * userdata, SDL_Event * e)
+{
+	if (e->type == SDL_MOUSEBUTTONDOWN) {
+		std::cout << "mapClick\n";
+		if (userdata == nullptr) {
+			return -1;
+		}
+		MapView * mapview = reinterpret_cast<MapView *>(userdata);
+		UIElement *UI_elem = mapview;
+
+		switch (mapview->buildstate)
+		{
+		case MapView::towerBuildingStates::idle:
+			break;
+		case MapView::towerBuildingStates::building:
+				//Get mouse position
+				int x = e->button.x;
+				int y = e->button.y;
+				//SDL_GetMouseState(&x, &y);
+				// go through this object and all parents to substracct the total offset
+				while (UI_elem) {
+					x -= UI_elem->getQuad().x;
+					y -= UI_elem->getQuad().y;
+					UI_elem = UI_elem->getParent();
+				}
+
+				CartesianCoordinates coors;
+				coors.x = e->button.x / mapview->tilewidth;
+				coors.y = e->button.y / mapview->tileheight;
+				mapview->gamemanager->map->towers.emplace_back(coors.x, coors.y, 1, 1, 25, 3, 10, AmmoType{});
+			break;
+		}
+	}
+	return 0;
 }
 
 SDL_Rect MapView::getHealthbar() {

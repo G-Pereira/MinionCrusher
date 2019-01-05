@@ -1,14 +1,15 @@
 #include "BuildButton.h"
 
-int OnMouseClick(void* data, SDL_Event * e) {
-	BuildButton * button = (BuildButton *)data;
-	button->handleEvents(*e);
+int buildTowerOnMapClick(void* data, SDL_Event * e) {
+	((BuildButton *)data)->gamemanager->map->towers.emplace_back(2, 5, 1, 1, 25, 3, 10, AmmoType{});
+	SDL_DelEventWatch(buildTowerOnMapClick, data);
 	return 0;
 }
+
 BuildButton::BuildButton(SDL_Rect quad, void funct(UIButton &self, SDL_Event &), UIElement *parent)
         : UIButton(quad, funct, parent) {
 	
-	SDL_AddEventWatch(OnMouseClick,this);
+	//SDL_AddEventWatch(BuildButton::OnMouseClick,this);
 }
 
 void BuildButton::handleEvents(SDL_Event &e) {
@@ -18,19 +19,13 @@ void BuildButton::handleEvents(SDL_Event &e) {
 		int x = e.button.x;
 		int y = e.button.y;
         //SDL_GetMouseState(&x, &y);
-        //std::cout << "mouse event; mouse state:" << x << ", " << y << std::endl;
-        // add the offset of the viewport
-        x -= quad.x;
-        y -= quad.y;
-        //std::cout << "after quad substraction :" << x << ", " << y << std::endl;
-        // go through all parents to substracct the total offset
-        UIElement *UI_elem = getParent();
+        // go through this object and all parents to substracct the total offset
+		UIElement *UI_elem = this;
         while (UI_elem) {
             x -= UI_elem->getQuad().x;
             y -= UI_elem->getQuad().y;
             UI_elem = UI_elem->getParent();
         }
-        //std::cout << "after tree calculation:" << x << ", " << y << std::endl;
         //Check if mouse is in button
         bool inside = true;
 
@@ -57,16 +52,16 @@ void BuildButton::handleEvents(SDL_Event &e) {
         }
             //Mouse is inside button
         else {
-            //Set mouse over sprite
             switch (e.type) {
                 case SDL_MOUSEMOTION:
                     //cout << "SDL_MOUSEMOTION" << endl;
                     break;
 
                 case SDL_MOUSEBUTTONDOWN:
-                    if (eventhandler)
-                        eventhandler(*this, e);
+                   /* if (filter)
+						filter(*this, e);*/
                     std::cout << "BuildButton SDL_MOUSEBUTTONDOWN" << std::endl;
+					SDL_AddEventWatch(buildTowerOnMapClick, this);
                     break;
 
                 case SDL_MOUSEBUTTONUP:

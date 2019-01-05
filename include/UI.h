@@ -12,7 +12,8 @@
 #pragma warning( pop )
 
 #include "MapView.h"
-#include "BuildButton.h"
+ //#include "BuildButton.h"
+#include "UIButton.h"
 #include "BuildView.h"
 #include "InfoView.h"
 

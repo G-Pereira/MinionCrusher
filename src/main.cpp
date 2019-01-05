@@ -28,7 +28,7 @@ GameManager gameManager;
 */
 Uint32 gameUpdate(Uint32 interval, void *m) {
     std::lock_guard<std::mutex> lock(test_mutex);
-    //Map *map = reinterpret_cast<Map *>(m);
+    Map *map = reinterpret_cast<Map *>(m);
     gameManager.update();
     return interval;
 }
