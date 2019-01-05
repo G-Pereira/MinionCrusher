@@ -71,7 +71,6 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 		case MapView::towerBuildingStates::idle:
 			break;
 		case MapView::towerBuildingStates::building:
-			mapview->buildstate = MapView::towerBuildingStates::idle;
 			//Get mouse position
 			int x = e->button.x;
 			int y = e->button.y;
@@ -86,13 +85,22 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 			CartesianCoordinates coors;
 			coors.x = floor(e->button.x / mapview->tilewidth);
 			coors.y = floor(e->button.y / mapview->tileheight);
-			if (mapview->gamemanager->map->towerSpotAvailable(coors)) {
-				mapview->gamemanager->map->towers.emplace_back(coors.x, coors.y, 1, 1, 25, 3, 10, AmmoType{});
+			if (mapview->addTowerToMap(coors)) {
 			}
 			break;
 		}
 	}
 	return 0;
+}
+
+bool MapView::addTowerToMap(CartesianCoordinates coordinates)
+{
+	if (gamemanager->map->towerSpotAvailable(coordinates)) {
+		gamemanager->map->towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, 10, AmmoType{});
+		buildstate = MapView::towerBuildingStates::idle;
+		return true;
+	}
+	return false;
 }
 
 SDL_Rect MapView::getHealthbar() {

@@ -1,5 +1,11 @@
+/**
+ * This class holds all elements in the game, and can read a level blueprint file
+ */
+#pragma warning( push )
 #include <fstream>
 #include <vector>
+#pragma warning( pop )
+
 #include "Map.h"
 
 Map::Map(std::string blueprintFile) {
@@ -36,6 +42,7 @@ Map::Map(std::string blueprintFile) {
                     this->path.emplace_back(x_tiles, y_tiles, 1, 1,
                                             MapSlots(tileType - 5));    // Create the path tile where the minions spawn
                     spawnPos = {(float) x_tiles, (float) y_tiles};
+					unavailable_towerspots.push_back(spawnPos);
                 }
             }
         }
@@ -55,9 +62,11 @@ void Map::createPath(int x, int y) {
     int dir = mapBlueprint[y][x];
     if (dir > 0 && dir < 5) {
         path.emplace_back(x, y, 1, 1, MapSlots(dir));
+		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
         createPath(x - (dir == 1) + (dir == 4), y - (dir == 3) + (dir == 2));
     } else if (dir == 5) {
         base = Base((float) x, (float) y, 1., 1., 100.);
+		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
     }
 
 }
@@ -82,10 +91,10 @@ bool Map::towerSpotAvailable(CartesianCoordinates coordinates)
 		std::cout << "y coordinate is outside of map";
 		return false;
 	}
-	//if (unavailable_towerspots.find(coordinates) != unavailable_towerspots.end()) {
-	//	std::cout << "Something is already in this spot";
-	//	return false;
-	//}
+	if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), coordinates) != unavailable_towerspots.end()) {
+		std::cout << "Something is already in this spot";
+		return false;
+	}
 
 	return true;
 }

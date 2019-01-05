@@ -54,7 +54,7 @@ public:
 	 */
 	bool towerSpotAvailable(CartesianCoordinates coordinates);
 private:
-	std::set<CartesianCoordinates> unavailable_towerspots;        /// Set containing coordinates where you CANNOT build a tower
+	std::vector<CartesianCoordinates> unavailable_towerspots;        /// Set containing coordinates where you CANNOT build a tower
 };
 
 #endif //MINIONCRUSHER_MAP_H

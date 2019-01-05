@@ -33,6 +33,12 @@ public:
 	 */
 	static int mapClick(void* data, SDL_Event * e);
 
+	/**
+	 *
+	 * @param:
+	 */
+	bool addTowerToMap(CartesianCoordinates coordinates);
+
 private:
     float tilewidth;
     float tileheight;
