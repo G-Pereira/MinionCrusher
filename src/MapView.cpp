@@ -86,7 +86,9 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 			CartesianCoordinates coors;
 			coors.x = floor(e->button.x / mapview->tilewidth);
 			coors.y = floor(e->button.y / mapview->tileheight);
-			mapview->gamemanager->map->towers.emplace_back(coors.x, coors.y, 1, 1, 25, 3, 10, AmmoType{});
+			if (mapview->gamemanager->map->towerSpotAvailable(coors)) {
+				mapview->gamemanager->map->towers.emplace_back(coors.x, coors.y, 1, 1, 25, 3, 10, AmmoType{});
+			}
 			break;
 		}
 	}

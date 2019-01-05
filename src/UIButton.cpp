@@ -17,6 +17,10 @@ void UIButton::handleEvents(SDL_Event &e) {
 
 int UIButton::mouseClick(void * userdata, SDL_Event * e)
 {
+	if (userdata == nullptr) {
+		throw;
+		return 0;
+	}
 	UIButton * clicked_button = reinterpret_cast<UIButton *>(userdata);
 	//If mouse event happened
 	if (e->type == SDL_MOUSEBUTTONDOWN) {

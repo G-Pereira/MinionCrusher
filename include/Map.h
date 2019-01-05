@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <set>
 #include <mutex>
 #pragma warning( pop )
 
@@ -40,12 +41,20 @@ public:
     std::vector<PathTile> path;                        /// Vector containing all path tiles, in order the minions should cross them
     std::vector<Tower> towers;                        /// Vector containing all towers.
     std::list<Minion> minions;                        /// List containing all minions currently in the game.
-    std::vector<std::vector<int>> mapBlueprint;        /// Vector containing a blueprint of the map. Used to initialize the map.
+	std::vector<std::vector<int>> mapBlueprint;        /// Vector containing a blueprint of the map. Used to initialize the map.
 
     uint8_t x_tiles;
     uint8_t y_tiles;
 
     CartesianCoordinates spawnPos;                    /// Position where minions spawn. Read from the blueprintFile
+	/**
+	 * checks if a location is available for building a tower
+	 * @param: coordinates the coordinates of where to build
+	 * @return: true if available, false if not
+	 */
+	bool towerSpotAvailable(CartesianCoordinates coordinates);
+private:
+	std::set<CartesianCoordinates> unavailable_towerspots;        /// Set containing coordinates where you CANNOT build a tower
 };
 
 #endif //MINIONCRUSHER_MAP_H

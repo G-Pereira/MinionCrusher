@@ -34,6 +34,21 @@ struct CartesianCoordinates {
     bool isInRange(CartesianCoordinates const target, float const range) const {
         return sqrt(pow(target.x - x, 2) + pow(target.y - y, 2)) < (double) range;
     }
+	bool operator==(const CartesianCoordinates &rhs) {
+		if (rhs.x == x && rhs.y == y)
+			return true;
+		return false;
+	}
+	bool operator<(const CartesianCoordinates &rhs) {
+		if (x + y < rhs.x + rhs.y)
+			return true;
+		return false;
+	}
+	bool operator>(const CartesianCoordinates &rhs) {
+		if (x + y > rhs.x + rhs.y)
+			return true;
+		return false;
+	}
 };
 
 /**
