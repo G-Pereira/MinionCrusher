@@ -58,11 +58,11 @@ int MapView::setBuildTowerState(void * data, SDL_Event * e)
 
 int MapView::mapClick(void * userdata, SDL_Event * e)
 {
+	if (userdata == nullptr) {
+		return -1;
+	}
 	if (e->type == SDL_MOUSEBUTTONDOWN) {
 		std::cout << "mapClick\n";
-		if (userdata == nullptr) {
-			return -1;
-		}
 		MapView * mapview = reinterpret_cast<MapView *>(userdata);
 		UIElement *UI_elem = mapview;
 
@@ -71,21 +71,22 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 		case MapView::towerBuildingStates::idle:
 			break;
 		case MapView::towerBuildingStates::building:
-				//Get mouse position
-				int x = e->button.x;
-				int y = e->button.y;
-				//SDL_GetMouseState(&x, &y);
-				// go through this object and all parents to substracct the total offset
-				while (UI_elem) {
-					x -= UI_elem->getQuad().x;
-					y -= UI_elem->getQuad().y;
-					UI_elem = UI_elem->getParent();
-				}
+			mapview->buildstate = MapView::towerBuildingStates::idle;
+			//Get mouse position
+			int x = e->button.x;
+			int y = e->button.y;
+			//SDL_GetMouseState(&x, &y);
+			// go through this object and all parents to substracct the total offset
+			while (UI_elem) {
+				x -= UI_elem->getQuad().x;
+				y -= UI_elem->getQuad().y;
+				UI_elem = UI_elem->getParent();
+			}
 
-				CartesianCoordinates coors;
-				coors.x = e->button.x / mapview->tilewidth;
-				coors.y = e->button.y / mapview->tileheight;
-				mapview->gamemanager->map->towers.emplace_back(coors.x, coors.y, 1, 1, 25, 3, 10, AmmoType{});
+			CartesianCoordinates coors;
+			coors.x = floor(e->button.x / mapview->tilewidth);
+			coors.y = floor(e->button.y / mapview->tileheight);
+			mapview->gamemanager->map->towers.emplace_back(coors.x, coors.y, 1, 1, 25, 3, 10, AmmoType{});
 			break;
 		}
 	}
