@@ -5,18 +5,11 @@
  */
 
 #include <iostream>
-#include <UIText.h>
+
+#include "UIText.h"
 #include "UI.h"
 
 using namespace std;
-
-
-//struct sdl_deleter
-//{
-//	void operator()(SDL_Window *p) const { SDL_DestroyWindow(p); }
-//	void operator()(SDL_Renderer *p) const { SDL_DestroyRenderer(p); }
-//	void operator()(SDL_Texture *p) const { SDL_DestroyTexture(p); }
-//};
 
 UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
     // Init SDL
