@@ -10,7 +10,6 @@ UIButton::~UIButton() {
 
 
 void UIButton::handleEvents(SDL_Event &e) {
-    std::cout << "UIButton SDL_event\n";
     if (filter)
         filter(nullptr, &e);
 }

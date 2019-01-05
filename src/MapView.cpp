@@ -40,7 +40,6 @@ void MapView::postRender() {
 
 int MapView::setBuildTowerState(void * data, SDL_Event * e)
 {
-	std::cout << "MapView::setBuildTowerState()\n";
 	if (gamemanager) {
 		switch (buildstate) {
 		case towerBuildingStates::idle:
@@ -62,7 +61,6 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 		return -1;
 	}
 	if (e->type == SDL_MOUSEBUTTONDOWN) {
-		std::cout << "mapClick\n";
 		MapView * mapview = reinterpret_cast<MapView *>(userdata);
 		UIElement *UI_elem = mapview;
 

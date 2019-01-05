@@ -73,8 +73,6 @@ void Map::createPath(int x, int y) {
 
 bool Map::towerSpotAvailable(CartesianCoordinates coordinates)
 {
-	std::cout << coordinates.x << " " << coordinates.y << std::endl;
-	std::cout << x_tiles << " " << y_tiles << std::endl;
 	if (coordinates.x != floor(coordinates.x)) {
 		std::cout << "x coordinate is not a whole number";
 		return false;
