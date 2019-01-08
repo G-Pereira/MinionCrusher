@@ -10,13 +10,23 @@ void GameManager::update() {
     moveMinions();
 }
 
+bool GameManager::addTower(CartesianCoordinates coordinates)
+{
+	if (money >= 100) {
+		money -= 100;
+		map->addTower(coordinates);
+		std::cout << money << std::endl;
+		return true;
+	}
+	return false;
+}
+
 void GameManager::shootTowers() {
     for (Tower &tower : map->towers) {
 		int bounty = tower.update(map->minions);
 		if (bounty != 0) {
 			kills++;
 			money += bounty;
-			std::cout << money << std::endl;
 		}
     }
 }

@@ -60,7 +60,7 @@ int main(int argc, char *args[]) {
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
     gameManager.map = &map;
-	map.addTower({ 2.F, 2.F });
+	gameManager.addTower({ 2.F, 2.F });
 
     cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER

@@ -11,6 +11,7 @@ public:
 	int money;
     Map *map;        /// Pointer to the current game map.
     void update();    /// This function updates the whole game for one timestep.
+	bool addTower(CartesianCoordinates coordinates);
 private:
     void shootTowers();    /// This function makes all towers attempt to shoot.
     void addMinions();    /// This function adds a new minion to the game periodically

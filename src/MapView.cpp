@@ -93,7 +93,7 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 
 bool MapView::addTowerToMap(CartesianCoordinates coordinates)
 {
-	bool retval = gamemanager->map->addTower(coordinates);
+	bool retval = gamemanager->addTower(coordinates);
 	if(retval)
 		buildstate = MapView::towerBuildingStates::idle;
 	return retval;
