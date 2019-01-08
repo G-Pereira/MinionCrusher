@@ -57,7 +57,7 @@ void RenderElement::loadText2Texture(std::string text)
 	SDL_Texture *newTexture = nullptr;
 
 	//Load image at specified path
-	TTF_Font* Sans = TTF_OpenFont("resources/fonts/lazy.ttf", 24); //this opens a font style and sets a size
+	TTF_Font* Sans = TTF_OpenFont("resources/fonts/lazy.ttf", 90); //this opens a font style and sets a size
 
 	std::cout << TTF_GetError(); // prints 0
 
