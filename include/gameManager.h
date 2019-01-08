@@ -8,6 +8,7 @@ class GameManager {
 public:
     GameManager();
 
+	int money;
     Map *map;        /// Pointer to the current game map.
     void update();    /// This function updates the whole game for one timestep.
 private:

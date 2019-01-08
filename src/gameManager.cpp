@@ -1,6 +1,7 @@
 #include "gameManager.h"
 
 GameManager::GameManager() : map(nullptr) {
+	money = 100;
 }
 
 void GameManager::update() {
@@ -11,8 +12,12 @@ void GameManager::update() {
 
 void GameManager::shootTowers() {
     for (Tower &tower : map->towers) {
-        if(tower.update(map->minions) == 1)
-            kills++;
+		int bounty = tower.update(map->minions);
+		if (bounty != 0) {
+			kills++;
+			money += bounty;
+			std::cout << money << std::endl;
+		}
     }
 }
 
@@ -21,7 +26,7 @@ void GameManager::addMinions() {
     static float speed = 0.1F;
     if (speed * tickCount >= ticksToNextMinion) {
         tickCount = 0;
-        Minion minion = Minion(map->spawnPos.x, map->spawnPos.y, 1, 1, 100, 1, 0.02F);
+        Minion minion = Minion(map->spawnPos.x, map->spawnPos.y, 1, 1, 100, 1, 0.02F, 10);
         map->minions.push_back(minion);
         speed = minion.getSpeed();
     } else {

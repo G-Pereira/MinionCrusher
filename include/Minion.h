@@ -11,7 +11,7 @@
 
 class Minion : public MapObject {
 public:
-    Minion(float x, float y, float width, float height, float health, float damage, float speed);
+    Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty);
 
     virtual ~Minion();
 
@@ -37,6 +37,8 @@ public:
     bool operator!=(const Minion &rhs) const;    /// Operator that checks if two minions are the different
 
     void postRender() override;		/// show the health bar of the minion
+
+	int bounty; // Money awarded to player when this minion is killed
 
 private:
     float health; // Health of the minion
