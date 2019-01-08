@@ -4,6 +4,7 @@
 #pragma warning( push )
 #include <fstream>
 #include <vector>
+#include <algorithm>
 #pragma warning( pop )
 
 #include "Map.h"
@@ -58,8 +59,9 @@ Map::Map(std::string blueprintFile) {
 Map::~Map() {
 }
 
-void Map::createPath(int x, int y) {
+bool Map::createPath(int x, int y) {
     int dir = mapBlueprint[y][x];
+	if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), CartesianCoordinates{ (float) x,  (float) y }) != unavailable_towerspots.end() ) { return false; }
     if (dir > 0 && dir < 5) {
         path.emplace_back(x, y, 1, 1, MapSlots(dir));
 		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
@@ -67,6 +69,7 @@ void Map::createPath(int x, int y) {
     } else if (dir == 5) {
         base = Base((float) x, (float) y, 1., 1., 100.);
 		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
+		return true;
     }
 
 }

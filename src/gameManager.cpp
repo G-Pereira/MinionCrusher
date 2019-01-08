@@ -1,7 +1,7 @@
 #include "gameManager.h"
 
 GameManager::GameManager() : map(nullptr) {
-	money = 100;
+	this->money = 500;
 }
 
 void GameManager::update() {
@@ -27,6 +27,7 @@ void GameManager::shootTowers() {
 		if (bounty != 0) {
 			kills++;
 			money += bounty;
+			std::cout << money << std::endl;
 		}
     }
 }
