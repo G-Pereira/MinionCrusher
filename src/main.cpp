@@ -3,10 +3,7 @@
  *
  */
 
-#pragma warning( push )
 #include <iostream>
-#pragma warning( pop )
-
 #include "UI.h"
 
 using namespace std;

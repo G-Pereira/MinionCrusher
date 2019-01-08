@@ -8,12 +8,10 @@
 #ifndef MINIONCRUSHER_MAP_H
 #define MINIONCRUSHER_MAP_H
 
-#pragma warning( push )
 #include <iostream>
 #include <vector>
 #include <list>
 #include <mutex>
-#pragma warning( pop )
 
 #include "PathTile.h"
 #include "Base.h"

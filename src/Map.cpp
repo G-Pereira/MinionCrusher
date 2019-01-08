@@ -1,11 +1,9 @@
 /**
  * This class holds all elements in the game, and can read a level blueprint file
  */
-#pragma warning( push )
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#pragma warning( pop )
 
 #include "Map.h"
 

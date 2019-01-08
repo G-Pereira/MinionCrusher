@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma warning( push )
 #include <string>
 #include <iostream>
 
@@ -13,7 +12,6 @@
 #include <SDL2/SDL_ttf.h>
 
 #endif
-#pragma warning( pop )
 
 class RenderElement {
 public:

@@ -50,6 +50,8 @@ void PathTile::render() {
                     break;
                 case (ObjectType) 4:
                     break;
+                default:
+                    break;
             }
             SDL_RenderCopyEx(RenderElement::renderer, background, nullptr, &quad_rotated, angle, nullptr, flip);
         } else {

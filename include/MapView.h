@@ -2,9 +2,7 @@
 #ifndef MINIONCRUSHER_MAPVIEW_H
 #define MINIONCRUSHER_MAPVIEW_H
 
-#pragma warning( push )
 #include <mutex>
-#pragma warning( pop )
 
 #include "UIElement.h"
 
