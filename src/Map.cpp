@@ -41,7 +41,7 @@ Map::Map(std::string blueprintFile) {
                         tileType);                // Add a value to the right column of the blueprint
                 if (tileType >= 6 && tileType <= 9) {
                     this->path.emplace_back(x_tiles, y_tiles, 1, 1,
-                                            MapSlots(tileType - 5));    // Create the path tile where the minions spawn
+                                            ObjectType(tileType - 5));    // Create the path tile where the minions spawn
                     spawnPos = {(float) x_tiles, (float) y_tiles};
 					unavailable_towerspots.push_back(spawnPos);
                 }
@@ -63,15 +63,15 @@ bool Map::createPath(int x, int y) {
     int dir = mapBlueprint[y][x];
 	if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), CartesianCoordinates{ (float) x,  (float) y }) != unavailable_towerspots.end() ) { return false; }
     if (dir > 0 && dir < 5) {
-        path.emplace_back(x, y, 1, 1, MapSlots(dir));
+        path.emplace_back(x, y, 1, 1, ObjectType(dir));
 		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
         createPath(x - (dir == 1) + (dir == 4), y - (dir == 3) + (dir == 2));
     } else if (dir == 5) {
-        base = Base((float) x, (float) y, 1., 1., 100.);
+		base.setCoordinates((float) x, (float) y);
 		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
 		return true;
     }
-
+	return true;
 }
 
 bool Map::towerSpotAvailable(CartesianCoordinates coordinates)

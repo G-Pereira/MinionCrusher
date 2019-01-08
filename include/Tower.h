@@ -45,6 +45,8 @@ public:
 
 	void postRender() override;
 
+	const ObjectType objectType = (ObjectType) 6;
+
 private:
     int ticks = 0;
     int firePeriod;

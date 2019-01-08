@@ -80,7 +80,7 @@ void Tower::setTicks(int ticks) {
 void Tower::postRender()
 {
 	float timepassed = (float)ticks / (float)firePeriod;
-	int8_t alpha = SDL_ALPHA_OPAQUE * (1.0f - timepassed);
+	int8_t alpha = SDL_ALPHA_OPAQUE * (int8_t)(1.0f - timepassed);
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, alpha);
 	SDL_RenderDrawLine(renderer, quad.x + quad.w / 2, quad.y + quad.h / 2, target.x + target.w / 2, target.y + target.h / 2);
 }

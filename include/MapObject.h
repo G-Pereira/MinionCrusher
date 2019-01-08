@@ -82,6 +82,7 @@ public:
     void render() override;
 
 	bool needQuadUpdate;
+	const ObjectType objectType = (ObjectType) 0;
 protected:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map

@@ -6,17 +6,17 @@
 
 #include "PathTile.h"
 
-PathTile::PathTile(float x, float y, float width, float height, const MapSlots type)
+PathTile::PathTile(float x, float y, float width, float height, const ObjectType type)
         : MapObject(x, y, width, height), type(type) {
 
 }
 
-PathTile::PathTile(CartesianCoordinates coordinates, ObjectSize dimensions, const MapSlots type)
+PathTile::PathTile(CartesianCoordinates coordinates, ObjectSize dimensions, const ObjectType type)
         : MapObject(coordinates, dimensions, nullptr), type(type) {
 
 }
 
-const MapSlots &PathTile::getType() const {
+const ObjectType &PathTile::getType() const {
     return type;
 }
 
@@ -29,26 +29,26 @@ void PathTile::render() {
             double angle = 0.0;
             SDL_Rect quad_rotated = quad;
             switch (type) {
-                case (MapSlots) 0:
+                case (ObjectType) 0:
                     break;
-                case (MapSlots) 1:
+                case (ObjectType) 1:
                     flip = (SDL_RendererFlip) 1;
                     break;
-                case (MapSlots) 2:
+                case (ObjectType) 2:
                     angle = 90.0;
                     quad_rotated.x = quad.x - dif / 2;
                     quad_rotated.y = quad.y + dif / 2;
                     quad_rotated.w = quad.h;
                     quad_rotated.h = quad.w;
                     break;
-                case (MapSlots) 3:
+                case (ObjectType) 3:
                     angle = -90.0;
                     quad_rotated.x = quad.x - dif / 2;
                     quad_rotated.y = quad.y + dif / 2;
                     quad_rotated.w = quad.h;
                     quad_rotated.h = quad.w;
                     break;
-                case (MapSlots) 4:
+                case (ObjectType) 4:
                     break;
             }
             SDL_RenderCopyEx(RenderElement::renderer, background, nullptr, &quad_rotated, angle, nullptr, flip);

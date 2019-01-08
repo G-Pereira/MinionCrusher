@@ -37,7 +37,7 @@ void GameManager::addMinions() {
     static float speed = 0.1F;
     if (speed * tickCount >= ticksToNextMinion) {
         tickCount = 0;
-        Minion minion = Remi(map->spawnPos.x, map->spawnPos.y);
+        Minion minion = MinionRemi(map->spawnPos.x, map->spawnPos.y);
         map->minions.push_back(minion);
         speed = minion.getSpeed();
     } else {

@@ -29,6 +29,8 @@ public:
 
 	const float &getHealth() const;
 
+	const ObjectType objectType = (ObjectType) 5;
+
 private:
     float health; // Health of the base the minions attack
 	float max_health; // Health of the minion

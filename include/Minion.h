@@ -40,6 +40,8 @@ public:
 
 	int bounty; // Money awarded to player when this minion is killed
 
+	const ObjectType objectType = (ObjectType) 9;
+
 protected:
     float health; // Health of the minion
     float max_health; // max health of the minion

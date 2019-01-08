@@ -10,16 +10,17 @@
 
 class PathTile : public MapObject {
 public:
-    PathTile(float x, float y, float width, float height, const MapSlots type);
+    PathTile(float x, float y, float width, float height, const ObjectType type);
 
-    PathTile(CartesianCoordinates coordinates, ObjectSize dimensions, const MapSlots type);
+    PathTile(CartesianCoordinates coordinates, ObjectSize dimensions, const ObjectType type);
 
-    const MapSlots &getType() const;    /// Get the direction of the tile
+    const ObjectType &getType() const;    /// Get the direction of the tile
 
     void render() override;    /// render this object in the right way (using tiletype)
 
+	const ObjectType type;                /// Holds the direction of the tile
+
 private:
-    const MapSlots type;                /// Holds the direction of the tile
 };
 
 

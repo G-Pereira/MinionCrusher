@@ -11,6 +11,7 @@
 
 #pragma warning( push )
 #include <cmath>
+#include <string>
 #pragma warning( pop )
 
 /**
@@ -73,12 +74,18 @@ struct AmmoType {
 /**
  * Enumeration defining diffent types of tiles. This determines in which direction a minion should move.
  */
-enum class MapSlots : int {
+enum class ObjectType : int {
     EMPTY = 0,
     RIGHT = 1,
     UP = 2,
     DOWN = 3,
-    LEFT = 4
+    LEFT = 4,
+	BASE = 5,
+	TOWER1 = 6,
+	TOWER2 = 7,
+	TOWER3 = 8,
+	MINIONMEDIUM = 9,
+	MINIONREMI = 10
 };
 
 #endif //MINIONCRUSHER_TYPES_H
