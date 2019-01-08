@@ -43,6 +43,8 @@ public:
 
     void setTicks(int ticks);                /// Set the amount of ticks since the last shot of the tower
 
+	void postRender() override;
+
 private:
     int ticks = 0;
     int firePeriod;
@@ -50,6 +52,7 @@ private:
     float damage;
     float rangeSquared;
     AmmoType ammo;
+	SDL_Rect target;
 };
 
 

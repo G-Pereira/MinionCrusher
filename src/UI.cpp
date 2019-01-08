@@ -34,6 +34,8 @@ UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
         throw std::runtime_error("Renderer could not be created!");
     }
     
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BlendMode::SDL_BLENDMODE_BLEND);
+
 	if (TTF_Init() == -1) {
 		std::cout << "TTF_Init: " << TTF_GetError();
 		exit(2);
