@@ -20,6 +20,7 @@
 #include "Tower.h"
 #include "Minion.h"
 #include "minions/Medium.h"
+#include "minions/Remi.h"
 
 class Map {
 public:
