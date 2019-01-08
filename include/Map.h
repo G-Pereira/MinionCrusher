@@ -19,6 +19,7 @@
 #include "Base.h"
 #include "Tower.h"
 #include "Minion.h"
+#include "minions/Medium.h"
 
 class Map {
 public:

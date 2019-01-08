@@ -40,7 +40,7 @@ public:
 
 	int bounty; // Money awarded to player when this minion is killed
 
-private:
+protected:
     float health; // Health of the minion
     float max_health; // max health of the minion
     float damage; // The damage a minion does when attacking the base

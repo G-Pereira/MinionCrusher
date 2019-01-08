@@ -7,9 +7,7 @@
 #include <iostream>
 #pragma warning( pop )
 
-//#include "Map.h"
 #include "UI.h"
-//#include "gameManager.h"
 
 using namespace std;
 
@@ -52,7 +50,7 @@ int main(int argc, char *args[]) {
     }
 
     cout << "Create UI" << endl;
-    // create the UI
+    // CREATE THE UI
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
     RenderElement::renderer = ui.getRenderer();
 	UIElement::gamemanager = &gameManager;
