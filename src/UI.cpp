@@ -4,8 +4,6 @@
  * Last Modified: 28-11-18
  */
 
-#include <iostream>
-
 #include "UIText.h"
 #include "UI.h"
 
@@ -93,12 +91,12 @@ void UI::init() {
     map_view->loadTexture("resources/sprites/map_background.bmp");
     building_view->loadTexture("resources/sprites/right_side.bmp");
     info_view->loadTexture("resources/sprites/info.bmp");
+	loadTexture("resources/sprites/info.bmp");
 
     children.reserve(3);
     addChild(map_view);
     addChild(building_view);
     addChild(info_view);
-
 
     // add some buttons
     SDL_Rect button_quad = SDL_Rect{20, 20, 100, 100};
@@ -116,20 +114,11 @@ void UI::init() {
 	UIButton *button3 = new UIButton(button_quad, building_view, MapView::setBuildTowerState);
     button3->loadTexture("resources/sprites/tower3_tile.bmp");
     building_view->addChild(button3);
-
-    SDL_Rect text_quad = SDL_Rect{30, 30, 150, 30};
-    UIText *text_health = new UIText(text_quad, info_view);
-	text_health->loadText2Texture("Health: 100");
-    info_view->addChild(text_health);
-
-    text_quad.y += 50;
-    UIText *text_kills = new UIText(text_quad, info_view);
-    text_kills->loadText2Texture("Kills:  0");
-    info_view->addChild(text_kills);
 }
 
 void UI::postRender() {
     SDL_RenderPresent(renderer);
+	SDL_RenderClear(renderer);
 }
 
 

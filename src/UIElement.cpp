@@ -44,12 +44,15 @@ void UIElement::render() {
     }
 
     // render texture to screen
-    // render children recursively
     if (background != nullptr) {
         //std::cout << "Rendering background" << std::endl;
         SDL_RenderCopy(RenderElement::renderer, background, nullptr, &quad);
-    }
+	}
+	else {
+		std::cout << quad.x << " " << quad.y << " " << quad.w << " " << quad.h <<  " no background\n" ;
+	}
 
+	// render children recursively
     if (children.size() > 0 && quad.h > 0 && quad.w > 0) {
         for (UIElement *child : children) {
             SDL_RenderSetViewport(RenderElement::renderer, &quad);

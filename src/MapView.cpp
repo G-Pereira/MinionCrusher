@@ -18,7 +18,7 @@ void MapView::postRender() {
     }
     for (auto &minion : gamemanager->map->minions) {
         if (!minion.hasTexture()) {
-            minion.loadTexture("resources/sprites/minion1.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
+            minion.loadTexture("resources/sprites/rj.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
         }
         minion.updateQuad(tilewidth, tileheight);
         minion.render();
@@ -33,6 +33,9 @@ void MapView::postRender() {
         tower.render();
     }
 	
+	if (!gamemanager->map->base.hasTexture()) {
+		gamemanager->map->base.loadTexture("resources/sprites/base.bmp");
+	}
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);
 	gamemanager->map->base.render();

@@ -2,6 +2,7 @@
 #define MINIONCRUSHER_INFOVIEW_H
 
 #include "UIElement.h"
+#include "UIText.h"
 
 class InfoView : public UIElement {
         public:

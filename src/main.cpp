@@ -50,15 +50,15 @@ int main(int argc, char *args[]) {
     }
 
     cout << "Create UI" << endl;
-    // CREATE THE UI
+    // create the UI
+	UIElement::gamemanager = &gameManager;
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
     RenderElement::renderer = ui.getRenderer();
-	UIElement::gamemanager = &gameManager;
     cout << "Read map" << endl;
+
     // CREATE MAP FROM BLUEPRINT
     Map map("resources/blueprints/1.blueprint");
     gameManager.map = &map;
-	gameManager.addTower({ 2.F, 2.F });
 
     cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER

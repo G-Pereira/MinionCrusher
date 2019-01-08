@@ -33,7 +33,9 @@ void RenderElement::loadTexture(std::string path, SDL_Color color) {
 
     } else {
         //Create texture from surface pixels
-        SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, color.r, color.g, color.b));
+		if (color.a > 0) {
+			SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, color.r, color.g, color.b));
+		}
         newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
         if (newTexture == nullptr) {
             printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
@@ -52,7 +54,9 @@ void RenderElement::loadTexture(SDL_Texture *texture) {
 
 void RenderElement::loadText2Texture(std::string text)
 {
-
+	if (background != nullptr) {
+		SDL_DestroyTexture(background);
+	}
 	//The final texture
 	SDL_Texture *newTexture = nullptr;
 

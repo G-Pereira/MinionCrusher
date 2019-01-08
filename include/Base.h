@@ -27,12 +27,12 @@ public:
 
 	void postRender() override;
 
+	const float &getHealth() const;
+
 private:
     float health; // Health of the base the minions attack
 	float max_health; // Health of the minion
     void setHealth(float inputHealth);
-
-    const float &getHealth() const;
 };
 
 
