@@ -1,11 +1,16 @@
 language: cpp
-compiler: gcc
+dist: xenial
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - libsdl2-dev
       - libsdl2-image-dev
+      - libsdl2-ttf-dev
+      - gcc-8
+      - g++-8
 
 script:
   - cmake .
