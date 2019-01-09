@@ -5,9 +5,32 @@ GameManager::GameManager() : map(nullptr) {
 }
 
 void GameManager::update() {
-    shootTowers();
-    addMinions();
-    moveMinions();
+    if(gameState == start){
+        level = 1;
+        minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
+        cooldownTime = 100;
+        gameState = run; // TODO: add condition with a start button
+    }
+    if(gameState == run){
+        shootTowers();
+        addMinions();
+        moveMinions();
+    }
+    if (gameState == cooldown){
+        shootTowers();
+        moveMinions();
+        if(map->minions.size()==0){
+            if(cooldownTime == 0){
+                level++;
+                minionsLeftInWave = 5 * level;
+                cooldownTime = level * 100;
+                gameState = run;
+            }
+            cooldownTime--;
+        }
+    }
+    if(minionsLeftInWave <= 0) gameState = cooldown;
+    if (map->base.getHealth() <=0) gameState = lost;
 }
 
 bool GameManager::addTower(CartesianCoordinates coordinates)
@@ -40,6 +63,7 @@ void GameManager::addMinions() {
         Minion minion = MinionRemi(map->spawnPos.x, map->spawnPos.y);
         map->minions.push_back(minion);
         speed = minion.getSpeed();
+        minionsLeftInWave--;
     } else {
         tickCount++;
     }
