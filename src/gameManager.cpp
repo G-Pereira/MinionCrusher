@@ -17,19 +17,15 @@ void GameManager::update() {
         moveMinions();
     }
     if (gameState == cooldown){
-        shootTowers();
-        moveMinions();
-        if(map->minions.size()==0){
-            if(cooldownTime == 0){
+            cooldownTime--;
+            if (cooldownTime <= 0){
                 level++;
                 minionsLeftInWave = 5 * level;
                 cooldownTime = level * 1000;
                 gameState = run;
-            }
-            cooldownTime--;
         }
     }
-    if(minionsLeftInWave <= 0) gameState = cooldown;
+    if(minionsLeftInWave <= 0 && map->minions.size() == 0) gameState = cooldown;
     if (map->base.getHealth() <=0) gameState = lost;
 }
 
@@ -58,7 +54,7 @@ void GameManager::shootTowers() {
 void GameManager::addMinions() {
     // Add minions to the battlefield on an interval
     static float speed = 0.1F;
-    if (speed * tickCount >= ticksToNextMinion) {
+    if (speed * tickCount >= ticksToNextMinion && minionsLeftInWave > 0) {
         tickCount = 0;
         Minion minion = MinionRemi(map->spawnPos.x, map->spawnPos.y);
         map->minions.push_back(minion);

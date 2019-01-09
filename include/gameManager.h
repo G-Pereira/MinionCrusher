@@ -23,7 +23,7 @@ private:
     uint8_t minionsLeftInWave = 0;	/// Number of minions between cooldowns
 	enum state { run, pause, lost, won, start, cooldown};		/// Game states
 	state gameState = start;
-	uint8_t level = 0;
+	int level = 0;
 	int cooldownTime = 0;
 };
 
