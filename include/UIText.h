@@ -15,6 +15,7 @@ public:
 	enum class info_types {
 		kills,
 		health,
+		money,
 	} type;
 
     /**
@@ -30,6 +31,7 @@ public:
 
 	float prev_health = -1;
 	int prev_kills = -1;
+	int prev_money = -1;
 };
 
 

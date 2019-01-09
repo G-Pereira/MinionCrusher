@@ -11,6 +11,10 @@ InfoView::InfoView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent){
 	UIText *text_kills = new UIText(text_quad, this, UIText::info_types::kills);
 	addChild(text_kills);
 
+	text_quad.y -= 50;
+	text_quad.x += text_quad.w + 50;
+	UIText *text_money = new UIText(text_quad, this, UIText::info_types::money);
+	addChild(text_money);
 }
 
 InfoView::~InfoView() {

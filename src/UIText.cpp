@@ -23,6 +23,12 @@ void UIText::postRender()
 			prev_kills = gamemanager->kills;
 		}
 		break;
+	case info_types::money:
+		if (prev_money != gamemanager->money) {
+			loadText2Texture("money: " + std::to_string(gamemanager->money));
+			prev_money = gamemanager->money;
+		}
+		break;
 	default:
 		break;
 	}
