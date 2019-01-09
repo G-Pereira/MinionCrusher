@@ -31,11 +31,6 @@ public:
 	 */
 	static int mapClick(void* data, SDL_Event * e);
 
-	/**
-	 *
-	 * @param:
-	 */
-	bool addTowerToMap(CartesianCoordinates coordinates);
 
 private:
     float tilewidth;
@@ -44,13 +39,6 @@ private:
 	 * return the shape the healthbar should have
 	 */
     SDL_Rect getHealthbar();
-
-	enum class towerBuildingStates {
-		idle,
-		building,
-	};
-
-	static towerBuildingStates buildstate;
 };
 
 

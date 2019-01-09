@@ -1,23 +1,16 @@
 #include "UIButton.h"
 
-UIButton::UIButton(SDL_Rect quad, UIElement *parent, SDL_EventFilter filter) :
-        UIElement(quad, parent), filter(filter) {
+UIButton::UIButton(SDL_Rect quad, UIElement *parent, ButtonTypes button) :
+        UIElement(quad, parent), button_type(button) {
 	SDL_AddEventWatch(mouseClick, this);
 }
 
 UIButton::~UIButton() {
 }
 
-
-void UIButton::handleEvents(SDL_Event &e) {
-    if (filter)
-        filter(nullptr, &e);
-}
-
 int UIButton::mouseClick(void * userdata, SDL_Event * e)
 {
 	if (userdata == nullptr) {
-		throw;
 		return 0;
 	}
 	UIButton * clicked_button = reinterpret_cast<UIButton *>(userdata);
@@ -60,8 +53,7 @@ int UIButton::mouseClick(void * userdata, SDL_Event * e)
 		}
 		//Mouse is inside button
 		else {
-			if (clicked_button->filter)
-				clicked_button->filter(nullptr, e);
+			last_button_type = clicked_button->button_type;
 		}
 	}
 	return 0;

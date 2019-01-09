@@ -98,22 +98,6 @@ void UI::init() {
     addChild(building_view);
     addChild(info_view);
 
-    // add some buttons
-    SDL_Rect button_quad = SDL_Rect{20, 20, 100, 100};
-    UIButton *button1 = new UIButton(button_quad, building_view, MapView::setBuildTowerState);
-    button1->loadTexture("resources/sprites/tower1_tile.bmp");
-    building_view->addChild(button1);
-
-    button_quad.x += 120;
-	UIButton *button2 = new UIButton(button_quad, building_view, MapView::setBuildTowerState);
-    button2->loadTexture("resources/sprites/tower2_tile.bmp");
-    building_view->addChild(button2);
-
-    button_quad.x -= 120;
-    button_quad.y += 120;
-	UIButton *button3 = new UIButton(button_quad, building_view, MapView::setBuildTowerState);
-    button3->loadTexture("resources/sprites/tower3_tile.bmp");
-    building_view->addChild(button3);
 }
 
 void UI::postRender() {

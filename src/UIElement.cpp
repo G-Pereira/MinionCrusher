@@ -1,6 +1,7 @@
 #include "UIElement.h"
 
 GameManager  * UIElement::gamemanager = nullptr;
+UIElement::ButtonTypes UIElement::last_button_type = UIElement::ButtonTypes::idle;
 
 UIElement::UIElement(SDL_Rect viewport, UIElement *parent) : RenderElement(viewport), parent(parent) {
     background = nullptr;
@@ -24,12 +25,6 @@ void UIElement::addChild(UIElement *new_child) {
 
 std::vector<UIElement *> UIElement::getChildren() {
     return children;
-}
-
-void UIElement::handleEvents(SDL_Event &e) {
-    for (UIElement *child : children) {
-        child->handleEvents(e);
-    }
 }
 
 UIElement *UIElement::getParent() {

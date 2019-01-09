@@ -57,12 +57,6 @@ public:
     */
     std::vector<UIElement *> getChildren();
 
-    /**
-    * passes the SDL_events to children and optionally acts upon them.
-    * @param e SDL_Event
-    */
-    virtual void handleEvents(SDL_Event &e);
-
     UIElement *getParent();
 
 	static GameManager *gamemanager;
@@ -70,6 +64,13 @@ public:
 protected:
     std::vector<UIElement *> children;
     UIElement *parent;
+
+	enum class ButtonTypes {
+		idle,
+		building,
+	};
+
+	static ButtonTypes last_button_type;
 private:
 
 };

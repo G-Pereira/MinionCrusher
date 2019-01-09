@@ -1,6 +1,4 @@
 #include "MapView.h"
-MapView::towerBuildingStates MapView::buildstate = MapView::towerBuildingStates::idle;
-
 MapView::MapView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent), tilewidth(0.0F),
                                                      tileheight(0.0F){
 	SDL_AddEventWatch(MapView::mapClick, this);
@@ -44,11 +42,11 @@ void MapView::postRender() {
 int MapView::setBuildTowerState(void * data, SDL_Event * e)
 {
 	if (gamemanager) {
-		switch (buildstate) {
-		case towerBuildingStates::idle:
-			buildstate = towerBuildingStates::building;
+		switch (last_button_type) {
+		case ButtonTypes::idle:
+			last_button_type = ButtonTypes::building;
 			break;
-		case towerBuildingStates::building:
+		case ButtonTypes::building:
 			break;
 		}
 	}
@@ -65,18 +63,18 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 	}
 	if (e->type == SDL_MOUSEBUTTONDOWN) {
 		MapView * mapview = reinterpret_cast<MapView *>(userdata);
-		UIElement *UI_elem = mapview;
 
-		switch (mapview->buildstate)
+		switch (mapview->last_button_type)
 		{
-		case MapView::towerBuildingStates::idle:
+		case MapView::ButtonTypes::idle:
 			break;
-		case MapView::towerBuildingStates::building:
+		case MapView::ButtonTypes::building:
 			//Get mouse position
 			int x = e->button.x;
 			int y = e->button.y;
 			//SDL_GetMouseState(&x, &y);
 			// go through this object and all parents to substracct the total offset
+			UIElement *UI_elem = mapview;
 			while (UI_elem) {
 				x -= UI_elem->getQuad().x;
 				y -= UI_elem->getQuad().y;
@@ -86,20 +84,13 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 			CartesianCoordinates coors;
 			coors.x = floor(e->button.x / mapview->tilewidth);
 			coors.y = floor(e->button.y / mapview->tileheight);
-			if (mapview->addTowerToMap(coors)) {
+			if (gamemanager->addTower(coors)) {
+				mapview->last_button_type = MapView::ButtonTypes::idle;
 			}
 			break;
 		}
 	}
 	return 0;
-}
-
-bool MapView::addTowerToMap(CartesianCoordinates coordinates)
-{
-	bool retval = gamemanager->addTower(coordinates);
-	if(retval)
-		buildstate = MapView::towerBuildingStates::idle;
-	return retval;
 }
 
 SDL_Rect MapView::getHealthbar() {
