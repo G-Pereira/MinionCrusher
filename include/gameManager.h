@@ -24,7 +24,7 @@ private:
 	enum state { run, pause, lost, won, start, cooldown};		/// Game states
 	state gameState = start;
 	uint8_t level = 0;
-	uint8_t cooldownTime = 0;
+	int cooldownTime = 0;
 };
 
 

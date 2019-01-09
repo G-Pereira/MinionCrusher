@@ -8,7 +8,7 @@ void GameManager::update() {
     if(gameState == start){
         level = 1;
         minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
-        cooldownTime = 100;
+        cooldownTime = 1000;
         gameState = run; // TODO: add condition with a start button
     }
     if(gameState == run){
@@ -23,7 +23,7 @@ void GameManager::update() {
             if(cooldownTime == 0){
                 level++;
                 minionsLeftInWave = 5 * level;
-                cooldownTime = level * 100;
+                cooldownTime = level * 1000;
                 gameState = run;
             }
             cooldownTime--;
