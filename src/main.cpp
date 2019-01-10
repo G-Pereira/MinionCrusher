@@ -15,15 +15,13 @@ constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 // Temporary location of minion spawn information
 
-mutex test_mutex;
 GameManager gameManager;
 
 /**
 * Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 */
 Uint32 gameUpdate(Uint32 interval, void *m) {
-    std::lock_guard<std::mutex> lock(test_mutex);
-    Map *map = reinterpret_cast<Map *>(m);
+    Level *map = reinterpret_cast<Level *>(m);
     gameManager.update();
     return interval;
 }
@@ -31,12 +29,12 @@ Uint32 gameUpdate(Uint32 interval, void *m) {
 /**
 * Updates screen
 */
-//Uint32 uiUpdate(Uint32 interval, void *ptr) {
-//    //std::lock_guard<std::mutex> lock(test_mutex);
-//    UI *ui = (UI *) ptr;
-//    ui->render();
-//    return interval;
-//}
+Uint32 uiUpdate(Uint32 interval, void *ptr) {
+    //std::lock_guard<std::mutex> lock(test_mutex);
+    UI *ui = (UI *) ptr;
+    ui->render();
+    return interval;
+}
 
 int main(int argc, char *args[]) {
     if (argc > 1) {
@@ -54,7 +52,7 @@ int main(int argc, char *args[]) {
     cout << "Read map" << endl;
 
     // CREATE MAP FROM BLUEPRINT
-    Map map("resources/blueprints/1.blueprint");
+    Level map("resources/blueprints/1.blueprint");
     gameManager.map = &map;
 
     cout << "Start updating gamestate" << endl;
@@ -63,10 +61,10 @@ int main(int argc, char *args[]) {
     if (timer_id == 0) {
         cout << "SDL was unable to create a timer. " << endl;
     }
-    //SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
-    //if (ui_timer_id == 0) {
-    //    cout << "SDL was unable to create a timer. " << endl;
-    //}
+    SDL_TimerID ui_timer_id = SDL_AddTimer(16, uiUpdate, &ui);
+    if (ui_timer_id == 0) {
+        cout << "SDL was unable to create a timer. " << endl;
+    }
 
     bool quit = false;
     while (!quit) {
@@ -80,7 +78,6 @@ int main(int argc, char *args[]) {
                 quit = true;
             }
         }
-        ui.render();
     }
 
     return 0;

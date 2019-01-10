@@ -88,11 +88,6 @@ void RenderElement::loadText2Texture(std::string text)
 
 }
 
-//void RenderElement::setQuad(SDL_Rect new_quad)
-//{
-//	quad = new_quad;
-//}
-//
 SDL_Rect &RenderElement::getQuad() {
     return quad;
 }

@@ -5,16 +5,16 @@ MapView::MapView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent), ti
 }
 
 void MapView::postRender() {
-	tilewidth = (float)quad.w / (float)gamemanager->map->x_tiles;
-	tileheight = (float)quad.h / (float)gamemanager->map->y_tiles;
-    for (auto &path_tile : gamemanager->map->path) {
+	tilewidth = (float)quad.w / (float)gamemanager->map->getXTiles();
+	tileheight = (float)quad.h / (float)gamemanager->map->getYTiles();
+    for (auto &path_tile : gamemanager->map->getPath()) {
         if (!path_tile.hasTexture()) {
             path_tile.loadTexture("resources/sprites/path_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
         }
         path_tile.updateQuad(tilewidth, tileheight);
         path_tile.render();
     }
-    for (auto &minion : gamemanager->map->minions) {
+    for (auto &minion : gamemanager->map->getMinions()) {
         if (!minion.hasTexture()) {
             minion.loadTexture("resources/sprites/rj.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
         }
@@ -22,7 +22,7 @@ void MapView::postRender() {
         minion.render();
     }
 
-    for (auto &tower : gamemanager->map->towers) {
+    for (auto &tower : gamemanager->map->getTowers()) {
 
         if (!tower.hasTexture()) {
             tower.loadTexture("resources/sprites/tower1_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
@@ -30,13 +30,15 @@ void MapView::postRender() {
         tower.updateQuad(tilewidth, tileheight);
         tower.render();
     }
-	
-	if (!gamemanager->map->base.hasTexture()) {
-		gamemanager->map->base.loadTexture("resources/sprites/base.bmp");
+
+    // Load the base texture
+    Base& base = gamemanager->map->getBase();
+	if (!base.hasTexture()) {
+		base.loadTexture("resources/sprites/base.bmp");
 	}
-	gamemanager->map->base.updateQuad(tilewidth, tileheight);
-	gamemanager->map->base.updateQuad(tilewidth, tileheight);
-	gamemanager->map->base.render();
+	base.updateQuad(tilewidth, tileheight);
+	base.updateQuad(tilewidth, tileheight);
+	base.render();
 }
 
 int MapView::setBuildTowerState(void * data, SDL_Event * e)

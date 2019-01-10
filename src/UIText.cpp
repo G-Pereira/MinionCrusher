@@ -12,9 +12,9 @@ void UIText::postRender()
 {
 	switch (type) {
 	case info_types::health:
-		if (prev_health != gamemanager->map->base.getHealth()) {
-			loadText2Texture("health: " + std::to_string((int)gamemanager->map->base.getHealth()));
-			prev_health = gamemanager->map->base.getHealth();
+		if (prev_health != gamemanager->map->getBase().getHealth()) {
+			loadText2Texture("health: " + std::to_string((int)gamemanager->map->getBase().getHealth()));
+			prev_health = gamemanager->map->getBase().getHealth();
 		}
 		break;
 	case info_types::kills:
