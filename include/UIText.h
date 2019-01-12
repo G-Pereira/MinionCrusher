@@ -16,6 +16,8 @@ public:
 		kills,
 		health,
 		money,
+		level,
+		state
 	} type;
 
     /**
@@ -29,9 +31,7 @@ public:
 	
 	void postRender() override;
 
-	float prev_health = -1;
-	int prev_kills = -1;
-	int prev_money = -1;
+	float prev_value = -1;
 };
 
 
