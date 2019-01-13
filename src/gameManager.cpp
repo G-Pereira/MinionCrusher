@@ -1,10 +1,14 @@
 #include "gameManager.h"
 
+std::mutex GameManager::key;
+
 GameManager::GameManager() : map(nullptr) {
     this->money = 500;
 }
 
 void GameManager::update() {
+    //std::lock_guard<std::mutex> guard(GameManager::key);
+    std::cout << "Updating Game" << std::endl;
     if (gameState == start) {
         level = 1;
         minionsLeftInWave = 5; // TODO: Make it modular, design a level manager

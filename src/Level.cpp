@@ -8,7 +8,7 @@
 #include "Level.h"
 
 Level::Level(std::string blueprintFile)
-    : xTiles(0), yTiles(0), spawn({0,0}) {
+    : xTiles(0), yTiles(0), spawn({0,0}), base({0, 0, 1, 1, 100}) {
     try {
         std::ifstream f(blueprintFile);
         /**
@@ -24,7 +24,6 @@ Level::Level(std::string blueprintFile)
         *	8: spawn + path upwards
         *	9: spawn + path right
         */
-
         if (!f.good()) throw std::invalid_argument("Error reading blueprint file");
 
         std::string line;

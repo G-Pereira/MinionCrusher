@@ -11,7 +11,6 @@
 #include <iostream>
 #include <vector>
 #include <list>
-#include <mutex>
 #include <cstdint>
 #include <stdint-gcc.h>
 
@@ -55,7 +54,7 @@ public:
     CartesianCoordinates &getSpawn();
 
 private:
-    Base base = Base(0, 0, 1, 1, 100);
+    Base base;
     std::vector<PathTile> path;                            /// Vector containing all path tiles, in order the minions should cross them
     std::vector<Tower> towers;                            /// Vector containing all towers.
     std::list<Minion> minions;                            /// List containing all minions currently in the game.
@@ -67,9 +66,6 @@ private:
     CartesianCoordinates spawn;                        /// Position where minions spawn. Read from the blueprintFile
 
     std::vector<CartesianCoordinates> unavailable_towerspots;        /// Set containing coordinates where you CANNOT build a tower
-
-    // Make all instances thread safe
-    std::mutex key;
 
     /**
      * checks if a location is available for building a tower

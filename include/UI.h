@@ -8,6 +8,7 @@
 #define MINIONCRUSHER_UI_H
 
 #include <string>
+#include <mutex>
 #include "MapView.h"
 #include "UIButton.h"
 #include "BuildView.h"
@@ -23,6 +24,11 @@ public:
     UI(int w, int h);
 
     /**
+     * Copy constructor
+     */
+    //UI(const UI& ui);
+
+    /**
      * Destructor of the UI, calls the UI close method
      */
     ~UI();
@@ -31,6 +37,9 @@ public:
      * Initilialize the UI
      */
     void init();
+
+    void render() override;
+
 	/**
 	 * push the build frame to the front
 	 */
@@ -43,6 +52,9 @@ public:
     SDL_Renderer *getRenderer() const;
 	
 private:
+    // Mutex locking key
+    static std::mutex key;
+
     enum class elements : int {
         map,
         building,
