@@ -9,14 +9,14 @@ void MapView::postRender() {
 	tileheight = (float)quad.h / (float)gamemanager->map->y_tiles;
     for (auto &path_tile : gamemanager->map->path) {
         if (!path_tile.hasTexture()) {
-            path_tile.loadTexture("resources/sprites/path_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
+            path_tile.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::path));
         }
         path_tile.updateQuad(tilewidth, tileheight);
         path_tile.render();
     }
     for (auto &minion : gamemanager->map->minions) {
         if (!minion.hasTexture()) {
-            minion.loadTexture("resources/sprites/rj.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
+            minion.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::remi));
         }
         minion.updateQuad(tilewidth, tileheight);
         minion.render();
@@ -25,14 +25,14 @@ void MapView::postRender() {
     for (auto &tower : gamemanager->map->towers) {
 
         if (!tower.hasTexture()) {
-            tower.loadTexture("resources/sprites/tower1_tile.bmp", SDL_Color{0x00, 0xFF, 0xFF, 0xFF});
+            tower.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower1));
         }
         tower.updateQuad(tilewidth, tileheight);
         tower.render();
     }
 	
 	if (!gamemanager->map->base.hasTexture()) {
-		gamemanager->map->base.loadTexture("resources/sprites/base.bmp");
+		gamemanager->map->base.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::base));
 	}
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);

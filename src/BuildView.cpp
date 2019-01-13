@@ -8,14 +8,13 @@ BuildView::BuildView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent)
 }
 
 BuildView::~BuildView() {
-    SDL_DestroyTexture(background);
 }
 
 void BuildView::addButton(ButtonTypes button_type)
 {
 	UIButton *button1 = new UIButton(nextButtonPosition(), this, button_type);
-	button1->loadTexture("resources/sprites/tower1_tile.bmp");
-	addChild(button1);
+	button1->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower1));
+	this->addChild(button1);
 }
 
 SDL_Rect BuildView::nextButtonPosition()

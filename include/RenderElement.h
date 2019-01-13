@@ -1,17 +1,6 @@
 #pragma once
 
-#include <string>
-#include <iostream>
-
-#ifdef _WIN32
-#include <SDL_ttf.h>
-#include <SDL.h>
-#else
-
-#include "SDL2/SDL.h"
-#include <SDL2/SDL_ttf.h>
-
-#endif
+#include "TextureLib.h"
 
 class RenderElement {
 public:
@@ -42,18 +31,6 @@ public:
     virtual void render() = 0;
 
     /**
-     * Load an image from a link and turn it into a texture
-     * @param path path to the file containing a bitmap
-     */
-    virtual void loadTexture(std::string path);
-
-    /**
-     * overloaded Load an image from a link and turn it into a texture with a color key to leave out
-     * @param path path to the file containing a bitmap
-     */
-    void loadTexture(std::string path, SDL_Color color);
-
-    /**
      * overloaded Load an image from a link and turn it into a texture with a color key to leave out
      * @param texture pointer to an instantiated texture
      */
@@ -81,6 +58,8 @@ public:
     bool hasTexture();
 
     static SDL_Renderer* renderer;
+
+	static TextureLib* texture_lib;
 protected:
     SDL_Rect quad;
     SDL_Texture *background;

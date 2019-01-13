@@ -48,6 +48,7 @@ int main(int argc, char *args[]) {
     cout << "Create UI" << endl;
     // create the UI
 	UIElement::gamemanager = &gameManager;
+
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
     RenderElement::renderer = ui.getRenderer();
     cout << "Read map" << endl;
