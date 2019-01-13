@@ -15,7 +15,7 @@ void UIText::postRender() {
                 std::string disp = "health: " + std::to_string((int) gamemanager->map->base.getHealth());
                 quad.w = (int) disp.size()*quad.h/2;
                 loadText2Texture(disp);
-                prev_value = gamemanager->map->base.getHealth();
+                prev_value = (float) gamemanager->map->base.getHealth();
             }
             break;
         case info_types::kills:
@@ -23,7 +23,7 @@ void UIText::postRender() {
                 std::string disp = "kills: " + std::to_string(gamemanager->kills);
                 quad.w = (int) disp.size()*quad.h/2;
                 loadText2Texture(disp);
-                prev_value = gamemanager->kills;
+                prev_value = (float) gamemanager->kills;
             }
             break;
         case info_types::money:
@@ -31,7 +31,7 @@ void UIText::postRender() {
                 std::string disp = "money: " + std::to_string(gamemanager->money);
                 quad.w = (int) disp.size()*quad.h/2;
                 loadText2Texture(disp);
-                prev_value = gamemanager->money;
+                prev_value = (float) gamemanager->money;
             }
             break;
         case info_types::level:
@@ -39,7 +39,7 @@ void UIText::postRender() {
                 std::string disp = "level: " + std::to_string(gamemanager->level);
                 quad.w = (int) disp.size()*quad.h/2;
                 loadText2Texture(disp);
-                prev_value = gamemanager->level;
+                prev_value = (float) gamemanager->level;
             }
             break;
         case info_types::state:
@@ -47,7 +47,7 @@ void UIText::postRender() {
                 std::string disp = "cooldown: " + std::to_string(gamemanager->cooldownTime / 500) + "s";
                 quad.w = (int) disp.size()*quad.h/2;
                 loadText2Texture(disp);
-                prev_value = gamemanager->cooldownTime;
+                prev_value = (float) gamemanager->cooldownTime;
             }
             break;
         default:

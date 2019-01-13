@@ -23,20 +23,10 @@ GameManager gameManager;
 */
 Uint32 gameUpdate(Uint32 interval, void *m) {
     std::lock_guard<std::mutex> lock(test_mutex);
-    Map *map = reinterpret_cast<Map *>(m);
     gameManager.update();
     return interval;
 }
 
-/**
-* Updates screen
-*/
-//Uint32 uiUpdate(Uint32 interval, void *ptr) {
-//    //std::lock_guard<std::mutex> lock(test_mutex);
-//    UI *ui = (UI *) ptr;
-//    ui->render();
-//    return interval;
-//}
 
 int main(int argc, char *args[]) {
     if (argc > 1) {
@@ -63,10 +53,6 @@ int main(int argc, char *args[]) {
     if (timer_id == 0) {
         cout << "SDL was unable to create a timer. " << endl;
     }
-    //SDL_TimerID ui_timer_id = SDL_AddTimer(10, uiUpdate, &ui);
-    //if (ui_timer_id == 0) {
-    //    cout << "SDL was unable to create a timer. " << endl;
-    //}
 
     bool quit = false;
     while (!quit) {

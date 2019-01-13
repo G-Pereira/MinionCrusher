@@ -24,7 +24,7 @@ uint8_t Tower::update(std::list<Minion> &minions) {
                 minion.setHealth(minion.getHealth() - damage);
                 ticks = 0;
                 if (minion.getHealth() <= 0) {
-					int bounty = minion.bounty;
+					uint8_t bounty = minion.bounty;
                     minions.remove(minion);
                     return bounty;
                 }
