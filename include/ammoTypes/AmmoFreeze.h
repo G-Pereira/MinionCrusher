@@ -4,7 +4,7 @@
 class AmmoFreeze : public AmmoType {
 public:
 	AmmoFreeze()
-		: AmmoType(1, 0, 0, 0, 0.2) {
+		: AmmoType(1., 0., 0., 0., 0.2F) {
 
 	}
 

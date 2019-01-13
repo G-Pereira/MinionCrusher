@@ -84,7 +84,7 @@ void GameManager::moveMinions() {
             }
             minion.traversedDistance = minion.traversedDistance + minion.speed;
 			if (minion.speed < minion.maxSpeed) {
-				minion.speed += (minion.maxSpeed - minion.speed)*0.1;
+				minion.speed += float (minion.maxSpeed - minion.speed)*0.1;
 			}
         }
     } while (!finished);
