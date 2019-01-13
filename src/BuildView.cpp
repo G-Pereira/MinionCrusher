@@ -2,11 +2,9 @@
 
 BuildView::BuildView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent) {
 	// add some buttons
-	addButton(ButtonTypes::building);
+	addButton(ButtonTypes::fireTower);
 
-	addButton(ButtonTypes::building);
-
-	addButton(ButtonTypes::building);
+	addButton(ButtonTypes::freezeTower);
 }
 
 BuildView::~BuildView() {

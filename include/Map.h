@@ -19,6 +19,8 @@
 #include "Minion.h"
 #include "minions/MinionMedium.h"
 #include "minions/MinionRemi.h"
+#include "ammoTypes/AmmoFire.h"
+#include "ammoTypes/AmmoFreeze.h"
 
 class Map {
 public:
@@ -53,7 +55,7 @@ public:
 	 * @param: coordinates the coordinates of where to build
 	 * @return: true if succesful, false if not
 	 */
-	bool addTower(CartesianCoordinates coordinates);
+	bool addTower(CartesianCoordinates coordinates, ButtonTypes type);
 private:
 	/**
 	 * checks if a location is available for building a tower

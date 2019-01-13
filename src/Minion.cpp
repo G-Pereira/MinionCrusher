@@ -8,7 +8,7 @@
 
 Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty)
         : MapObject(x, y, width, height), health(health), max_health(health), damage(damage), speed(speed) , bounty(bounty){
-
+	maxSpeed = speed;
 }
 
 Minion::~Minion() {
@@ -26,14 +26,6 @@ const float &Minion::getMaxHealth() const {
 void Minion::setHealth(float inputHealth) {
     this->health = inputHealth;
     max_health = inputHealth > max_health ? inputHealth : max_health;
-}
-
-void Minion::setSpeed(float speed) {
-    this->speed = speed;
-}
-
-const float &Minion::getSpeed() const {
-    return this->speed;
 }
 
 void Minion::setDamage(float damage) {

@@ -98,10 +98,17 @@ bool Map::towerSpotAvailable(CartesianCoordinates coordinates)
 	return true;
 }
 
-bool Map::addTower(CartesianCoordinates coordinates)
+bool Map::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 {
 	if (towerSpotAvailable(coordinates)) {
-		towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, 10, AmmoType{});
+		switch (type) {
+			case ButtonTypes::fireTower:
+				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFire());
+			case ButtonTypes::freezeTower:
+				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFreeze());
+			default:
+				break;
+		}
 		unavailable_towerspots.push_back(coordinates);
 		return true;
 	}

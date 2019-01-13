@@ -9,6 +9,7 @@
 #include <vector>
 #include "RenderElement.h"
 #include "gameManager.h"
+#include "types.h"
 
 class UIElement : public RenderElement {
 public:
@@ -65,10 +66,6 @@ protected:
     std::vector<UIElement *> children;
     UIElement *parent;
 
-	enum class ButtonTypes {
-		idle,
-		building,
-	};
 
 	static ButtonTypes last_button_type;
 private:

@@ -13,7 +13,7 @@
 
 class Tower : public MapObject {
 public:
-    Tower(float x, float y, float width, float height, int firePeriod, float range, float damage, AmmoType ammo);
+    Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo);
 
     virtual ~Tower();
 
@@ -43,7 +43,7 @@ public:
 
 	void postRender() override;
 
-	const ObjectType objectType = (ObjectType) 6;
+	ObjectType objectType = (ObjectType) 6;
 
 private:
     int ticks = 0;

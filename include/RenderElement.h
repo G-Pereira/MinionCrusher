@@ -38,9 +38,7 @@ public:
      */
     virtual void postRender();
 
-    /**
-     * Render this object
-     */
+    /// Render this object
     virtual void render() = 0;
 
     /**

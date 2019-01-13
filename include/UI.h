@@ -22,18 +22,12 @@ public:
      */
     UI(int w, int h);
 
-    /**
-     * Destructor of the UI, calls the UI close method
-     */
+    /// Destructor of the UI, calls the UI close method
     ~UI();
 
-    /**
-     * Initilialize the UI
-     */
+    /// Initilialize the UI
     void init();
-	/**
-	 * push the build frame to the front
-	 */
+	/// push the build frame to the front
     void postRender() override;
 
     /**

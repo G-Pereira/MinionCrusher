@@ -23,12 +23,6 @@ public:
 	 *
 	 * @param:
 	 */
-	static int setBuildTowerState(void* data, SDL_Event * e);
-
-	/**
-	 *
-	 * @param:
-	 */
 	static int mapClick(void* data, SDL_Event * e);
 
 

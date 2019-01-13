@@ -29,11 +29,11 @@ void GameManager::update() {
     if (map->base.getHealth() <=0) gameState = lost;
 }
 
-bool GameManager::addTower(CartesianCoordinates coordinates)
+bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 {
 	if (money >= 100) {
 		money -= 100;
-		map->addTower(coordinates);
+		map->addTower(coordinates, type);
 		std::cout << money << std::endl;
 		return true;
 	}
@@ -58,7 +58,7 @@ void GameManager::addMinions() {
         tickCount = 0;
         Minion minion = MinionRemi(map->spawnPos.x, map->spawnPos.y);
         map->minions.push_back(minion);
-        speed = minion.getSpeed();
+        speed = minion.speed;
         minionsLeftInWave--;
     } else {
         tickCount++;
@@ -73,8 +73,8 @@ void GameManager::moveMinions() {
 
             int dir = (int) map->path[(int) minion.traversedDistance].getType();
             minion.setCoordinates(
-                    {minion.getCoordinates().x + minion.getSpeed() * (-(dir == 1) + (dir == 4)),
-                     minion.getCoordinates().y + minion.getSpeed() * (-(dir == 3) + (dir == 2))}
+                    {minion.getCoordinates().x + minion.speed * (-(dir == 1) + (dir == 4)),
+                     minion.getCoordinates().y + minion.speed * (-(dir == 3) + (dir == 2))}
             );
             if (int(minion.traversedDistance) >= (int) map->path.size() - 1) {
                 map->base.doDamage(map->minions.front().getDamage());
@@ -82,7 +82,10 @@ void GameManager::moveMinions() {
                 finished = false;
                 break;
             }
-            minion.traversedDistance = minion.traversedDistance + minion.getSpeed();
+            minion.traversedDistance = minion.traversedDistance + minion.speed;
+			if (minion.speed < minion.maxSpeed) {
+				minion.speed += (minion.maxSpeed - minion.speed)*0.1;
+			}
         }
     } while (!finished);
 }

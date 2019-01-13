@@ -1,7 +1,7 @@
 #include "UIElement.h"
 
 GameManager  * UIElement::gamemanager = nullptr;
-UIElement::ButtonTypes UIElement::last_button_type = UIElement::ButtonTypes::idle;
+ButtonTypes UIElement::last_button_type = ButtonTypes::idle;
 
 UIElement::UIElement(SDL_Rect viewport, UIElement *parent) : RenderElement(viewport), parent(parent) {
     background = nullptr;

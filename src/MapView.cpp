@@ -39,23 +39,6 @@ void MapView::postRender() {
 	gamemanager->map->base.render();
 }
 
-int MapView::setBuildTowerState(void * data, SDL_Event * e)
-{
-	if (gamemanager) {
-		switch (last_button_type) {
-		case ButtonTypes::idle:
-			last_button_type = ButtonTypes::building;
-			break;
-		case ButtonTypes::building:
-			break;
-		}
-	}
-	else {
-		std::cout << "no gamemanager\n";
-	}
-	return 0;
-}
-
 int MapView::mapClick(void * userdata, SDL_Event * e)
 {
 	if (userdata == nullptr) {
@@ -66,9 +49,9 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 
 		switch (mapview->last_button_type)
 		{
-		case MapView::ButtonTypes::idle:
+		case ButtonTypes::idle:
 			break;
-		case MapView::ButtonTypes::building:
+		default:
 			//Get mouse position
 			int x = e->button.x;
 			int y = e->button.y;
@@ -84,8 +67,8 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 			CartesianCoordinates coors;
 			coors.x = floor(e->button.x / mapview->tilewidth);
 			coors.y = floor(e->button.y / mapview->tileheight);
-			if (gamemanager->addTower(coors)) {
-				mapview->last_button_type = MapView::ButtonTypes::idle;
+			if (gamemanager->addTower(coors, mapview->last_button_type)) {
+				mapview->last_button_type = ButtonTypes::idle;
 			}
 			break;
 		}

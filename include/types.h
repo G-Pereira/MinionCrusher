@@ -61,7 +61,12 @@ struct ObjectSize {
 /**
  * Structure holding all configuration parameters that influence the behavior of an ammo related type.
  */
-struct AmmoType {
+class AmmoType {
+public:
+	AmmoType(float speed, float damage, float blastRadius, float pierce, float slow) 
+		: speed(speed), damage(damage), blastRadius(blastRadius), pierce(pierce), slow(slow) {
+
+	}
     float speed = 1;
     float damage = 1;
     float blastRadius = 0;
@@ -84,6 +89,12 @@ enum class ObjectType : int {
 	TOWER3 = 8,
 	MINIONMEDIUM = 9,
 	MINIONREMI = 10
+};
+
+enum class ButtonTypes {
+	idle,
+	fireTower,
+	freezeTower
 };
 
 #endif //MINIONCRUSHER_TYPES_H

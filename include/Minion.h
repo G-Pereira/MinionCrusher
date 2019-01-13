@@ -22,10 +22,6 @@ public:
 
     const float &getMaxHealth() const;    /// Get the maximum health of the minion (health it starts with)
 
-    void setSpeed(float speed);            /// Set the movement speed of the minion
-
-    const float &getSpeed() const;        /// Get the movement speed of the minion
-
     void setDamage(float damage);        /// Set the damage the minion does to the base when it hits the base.
 
     const float &getDamage() const;        /// Get the damage the minion does to the base when it hits the base.
@@ -41,12 +37,13 @@ public:
 	int bounty; // Money awarded to player when this minion is killed
 
 	const ObjectType objectType = (ObjectType) 9;
+	float maxSpeed;	// Maximum speed the minion has when not frozen
+	float speed;	// The speed of a minion in distance/tick
 
 protected:
     float health; // Health of the minion
     float max_health; // max health of the minion
     float damage; // The damage a minion does when attacking the base
-    float speed; // The speed of a minion in distance/tick
 };
 
 

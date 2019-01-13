@@ -6,10 +6,10 @@
 
 #include <Tower.h>
 
-Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, float damage, AmmoType ammo)
-        : MapObject(x, y, width, height), firePeriod(firePeriod), range(range), damage(damage), ammo(ammo)
+Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo)
+        : MapObject(x, y, width, height), firePeriod(firePeriod), range(range), ammo(ammo)
 	, rangeSquared(range*range), target(SDL_Rect{ (int)x, (int)y, (int)width, (int)height }) {
-
+	if (ammo.slow > 0) { this->objectType = (ObjectType)7; }
 }
 
 Tower::~Tower() {
@@ -21,7 +21,8 @@ uint8_t Tower::update(std::list<Minion> &minions) {
         for (Minion &minion : minions) {
             if (minion.getCoordinates().isInRange(coordinates, range)) {
 				target = minion.getQuad();
-                minion.setHealth(minion.getHealth() - damage);
+                minion.setHealth(minion.getHealth() - this->ammo.damage);
+				minion.speed = minion.speed * ammo.slow;
                 ticks = 0;
                 if (minion.getHealth() <= 0) {
 					uint8_t bounty = minion.bounty;

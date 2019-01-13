@@ -2,6 +2,8 @@
 #define MINIONCRUSHER_GAMEMANAGER_H
 
 #include "Map.h"
+#include "types.h"
+
 
 /** Needs to be called every tick to update the game. Will update towers, minions, etc. */
 class GameManager {
@@ -11,7 +13,7 @@ public:
 	int money;
     Map *map;        /// Pointer to the current game map.
     void update();    /// This function updates the whole game for one timestep.
-	bool addTower(CartesianCoordinates coordinates);
+	bool addTower(CartesianCoordinates coordinates, ButtonTypes type);
 	int kills = 0;
 	int level = 0;
 	int cooldownTime = 0;
