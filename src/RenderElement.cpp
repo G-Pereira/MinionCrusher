@@ -27,7 +27,7 @@ void RenderElement::loadTexture(SDL_Texture *texture) {
 void RenderElement::loadText2Texture(std::string text)
 {
 	if (background != nullptr) {
-		//SDL_DestroyTexture(background);
+		SDL_DestroyTexture(background);
 	}
 	//The final texture
 	SDL_Texture *newTexture = nullptr;
