@@ -17,12 +17,13 @@ public:
 	int kills = 0;
 	int level = 0;
 	int cooldownTime = 0;
+	float spawnSpeed = 0.1F;
 private:
     void shootTowers();			/// This function makes all towers attempt to shoot.
     void addMinions();			/// This function adds a new minion to the game periodically
     void moveMinions();			/// This function moves all minions in the right direction.
 
-    int ticksToNextMinion = 3;	/// Temporary variable to determine the period of minion spawning.
+    int ticksToNextMinion = 30;	/// Temporary variable to determine the period of minion spawning.
     int tickCount = 2;			/// Temporary variable to compare if a new minion should be spawned.
     int minionsLeftInWave = 0;	/// Number of minions between cooldowns
 	enum state { run, pause, lost, won, start, cooldown};		/// Game states
