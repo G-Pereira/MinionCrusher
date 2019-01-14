@@ -12,10 +12,7 @@ UIElement::UIElement(int x, int y, int w, int h, UIElement *parent) : UIElement(
 }
 
 UIElement::~UIElement() {
-    // Delete all childs that have been allocated on the heap
-    for (UIElement *child : children) {
-        delete child;
-    }
+	clearChildren();
 }
 
 
@@ -29,6 +26,34 @@ std::vector<UIElement *> UIElement::getChildren() {
 
 UIElement *UIElement::getParent() {
     return parent;
+}
+
+void UIElement::clearChildren()
+{
+	children.clear();
+}
+
+SDL_Rect UIElement::nextAutoButtonPosition()
+{
+	SDL_Rect retquad = SDL_Rect{ 0 };
+	if (children.size() == 0) {
+		retquad = SDL_Rect{ button_distance_x, button_distance_y, button_size_x, button_size_y };
+	}
+	else {
+		retquad = children.back()->getQuad();
+		if (retquad.x + button_distance_x + retquad.w + button_size_x > quad.w) {
+			retquad.x = button_distance_x;
+			retquad.y += button_distance_y + button_size_y;
+			retquad.h = button_size_y;
+			retquad.w = button_size_x;
+		}
+		else {
+			retquad.x += button_distance_x + button_size_x;
+			retquad.h = button_size_y;
+			retquad.w = button_size_x;
+		}
+	}
+	return retquad;
 }
 
 

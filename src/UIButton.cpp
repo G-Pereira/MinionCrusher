@@ -53,6 +53,26 @@ int UIButton::mouseClick(void * userdata, SDL_Event * e)
 		}
 		//Mouse is inside button
 		else {
+			switch (clicked_button->button_type) {
+			case ButtonTypes::startmap1:
+				std::cout << "Read map" << std::endl;
+
+				// CREATE MAP FROM BLUEPRINT
+				clicked_button->gamemanager->resetGame();
+				clicked_button->gamemanager->map = new Map("resources/blueprints/1.blueprint");
+				gamemanager->gameState = GameManager::start;
+				break;
+			case ButtonTypes::startmap2:
+				std::cout << "Read map" << std::endl;
+
+				// CREATE MAP FROM BLUEPRINT
+				clicked_button->gamemanager->resetGame();
+				clicked_button->gamemanager->map = new Map("resources/blueprints/simple.blueprint");
+				gamemanager->gameState = GameManager::start;
+				break;
+			default:
+				break;
+			}
 			last_button_type = clicked_button->button_type;
 		}
 	}

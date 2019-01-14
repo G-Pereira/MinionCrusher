@@ -94,7 +94,10 @@ enum class ObjectType : int {
 enum class ButtonTypes {
 	idle,
 	fireTower,
-	freezeTower
+	freezeTower,
+	startmap1,
+	startmap2,
+	pause,
 };
 
 #endif //MINIONCRUSHER_TYPES_H

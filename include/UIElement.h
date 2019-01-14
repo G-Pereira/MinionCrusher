@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+
 #include "RenderElement.h"
 #include "gameManager.h"
 #include "types.h"
@@ -47,18 +48,20 @@ public:
     void render() override;
 
     /**
-    * add to the children of the Element
-    * @param new_child UIView element to add to children
-    */
+     * add to the children of the Element
+     * @param new_child UIView element to add to children
+     */
     void addChild(UIElement *new_child);
 
     /**
-    * return the vector of the children
-    * @return a vector with all its children
-    */
+	 * return the vector of the children
+	 * @return a vector with all its children
+	 */
     std::vector<UIElement *> getChildren();
 
     UIElement *getParent();
+
+	void clearChildren();
 
 	static GameManager *gamemanager;
 
@@ -68,8 +71,13 @@ protected:
 
 
 	static ButtonTypes last_button_type;
-private:
 
+	SDL_Rect nextAutoButtonPosition();
+	int button_distance_x = 20;
+	int button_distance_y = 20;
+	int button_size_x = 100;
+	int button_size_y = 100;
+private:
 };
 
 #endif

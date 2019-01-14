@@ -51,15 +51,10 @@ int main(int argc, char *args[]) {
 
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
     RenderElement::renderer = ui.getRenderer();
-    cout << "Read map" << endl;
-
-    // CREATE MAP FROM BLUEPRINT
-    Map map("resources/blueprints/1.blueprint");
-    gameManager.map = &map;
 
     cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, &map);
+    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, nullptr/* &map*/);
     if (timer_id == 0) {
         cout << "SDL was unable to create a timer. " << endl;
     }

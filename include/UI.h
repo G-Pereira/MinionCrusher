@@ -8,10 +8,12 @@
 #define MINIONCRUSHER_UI_H
 
 #include <string>
+
 #include "MapView.h"
 #include "UIButton.h"
 #include "BuildView.h"
 #include "InfoView.h"
+#include "StartMenu.h"
 
 class UI : public UIElement {
 public:
@@ -25,8 +27,6 @@ public:
     /// Destructor of the UI, calls the UI close method
     ~UI();
 
-    /// Initilialize the UI
-    void init();
 	/// push the build frame to the front
     void postRender() override;
 
@@ -37,6 +37,16 @@ public:
     SDL_Renderer *getRenderer() const;
 	
 private:
+	enum class states{
+		ingame,
+		inmenu
+	} state;
+	/// Initilialize the inGame UI
+	void inGame();
+
+	/// Initilialize the startmenu UI
+	void startMenu();
+
     enum class elements : int {
         map,
         building,

@@ -5,30 +5,56 @@ GameManager::GameManager() : map(nullptr) {
 }
 
 void GameManager::update() {
-    if(gameState == start){
-        level = 1;
-        minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
-        cooldownTime = 1000;
-        gameState = run; // TODO: add condition with a start button
-    }
-    if(gameState == run){
-        shootTowers();
-        addMinions();
-        moveMinions();
-    }
-    if (gameState == cooldown){
-            cooldownTime--;
-            if (cooldownTime <= 0){
-                level++;
-                minionsLeftInWave = 5 * level;
-                cooldownTime = level * 1000;
-                gameState = run;
-        }
-    }
-    if(minionsLeftInWave <= 0 && map->minions.size() == 0) gameState = cooldown;
-    if (map->base.getHealth() <=0) gameState = lost;
+	//std::cout << (int)gameState << std::endl;
+
+	switch (gameState) {
+	case menu:
+	case lost:
+		break;
+	case start:
+		level = 1;
+		minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
+		cooldownTime = 1000;
+		gameState = run; // TODO: add condition with a start button
+		break;
+	case run:
+		shootTowers();
+		addMinions();
+		moveMinions();
+		if (map != nullptr) {
+			if (minionsLeftInWave <= 0 && map->minions.size() == 0) gameState = cooldown;
+			if (map->base.getHealth() <= 0) {
+				gameState = lost;
+				std::cout << "You lost!" << std::endl;
+			}
+		}
+		break;
+	case cooldown:
+		std::cout << "cooldown state\n";
+		cooldownTime--;
+		if (cooldownTime <= 0) {
+			level++;
+			minionsLeftInWave = 5 * level;
+			cooldownTime = level * 1000;
+			gameState = run;
+			std::cout << "gamestate set to: run\n";
+		}
+		break;
+	}
 }
 
+void GameManager::resetGame() {
+	// reset all variables
+	delete map;
+	map = nullptr;
+	money = 500;
+	kills = 0;
+	level = 0;
+	cooldownTime = 0;
+	ticksToNextMinion = 3;
+	tickCount = 2;
+	minionsLeftInWave = 0;
+}
 bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 {
 	if (money >= 100) {

@@ -5,6 +5,10 @@ MapView::MapView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent), ti
 }
 
 void MapView::postRender() {
+	if (gamemanager->map == nullptr) {
+		std::cout << "no map to render\n";
+		return;
+	}
 	tilewidth = (float)quad.w / (float)gamemanager->map->x_tiles;
 	tileheight = (float)quad.h / (float)gamemanager->map->y_tiles;
     for (auto &path_tile : gamemanager->map->path) {

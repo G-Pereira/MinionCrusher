@@ -4,12 +4,11 @@
  * Last Modified: 28-11-18
  */
 
-#include "UIText.h"
 #include "UI.h"
 
 using namespace std;
 
-UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
+UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr), state (states::inmenu) {
     // Init SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         throw std::runtime_error("SDL could not initialize!");
@@ -41,7 +40,9 @@ UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
 
 	RenderElement::texture_lib = new TextureLib(renderer);
 
-    init();
+	loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
+	startMenu();
+    //inGame();
 }
 
 UI::~UI() {
@@ -55,7 +56,23 @@ UI::~UI() {
     SDL_Quit();
 }
 
-void UI::init() {
+void UI::startMenu()
+{
+	SDL_Rect menu_quad;
+	menu_quad.x = 0;
+	menu_quad.y = 0;
+	menu_quad.w = quad.w;// *8 / 10;
+	menu_quad.h = quad.h;// *8 / 10;
+
+	StartMenu *menu_view = new StartMenu(menu_quad, this);
+
+	menu_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::building_background));
+
+	addChild(menu_view);
+}
+
+void UI::inGame() {
+	std::cout << "start the in game UI\n";
     /* ratio of UI elements
     current shape:
     _________________________
@@ -95,7 +112,6 @@ void UI::init() {
 	map_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::map));
     building_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::building_background));
     info_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
-	loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
 
     children.reserve(3);
     addChild(map_view);
@@ -104,9 +120,31 @@ void UI::init() {
 
 }
 
+
+
 void UI::postRender() {
     SDL_RenderPresent(renderer);
 	SDL_RenderClear(renderer);
+	switch (gamemanager->gameState) {
+	case GameManager::menu:
+	case  GameManager::lost:
+		if (state != states::inmenu) {
+			state = states::inmenu;
+			clearChildren();
+			startMenu();
+		}
+		break;
+	case GameManager::start:
+	case GameManager::cooldown:
+	case GameManager::run:
+	case GameManager::won:
+		if (state != states::ingame) {
+			state = states::ingame;
+			clearChildren();
+			inGame();
+		}
+		break;
+	}
 }
 
 
