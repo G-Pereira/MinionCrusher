@@ -13,10 +13,10 @@ void GameManager::update() {
 	case lost:
 		break;
 	case start:
-		level = 1;
+		level=0;
 		minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
-		cooldownTime = 1000;
-		gameState = run; // TODO: add condition with a start button
+		cooldownTime = 5000;
+		gameState = cooldown; // TODO: add condition with a start button
 		break;
 	case run:
 		shootTowers();
