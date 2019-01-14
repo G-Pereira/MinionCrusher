@@ -7,9 +7,8 @@
 #include <Tower.h>
 
 Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo, ObjectType type)
-        : MapObject(x, y, width, height, type), firePeriod(firePeriod), range(range), ammo(ammo)
-	, rangeSquared(range*range), target(SDL_Rect{ -1, -1, -1, -1 }) {
-	//if (ammo.slow > 0) { this->objectType = (ObjectType)7; }
+        : MapObject(x, y, width, height, type), firePeriod(firePeriod), range(range), ammo(ammo), target(SDL_Rect{ -1, -1, -1, -1 }) {
+
 }
 
 Tower::~Tower() {
@@ -25,7 +24,7 @@ uint8_t Tower::update(std::list<Minion> &minions) {
 				minion.speed = minion.speed * ammo.slow;
                 ticks = 0;
                 if (minion.getHealth() <= 0) {
-					uint8_t bounty = minion.bounty;
+					uint8_t bounty = (uint8_t) minion.bounty;
                     minions.remove(minion);
                     return bounty;
                 }
@@ -42,40 +41,40 @@ const int &Tower::getFirePeriod() const {
     return firePeriod;
 }
 
-void Tower::setFirePeriod(int firePeriod) {
-    Tower::firePeriod = firePeriod;
+void Tower::setFirePeriod(int inpFirePeriod) {
+    Tower::firePeriod = inpFirePeriod;
 }
 
 const float &Tower::getDamage() const {
     return damage;
 }
 
-void Tower::setDamage(float damage) {
-    Tower::damage = damage;
+void Tower::setDamage(float inpDamage) {
+    Tower::damage = inpDamage;
 }
 
 const AmmoType &Tower::getAmmo() const {
     return ammo;
 }
 
-void Tower::setAmmo(AmmoType ammo) {
-    Tower::ammo = ammo;
+void Tower::setAmmo(AmmoType inpAmmo) {
+    Tower::ammo = inpAmmo;
 }
 
 const float &Tower::getRange() const {
     return range;
 }
 
-void Tower::setRange(float range) {
-    Tower::range = range;
+void Tower::setRange(float inpRange) {
+    Tower::range = inpRange;
 }
 
 const int &Tower::getTicks() const {
     return ticks;
 }
 
-void Tower::setTicks(int ticks) {
-    Tower::ticks = ticks;
+void Tower::setTicks(int inpTicks) {
+    Tower::ticks = inpTicks;
 }
 
 void Tower::postRender()

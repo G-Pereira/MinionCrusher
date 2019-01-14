@@ -4,6 +4,7 @@ GameManager::GameManager() : map(nullptr) {
 	this->money = 200;
 }
 
+/// Do a full update step. Called periodically to update the whole map.
 void GameManager::update() {
 	//std::cout << (int)gameState << std::endl;
 
@@ -53,8 +54,7 @@ void GameManager::resetGame() {
 	kills = 0;
 	level = 0;
 	cooldownTime = 0;
-	ticksToNextMinion = 3;
-	tickCount = 2;
+	tickCount = 0;
 	minionsLeftInWave = 0;
 }
 bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
@@ -69,17 +69,19 @@ bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 	return false;
 }
 
+/// Tell all towers to update, which means they will either shoot or load up to shoot.
 void GameManager::shootTowers() {
     for (Tower &tower : map->towers) {
 		int bounty = tower.update(map->minions);
 		if (bounty != 0) {
 			kills++;
 			money += bounty;
-			//std::cout << money << std::endl;
 		}
     }
 }
 
+
+/// Spawn minions based on the determined interval.
 void GameManager::addMinions() {
     // Add minions to the battlefield on an interval
     if (spawnSpeed * tickCount >= ticksToNextMinion && minionsLeftInWave > 0) {
@@ -98,6 +100,7 @@ void GameManager::addMinions() {
     }
 }
 
+/// Move all the minions forward on the path based on their speed.
 void GameManager::moveMinions() {
     bool finished;
     do {

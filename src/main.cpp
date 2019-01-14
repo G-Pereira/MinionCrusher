@@ -10,26 +10,20 @@ using namespace std;
 
 constexpr int WINDOW_HEIGHT = 720;
 constexpr int WINDOW_WIDTH = 1280;
-constexpr Uint32 UPDATE_FREQUENCY = 300;
+constexpr Uint32 UPDATE_FREQUENCY = 300; // How often the gamestate is updated per second. Determines the game speed.
 constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
-// Temporary location of minion spawn information
 
-mutex test_mutex;
 GameManager gameManager;
 
-/**
-* Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
-*/
+/// Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 Uint32 gameUpdate(Uint32 interval, void *m) {
-    std::lock_guard<std::mutex> lock(test_mutex);
     gameManager.update();
     return interval;
 }
 
-/**
-* Updates screen
-*/
+
+/// Updates screen
 //Uint32 uiUpdate(Uint32 interval, void *ptr) {
 //    //std::lock_guard<std::mutex> lock(test_mutex);
 //    UI *ui = (UI *) ptr;

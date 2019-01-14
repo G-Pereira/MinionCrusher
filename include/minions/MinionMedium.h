@@ -1,4 +1,5 @@
 #pragma once
+/// Standard minion, extends the Minion class
 class MinionMedium : public Minion {
 public:
 	MinionMedium(float x, float y)

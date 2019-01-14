@@ -27,7 +27,7 @@ private:
     void moveMinions();			/// This function moves all minions in the right direction.
 
     int ticksToNextMinion = 30;	/// Temporary variable to determine the period of minion spawning.
-    int tickCount = 2;			/// Temporary variable to compare if a new minion should be spawned.
+    int tickCount = 0;			/// Temporary variable to compare if a new minion should be spawned.
     int minionsLeftInWave = 0;	/// Number of minions between cooldowns
 };
 

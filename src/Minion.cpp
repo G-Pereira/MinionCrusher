@@ -28,8 +28,8 @@ void Minion::setHealth(float inputHealth) {
     max_health = inputHealth > max_health ? inputHealth : max_health;
 }
 
-void Minion::setDamage(float damage) {
-    this->damage = damage;
+void Minion::setDamage(float inpDamage) {
+    this->damage = inpDamage;
 }
 
 const float &Minion::getDamage() const {

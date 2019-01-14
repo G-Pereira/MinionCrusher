@@ -1,4 +1,5 @@
 #pragma once
+/// Stronger, very evil, minion. Extends the Minion class
 class MinionRemi : public Minion {
 public:
 	MinionRemi(float x, float y)
