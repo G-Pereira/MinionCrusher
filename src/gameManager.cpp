@@ -35,16 +35,16 @@ void GameManager::update() {
 	
 	if (map->base.getHealth() <= 0) {
 		gameState = lost;
-		std::cout << "Game Lost" << std::endl;
 	}
 }
 
 bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 {
 	if (money >= 100) {
-		money -= 100;
-		map->addTower(coordinates, type);
-		return true;
+		if (map->addTower(coordinates, type)) {
+			money -= 100;
+			return true;
+		}
 	}
 	std::cout << "not enough money: " << money << std::endl;
 	return false;
