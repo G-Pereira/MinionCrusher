@@ -45,6 +45,13 @@ void GameManager::update() {
 	}
 }
 
+void GameManager::startNewGame(std::string map_path)
+{
+	resetGame();
+	map = new Map(map_path);
+	gameState = GameManager::start;
+}
+
 void GameManager::resetGame() {
 	// reset all variables
 	delete map;

@@ -14,6 +14,7 @@ TextureLib::TextureLib(SDL_Renderer * renderer) : renderer(renderer), state(Stat
 	loadTexture("resources/sprites/tower1_tile.bmp",	SDL_Color{ 34, 177, 76, 0xFF });
 	loadTexture("resources/sprites/tower2_tile.bmp",	SDL_Color{ 34, 177, 76, 0xFF });
 	loadTexture("resources/sprites/tower3_tile.bmp",	SDL_Color{ 34, 177, 76, 0xFF });
+	loadTexture("resources/sprites/menu_background.bmp",SDL_Color{ 34, 177, 76, 0xFF });
 
 	state = States::initialized;
 }

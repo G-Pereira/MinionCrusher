@@ -20,6 +20,7 @@ public:
 	float spawnSpeed = 0.1F;
 	enum state { menu, run, pause, lost, won, start, cooldown };		/// Game states
 	state gameState = menu;
+	void startNewGame(std::string map_path);
 	void resetGame();
 private:
     void shootTowers();			/// This function makes all towers attempt to shoot.

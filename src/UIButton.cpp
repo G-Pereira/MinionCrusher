@@ -55,20 +55,12 @@ int UIButton::mouseClick(void * userdata, SDL_Event * e)
 		else {
 			switch (clicked_button->button_type) {
 			case ButtonTypes::startmap1:
-				std::cout << "Read map" << std::endl;
-
-				// CREATE MAP FROM BLUEPRINT
-				clicked_button->gamemanager->resetGame();
-				clicked_button->gamemanager->map = new Map("resources/blueprints/1.blueprint");
-				gamemanager->gameState = GameManager::start;
+				std::cout << "startNewGame" << std::endl;
+				clicked_button->gamemanager->startNewGame("resources/blueprints/1.blueprint");
 				break;
 			case ButtonTypes::startmap2:
-				std::cout << "Read map" << std::endl;
-
-				// CREATE MAP FROM BLUEPRINT
-				clicked_button->gamemanager->resetGame();
-				clicked_button->gamemanager->map = new Map("resources/blueprints/simple.blueprint");
-				gamemanager->gameState = GameManager::start;
+				std::cout << "startNewGame" << std::endl;
+				clicked_button->gamemanager->startNewGame("resources/blueprints/simple.blueprint");
 				break;
 			default:
 				break;
