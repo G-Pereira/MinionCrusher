@@ -38,7 +38,7 @@ public:
     /**
      * Destructor of the UI, calls the UI close method
      */
-    ~UIElement();
+    virtual ~UIElement();
 
     /**
      * Render all parts of the user interface
