@@ -76,8 +76,15 @@ void Tower::setTicks(int inpTicks) {
 void Tower::postRender()
 {
 	float timepassed = (float)ticks / (float)firePeriod;
-	int8_t alpha = SDL_ALPHA_OPAQUE * (int8_t)(1.0f - timepassed);
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, alpha);
+	int8_t alpha = SDL_ALPHA_OPAQUE * (1.0f - timepassed);
+	switch (objectType) {
+	case ObjectType::TOWER1:
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, alpha);
+		break;
+	case ObjectType::TOWER2:
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, alpha);
+		break;
+	}
 	if(target.x >= 0)
 		SDL_RenderDrawLine(renderer, quad.x + quad.w / 2, quad.y + quad.h / 2, target.x + target.w / 2, target.y + target.h / 2);
 }

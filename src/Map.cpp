@@ -103,10 +103,10 @@ bool Map::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 	if (towerSpotAvailable(coordinates)) {
 		switch (type) {
 			case ButtonTypes::fireTower:
-				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFire(), ObjectType::TOWER1);
+				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 100, 3, AmmoFire(), ObjectType::TOWER1);
 				break;
 			case ButtonTypes::freezeTower:
-				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFreeze(), ObjectType::TOWER2);
+				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 100, 3, AmmoFreeze(), ObjectType::TOWER2);
 				break;
 			default:
 				break;
