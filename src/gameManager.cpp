@@ -72,7 +72,9 @@ bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 			return true;
 		}
 	}
-	std::cout << "not enough money: " << money << std::endl;
+	else {
+		std::cout << "not enough money: " << money << std::endl;
+	}
 	return false;
 }
 
