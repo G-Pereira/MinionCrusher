@@ -1,3 +1,9 @@
+/**
+ * TextureLib handles the loading and deletion of the textures
+ * it supplies them by easily accesible names in an enum
+ */
+
+
 #pragma once
 
 

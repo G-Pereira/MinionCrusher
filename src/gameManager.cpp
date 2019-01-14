@@ -25,7 +25,7 @@ void GameManager::update() {
 		if (map != nullptr) {
 			if (minionsLeftInWave <= 0 && map->minions.size() == 0) {
 				gameState = cooldown;
-				spawnSpeed += 0.01;
+				spawnSpeed += 0.01F;
 			}
 			if (map->base.getHealth() <= 0) {
 				gameState = lost;

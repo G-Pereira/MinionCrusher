@@ -1,9 +1,3 @@
-/**
- * Author: Leon Klute
- * Created on: 26-11-18
- * Last Modified: 28-11-18
- */
-
 #include "UI.h"
 
 using namespace std;

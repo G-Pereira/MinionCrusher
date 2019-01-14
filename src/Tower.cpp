@@ -15,7 +15,7 @@ Tower::~Tower() {
 
 }
 
-uint8_t Tower::update(std::list<Minion> &minions) {
+int Tower::update(std::list<Minion> &minions) {
     if (ticks >= firePeriod) {
         for (Minion &minion : minions) {
             if (minion.getCoordinates().isInRange(coordinates, range)) {
@@ -24,7 +24,7 @@ uint8_t Tower::update(std::list<Minion> &minions) {
 				minion.speed = minion.speed * ammo.slow;
                 ticks = 0;
                 if (minion.getHealth() <= 0) {
-					uint8_t bounty = (uint8_t) minion.bounty;
+					int bounty = minion.bounty;
                     minions.remove(minion);
                     return bounty;
                 }
@@ -46,11 +46,7 @@ void Tower::setFirePeriod(int inpFirePeriod) {
 }
 
 const float &Tower::getDamage() const {
-    return damage;
-}
-
-void Tower::setDamage(float inpDamage) {
-    Tower::damage = inpDamage;
+    return ammo.damage;
 }
 
 const AmmoType &Tower::getAmmo() const {

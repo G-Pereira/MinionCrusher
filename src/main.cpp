@@ -14,11 +14,13 @@ constexpr Uint32 UPDATE_FREQUENCY = 300; // How often the gamestate is updated p
 constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 
+mutex test_mutex;
 GameManager gameManager;
 
 /// Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 Uint32 gameUpdate(Uint32 interval, void *m) {
-    gameManager.update();
+	GameManager * gameManager = reinterpret_cast<GameManager *>(m);
+    gameManager->update();
     return interval;
 }
 
@@ -41,14 +43,15 @@ int main(int argc, char *args[]) {
 
     cout << "Create UI" << endl;
     // create the UI
-	UIElement::gamemanager = &gameManager;
+	GameManager * gameManager = new GameManager();
+	UIElement::gamemanager = gameManager;
 
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
     RenderElement::renderer = ui.getRenderer();
 
     cout << "Start updating gamestate" << endl;
     // INITIALIZE THE CALLBACK TIMER
-    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, nullptr/* &map*/);
+    SDL_TimerID timer_id = SDL_AddTimer(UPDATE_PERIOD, gameUpdate, gameManager);
     if (timer_id == 0) {
         cout << "SDL was unable to create a timer. " << endl;
     }
