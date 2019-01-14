@@ -32,6 +32,8 @@ public:
 	void postRender() override;
 
 	float prev_value = -1;
+
+	void updateText();
 };
 
 
