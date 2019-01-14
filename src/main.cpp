@@ -13,10 +13,6 @@ constexpr int WINDOW_WIDTH = 1280;
 constexpr Uint32 UPDATE_FREQUENCY = 300; // How often the gamestate is updated per second. Determines the game speed.
 constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
-
-mutex test_mutex;
-GameManager gameManager;
-
 /// Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 Uint32 gameUpdate(Uint32 interval, void *m) {
 	GameManager * gameManager = reinterpret_cast<GameManager *>(m);
