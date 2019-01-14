@@ -8,7 +8,7 @@
 
 Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo, ObjectType type)
         : MapObject(x, y, width, height, type), firePeriod(firePeriod), range(range), ammo(ammo)
-	, rangeSquared(range*range), target(SDL_Rect{ (int)x, (int)y, (int)width, (int)height }) {
+	, rangeSquared(range*range), target(SDL_Rect{ -1, -1, -1, -1 }) {
 	//if (ammo.slow > 0) { this->objectType = (ObjectType)7; }
 }
 
@@ -83,5 +83,6 @@ void Tower::postRender()
 	float timepassed = (float)ticks / (float)firePeriod;
 	int8_t alpha = SDL_ALPHA_OPAQUE * (int8_t)(1.0f - timepassed);
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, alpha);
-	SDL_RenderDrawLine(renderer, quad.x + quad.w / 2, quad.y + quad.h / 2, target.x + target.w / 2, target.y + target.h / 2);
+	if(target.x >= 0)
+		SDL_RenderDrawLine(renderer, quad.x + quad.w / 2, quad.y + quad.h / 2, target.x + target.w / 2, target.y + target.h / 2);
 }
