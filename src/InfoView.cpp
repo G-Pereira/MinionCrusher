@@ -3,6 +3,8 @@
 
 InfoView::InfoView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent){
 
+	loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
+
 	SDL_Rect text_quad = SDL_Rect{ 30, 30, 150, 30 };
 	UIText *text_health = new UIText(text_quad, this, UIText::info_types::health);
 	addChild(text_health);

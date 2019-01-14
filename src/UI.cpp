@@ -52,15 +52,39 @@ UI::~UI() {
 
 void UI::startMenu()
 {
+	/* ratio of UI elements
+	current shape:
+	_____________________
+	|					|
+	|					|
+	|	menu			|
+	|					|
+	|					|
+	|					|
+	|___________________|
+	|	info			|
+	|___________________|
+	*/
 	SDL_Rect menu_quad;
 	menu_quad.x = 0;
 	menu_quad.y = 0;
-	menu_quad.w = quad.w;// *8 / 10;
-	menu_quad.h = quad.h;// *8 / 10;
+	menu_quad.w = quad.w;
+	menu_quad.h = quad.h *8 / 10;
 
 	StartMenu *menu_view = new StartMenu(menu_quad, this);
 
 	addChild(menu_view);
+
+	if (gamemanager->gameState == gamemanager->lost) {
+		SDL_Rect info_quad;
+		info_quad.x = 0;
+		info_quad.y = quad.h * 8 / 10;
+		info_quad.w = quad.w;
+		info_quad.h = quad.h * 2 / 10;
+
+		InfoView *info_view = new InfoView(info_quad, this);
+		addChild(info_view);
+	}
 }
 
 void UI::inGame() {
@@ -96,14 +120,9 @@ void UI::inGame() {
     info_quad.w = quad.w * 8 / 10;
     info_quad.h = quad.h * 2 / 10;
 
-
     MapView *map_view = new MapView(map_quad, this);
     BuildView *building_view = new BuildView(building_quad, this);
     InfoView *info_view = new InfoView(info_quad, this);
-
-	map_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::map));
-    building_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::building_background));
-    info_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
 
     children.reserve(3);
     addChild(map_view);
