@@ -75,23 +75,23 @@ bool Map::createPath(int x, int y) {
 bool Map::towerSpotAvailable(CartesianCoordinates coordinates)
 {
 	if (coordinates.x != floor(coordinates.x)) {
-		std::cout << "x coordinate is not a whole number";
+		std::cout << "x coordinate is not a whole number" << std::endl;
 		return false;
 	}
 	if (coordinates.y != floor(coordinates.y)) {
-		std::cout << "y coordinate is not a whole number";
+		std::cout << "y coordinate is not a whole number" << std::endl;
 		return false;
 	}
 	if (coordinates.x >= x_tiles || 0 > coordinates.x) {
-		std::cout << "x coordinate is outside of map";
+		std::cout << "x coordinate is outside of map" << std::endl;
 		return false;
 	}
 	if(coordinates.y >= y_tiles || 0 > coordinates.y) {
-		std::cout << "y coordinate is outside of map";
+		std::cout << "y coordinate is outside of map" << std::endl;
 		return false;
 	}
 	if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), coordinates) != unavailable_towerspots.end()) {
-		std::cout << "Something is already in this spot";
+		std::cout << "Something is already in this spot" << std::endl;
 		return false;
 	}
 

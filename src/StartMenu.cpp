@@ -8,7 +8,7 @@ StartMenu::StartMenu(SDL_Rect viewport, UIElement *parent) : UIElement(viewport,
 	button_distance_y = 100;
 	button_size_x = 500;
 	button_size_y = 100;
-
+	loadTexture(texture_lib->GetTexture(TextureLib::TextureEnum::menu));
 	addButton(ButtonTypes::startmap1);
 	addButton(ButtonTypes::startmap2);
 

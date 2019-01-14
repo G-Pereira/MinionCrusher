@@ -21,7 +21,6 @@ public:
 	TextureLib(SDL_Renderer * renderer);
 	~TextureLib();
 
-	void loadTexture(std::string path, SDL_Color color);
 
 	enum class TextureEnum : int {
 		base,
@@ -34,7 +33,7 @@ public:
 		tower1,
 		tower2,
 		tower3,
-
+		menu,
 	};
 
 	enum class States {
@@ -45,6 +44,7 @@ public:
 	SDL_Texture * GetTexture(TextureEnum texturename);
 
 private:
+	void loadTexture(std::string path, SDL_Color color);
 	std::vector<SDL_Texture *> textures;
 
 	SDL_Renderer * renderer;

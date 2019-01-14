@@ -66,8 +66,6 @@ void UI::startMenu()
 
 	StartMenu *menu_view = new StartMenu(menu_quad, this);
 
-	menu_view->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::building_background));
-
 	addChild(menu_view);
 }
 
