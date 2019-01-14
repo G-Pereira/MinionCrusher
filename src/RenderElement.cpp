@@ -1,11 +1,14 @@
 #include "RenderElement.h"
 
 SDL_Renderer* RenderElement::renderer = nullptr;
-
+SDL_Window* RenderElement::window = nullptr;
 TextureLib * RenderElement::texture_lib = nullptr;
 
 RenderElement::RenderElement(SDL_Rect quad, SDL_Texture *texture) : quad(quad), background(texture) {
-
+	if (window == nullptr) {
+		std::cout << "Initializing SDL\n";
+		initSDL();
+	}
 }
 
 RenderElement::RenderElement(SDL_Rect quad) : RenderElement(quad, nullptr) {
@@ -72,4 +75,38 @@ SDL_Rect &RenderElement::getQuad() {
 
 bool RenderElement::hasTexture() {
     return background ? true : false;
+}
+
+void RenderElement::initSDL()
+{
+	// Init SDL
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+		throw std::runtime_error("SDL could not initialize!");
+
+	//Set texture filtering to linear
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+		throw std::runtime_error("Warning: Linear texture filtering not enabled!");
+
+	// Create a Window in the middle of the screen
+	window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED, quad.w,
+		quad.h, SDL_WINDOW_SHOWN);
+	if (window == nullptr)
+		throw std::runtime_error("Window could not be created!");
+
+	// Create a new renderer
+	RenderElement::renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
+		SDL_RENDERER_PRESENTVSYNC);
+	if (RenderElement::renderer == nullptr) {
+		throw std::runtime_error("Renderer could not be created!");
+	}
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BlendMode::SDL_BLENDMODE_BLEND);
+
+	if (TTF_Init() == -1) {
+		std::cout << "TTF_Init: " << TTF_GetError();
+		exit(2);
+	}
+
+	RenderElement::texture_lib = new TextureLib(renderer);
 }

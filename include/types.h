@@ -91,7 +91,7 @@ enum class ObjectType : int {
 	MINIONREMI = 10
 };
 
-enum class ButtonTypes {
+enum class ButtonTypes : int{
 	idle,
 	fireTower,
 	freezeTower,

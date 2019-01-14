@@ -61,10 +61,12 @@ public:
     bool hasTexture();
 
     static SDL_Renderer* renderer;
-
+	static SDL_Window* window;
 	static TextureLib* texture_lib;
 protected:
     SDL_Rect quad;
     SDL_Texture *background;
+private:
+	void initSDL();
 };
 

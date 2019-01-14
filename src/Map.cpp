@@ -114,5 +114,6 @@ bool Map::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 		unavailable_towerspots.push_back(coordinates);
 		return true;
 	}
+	std::cout << "cant build a tower here" << std::endl;
 	return false;
 }

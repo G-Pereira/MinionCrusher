@@ -52,7 +52,6 @@ private:
         building,
         info
     };
-    SDL_Window *window;
 };
 
 #endif

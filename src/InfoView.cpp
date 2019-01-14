@@ -18,7 +18,7 @@ InfoView::InfoView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent){
 	UIText *text_money = new UIText(text_quad, this, UIText::info_types::money);
 	addChild(text_money);
 
-	text_quad.x = quad.w-text_quad.w-50;
+	text_quad.x = quad.w-text_quad.w-100;
 	UIText *text_level = new UIText(text_quad, this, UIText::info_types::level);
 	addChild(text_level);
 

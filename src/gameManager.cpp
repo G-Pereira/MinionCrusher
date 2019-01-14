@@ -29,7 +29,6 @@ void GameManager::update() {
 			}
 			if (map->base.getHealth() <= 0) {
 				gameState = lost;
-				std::cout << "You lost!" << std::endl;
 			}
 		}
 		break;
@@ -40,7 +39,6 @@ void GameManager::update() {
 			minionsLeftInWave = 5 * level;
 			cooldownTime = 2000;
 			gameState = run;
-			std::cout << "gamestate set to: run\n";
 		}
 		break;
 	}
