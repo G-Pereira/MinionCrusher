@@ -8,32 +8,19 @@ void MapView::postRender() {
 	tilewidth = (float)quad.w / (float)gamemanager->map->x_tiles;
 	tileheight = (float)quad.h / (float)gamemanager->map->y_tiles;
     for (auto &path_tile : gamemanager->map->path) {
-        if (!path_tile.hasTexture()) {
-            path_tile.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::path));
-        }
         path_tile.updateQuad(tilewidth, tileheight);
         path_tile.render();
     }
     for (auto &minion : gamemanager->map->minions) {
-        if (!minion.hasTexture()) {
-            minion.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::remi));
-        }
         minion.updateQuad(tilewidth, tileheight);
         minion.render();
     }
 
     for (auto &tower : gamemanager->map->towers) {
-
-        if (!tower.hasTexture()) {
-            tower.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower1));
-        }
         tower.updateQuad(tilewidth, tileheight);
         tower.render();
     }
 	
-	if (!gamemanager->map->base.hasTexture()) {
-		gamemanager->map->base.loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::base));
-	}
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);
 	gamemanager->map->base.updateQuad(tilewidth, tileheight);
 	gamemanager->map->base.render();

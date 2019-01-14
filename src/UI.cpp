@@ -38,6 +38,9 @@ UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
 		std::cout << "TTF_Init: " << TTF_GetError();
 		exit(2);
 	}
+
+	RenderElement::texture_lib = new TextureLib(renderer);
+
     init();
 }
 
@@ -84,7 +87,6 @@ void UI::init() {
     info_quad.w = quad.w * 8 / 10;
     info_quad.h = quad.h * 2 / 10;
 
-	RenderElement::texture_lib = new TextureLib(renderer);
 
     MapView *map_view = new MapView(map_quad, this);
     BuildView *building_view = new BuildView(building_quad, this);

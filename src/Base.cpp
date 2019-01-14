@@ -7,7 +7,7 @@
 #include "Base.h"
 
 Base::Base(float x, float y, float width, float height, float health)
-        : MapObject(x, y, width, height), health(health),max_health(health){
+        : MapObject(x, y, width, height, ObjectType::BASE), health(health),max_health(health){
 
 }
 

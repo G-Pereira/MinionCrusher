@@ -1,4 +1,7 @@
 #pragma once
+/**
+ * This class makes sure all subclasses can be rendered to the screen using SDL
+ */
 
 #include "TextureLib.h"
 

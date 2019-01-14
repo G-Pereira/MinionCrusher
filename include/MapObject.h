@@ -23,12 +23,12 @@ public:
      * @param x X coordinate
      * @param y Y coordinate
      */
-    MapObject(float x, float y, float width, float height);
+    MapObject(float x, float y, float width, float height, ObjectType type);
 
     /**
      * Overloaded constructor if one gives an object of type CartesianCoordinates as parameter. Dimensions are fixed.
      */
-    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions, SDL_Texture *texture);
+    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions, SDL_Texture *texture, ObjectType type);
 
     /**
      * Empty destructor.
@@ -82,7 +82,7 @@ public:
     void render() override;
 
 	bool needQuadUpdate;
-	const ObjectType objectType = (ObjectType) 0;
+	const ObjectType objectType;
 protected:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map

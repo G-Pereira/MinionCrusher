@@ -11,7 +11,7 @@
 
 class Minion : public MapObject {
 public:
-    Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty);
+    Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty, ObjectType type);
 
     virtual ~Minion();
 

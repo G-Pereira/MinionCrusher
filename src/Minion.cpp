@@ -6,8 +6,8 @@
 
 #include "Minion.h"
 
-Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty)
-        : MapObject(x, y, width, height), health(health), max_health(health), damage(damage), speed(speed) , bounty(bounty){
+Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty, ObjectType type)
+        : MapObject(x, y, width, height, type), health(health), max_health(health), damage(damage), speed(speed) , bounty(bounty){
 	maxSpeed = speed;
 }
 

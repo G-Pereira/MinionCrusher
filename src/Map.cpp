@@ -61,7 +61,7 @@ bool Map::createPath(int x, int y) {
     int dir = mapBlueprint[y][x];
 	if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), CartesianCoordinates{ (float) x,  (float) y }) != unavailable_towerspots.end() ) { return false; }
     if (dir > 0 && dir < 5) {
-        path.emplace_back(x, y, 1, 1, ObjectType(dir));
+        path.emplace_back(x, y, 1, 1, (ObjectType)dir);
 		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
         createPath(x - (dir == 1) + (dir == 4), y - (dir == 3) + (dir == 2));
     } else if (dir == 5) {
@@ -103,9 +103,11 @@ bool Map::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 	if (towerSpotAvailable(coordinates)) {
 		switch (type) {
 			case ButtonTypes::fireTower:
-				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFire());
+				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFire(), ObjectType::TOWER1);
+				break;
 			case ButtonTypes::freezeTower:
-				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFreeze());
+				towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, AmmoFreeze(), ObjectType::TOWER2);
+				break;
 			default:
 				break;
 		}

@@ -34,9 +34,9 @@ bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 	if (money >= 100) {
 		money -= 100;
 		map->addTower(coordinates, type);
-		std::cout << money << std::endl;
 		return true;
 	}
+	std::cout << "not enough money: " << money << std::endl;
 	return false;
 }
 
@@ -46,7 +46,7 @@ void GameManager::shootTowers() {
 		if (bounty != 0) {
 			kills++;
 			money += bounty;
-			std::cout << money << std::endl;
+			//std::cout << money << std::endl;
 		}
     }
 }

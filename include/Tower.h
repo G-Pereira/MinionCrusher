@@ -13,7 +13,7 @@
 
 class Tower : public MapObject {
 public:
-    Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo);
+    Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo, ObjectType type);
 
     virtual ~Tower();
 
@@ -42,8 +42,6 @@ public:
     void setTicks(int ticks);                /// Set the amount of ticks since the last shot of the tower
 
 	void postRender() override;
-
-	ObjectType objectType = (ObjectType) 6;
 
 private:
     int ticks = 0;

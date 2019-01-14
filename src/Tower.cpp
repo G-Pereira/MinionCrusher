@@ -6,10 +6,10 @@
 
 #include <Tower.h>
 
-Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo)
-        : MapObject(x, y, width, height), firePeriod(firePeriod), range(range), ammo(ammo)
+Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo, ObjectType type)
+        : MapObject(x, y, width, height, type), firePeriod(firePeriod), range(range), ammo(ammo)
 	, rangeSquared(range*range), target(SDL_Rect{ (int)x, (int)y, (int)width, (int)height }) {
-	if (ammo.slow > 0) { this->objectType = (ObjectType)7; }
+	//if (ammo.slow > 0) { this->objectType = (ObjectType)7; }
 }
 
 Tower::~Tower() {

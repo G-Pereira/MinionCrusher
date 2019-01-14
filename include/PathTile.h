@@ -16,10 +16,6 @@ public:
 
     const ObjectType &getType() const;    /// Get the direction of the tile
 
-    void render() override;    /// render this object in the right way (using tiletype)
-
-	const ObjectType type;                /// Holds the direction of the tile
-
 private:
 };
 

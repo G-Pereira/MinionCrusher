@@ -13,7 +13,14 @@ BuildView::~BuildView() {
 void BuildView::addButton(ButtonTypes button_type)
 {
 	UIButton *button1 = new UIButton(nextButtonPosition(), this, button_type);
-	button1->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower1));
+	switch (button_type) {
+	case ButtonTypes::fireTower:
+		button1->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower1));
+		break;
+	case ButtonTypes::freezeTower:
+		button1->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower2));
+		break;
+	}
 	this->addChild(button1);
 }
 
