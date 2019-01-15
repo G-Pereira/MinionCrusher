@@ -75,11 +75,25 @@ public:
     */
     void render() override;
 
+    /**
+     * Holds information if the object needs to be updated
+     */
     bool needQuadUpdate;
+
+    /**
+     * Type of object in the map
+     */
     const ObjectType objectType;
 protected:
-    CartesianCoordinates coordinates; // Position on the map
-    ObjectSize dimensions;  // Dimensions on the map
+    /**
+     * Position of the object on the map
+     */
+    CartesianCoordinates coordinates;
+
+    /**
+     * Dimensions on the map
+     */
+    ObjectSize dimensions;
 };
 
 
