@@ -6,8 +6,8 @@ MapObject::MapObject(float x, float y, float width, float height, ObjectType typ
 
 MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensions, SDL_Texture *texture,
                      ObjectType type)
-        : RenderElement(SDL_Rect{}, texture), coordinates(coordinates), dimensions(dimensions),
-          needQuadUpdate(true), objectType(type) {
+        : RenderElement(SDL_Rect{}, texture), coordinates(coordinates), needQuadUpdate(true), dimensions(dimensions),
+          objectType(type) {
 }
 
 MapObject::~MapObject() {
