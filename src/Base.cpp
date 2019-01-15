@@ -6,6 +6,8 @@
 
 #include "Base.h"
 
+std::mutex Base::key;
+
 Base::Base(float x, float y, float width, float height, float health)
         : MapObject(x, y, width, height), health(health),max_health(health){
 
@@ -32,6 +34,7 @@ constexpr float RELATIVE_HEIGHT = 0.1F;
 constexpr float RELATIVE_WIDTH = 0.8F;
 
 void Base::postRender() {
+	std::lock_guard<std::mutex> guard(Base::key);
 	if (max_health == 0.0F) {
 		std::cerr << "no maximum health set" << std::endl;
 		return;

@@ -7,6 +7,7 @@
 #ifndef MINIONCRUSHER_TOWER_H
 #define MINIONCRUSHER_TOWER_H
 
+#include <mutex>
 #include <list>
 #include "MapObject.h"
 #include "Minion.h"
@@ -45,6 +46,7 @@ public:
 
 	const ObjectType objectType = (ObjectType) 6;
 
+    static std::mutex key;
 private:
     int ticks = 0;
     int firePeriod;

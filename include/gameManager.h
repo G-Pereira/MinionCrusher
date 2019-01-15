@@ -1,7 +1,6 @@
 #ifndef MINIONCRUSHER_GAMEMANAGER_H
 #define MINIONCRUSHER_GAMEMANAGER_H
 
-#include <mutex>
 #include "Level.h"
 
 /** Needs to be called every tick to update the game. Will update towers, minions, etc. */
@@ -29,7 +28,6 @@ private:
     state gameState = start;
     int level = 0;
     int cooldownTime = 0;
-    static std::mutex key;
 };
 
 

@@ -12,7 +12,7 @@
 #include <vector>
 #include <list>
 #include <cstdint>
-#include <stdint-gcc.h>
+#include <atomic>
 
 #include "PathTile.h"
 #include "Base.h"

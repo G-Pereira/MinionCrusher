@@ -6,6 +6,7 @@
 #ifndef MINIONCRUSHER_PATHTILE_H
 #define MINIONCRUSHER_PATHTILE_H
 
+#include <mutex>
 #include "MapObject.h"
 
 class PathTile : public MapObject {
@@ -20,7 +21,7 @@ public:
 
 	const ObjectType type;                /// Holds the direction of the tile
 
-private:
+	static std::mutex key;
 };
 
 

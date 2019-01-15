@@ -10,7 +10,6 @@
 #include "types.h"
 #include "RenderElement.h"
 
-
 /**
  * In Minioncrusher, any object that is drawn on the map is a MapObject. These objects are easily recognized
  * as they have a position on the map. The coordinates are currently defined as floats.

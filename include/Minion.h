@@ -7,6 +7,7 @@
 #ifndef MINIONCRUSHER_MINION_H
 #define MINIONCRUSHER_MINION_H
 
+#include <mutex>
 #include "MapObject.h"
 
 class Minion : public MapObject {
@@ -41,6 +42,8 @@ public:
 	int bounty; // Money awarded to player when this minion is killed
 
 	const ObjectType objectType = (ObjectType) 9;
+
+	static std::mutex key;
 
 protected:
     float health; // Health of the minion

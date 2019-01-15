@@ -6,6 +6,8 @@
 
 #include "Minion.h"
 
+std::mutex Minion::key;
+
 Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty)
         : MapObject(x, y, width, height), health(health), max_health(health), damage(damage), speed(speed) , bounty(bounty){
 
@@ -60,6 +62,7 @@ constexpr float RELATIVE_HEIGHT = 0.1F;
 constexpr float RELATIVE_WIDTH = 0.8F;
 
 void Minion::postRender() {
+    std::lock_guard<std::mutex> guard(Minion::key);
     if (max_health == 0.0F) {
         std::cerr << "no maximum health set" << std::endl;
         return;

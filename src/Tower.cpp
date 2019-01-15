@@ -6,6 +6,8 @@
 
 #include <Tower.h>
 
+std::mutex Tower::key;
+
 Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, float damage, AmmoType ammo)
         : MapObject(x, y, width, height), firePeriod(firePeriod), range(range), damage(damage), ammo(ammo)
 	, rangeSquared(range*range), target(SDL_Rect{ (int)x, (int)y, (int)width, (int)height }) {
@@ -79,6 +81,7 @@ void Tower::setTicks(int ticks) {
 
 void Tower::postRender()
 {
+    std::lock_guard<std::mutex> guard(Tower::key);
 	float timepassed = (float)ticks / (float)firePeriod;
 	int8_t alpha = SDL_ALPHA_OPAQUE * (int8_t)(1.0f - timepassed);
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, alpha);

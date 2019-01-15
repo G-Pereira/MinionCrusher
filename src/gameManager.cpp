@@ -1,13 +1,10 @@
 #include "gameManager.h"
 
-std::mutex GameManager::key;
-
 GameManager::GameManager() : map(nullptr) {
     this->money = 500;
 }
 
 void GameManager::update() {
-    //std::lock_guard<std::mutex> guard(GameManager::key);
     std::cout << "Updating Game" << std::endl;
     if (gameState == start) {
         level = 1;
@@ -29,11 +26,17 @@ void GameManager::update() {
             gameState = run;
         }
     }
+    Minion::key.lock();
     if (minionsLeftInWave <= 0 && map->getMinions().size() == 0) gameState = cooldown;
+    Minion::key.unlock();
+
+    Base::key.lock();
     if (map->getBase().getHealth() <= 0) gameState = lost;
+    Base::key.unlock();
 }
 
 bool GameManager::addTower(CartesianCoordinates coordinates) {
+    std::lock_guard<std::mutex> guard(Tower::key);
     if (money >= 100) {
         money -= 100;
         map->addTower(coordinates);
@@ -44,6 +47,7 @@ bool GameManager::addTower(CartesianCoordinates coordinates) {
 }
 
 void GameManager::shootTowers() {
+    std::lock_guard<std::mutex> guard(Tower::key);
     for (Tower &tower : map->getTowers()) {
         int bounty = tower.update(map->getMinions());
         if (bounty != 0) {
@@ -57,7 +61,9 @@ void GameManager::shootTowers() {
 void GameManager::addMinions() {
     // Add minions to the battlefield on an interval
     static float speed = 0.1F;
+
     if (speed * tickCount >= ticksToNextMinion && minionsLeftInWave > 0) {
+        std::lock_guard<std::mutex> guard(Minion::key);
         tickCount = 0;
         Minion minion = MinionRemi(map->getSpawn().x, map->getSpawn().y);
         map->getMinions().push_back(minion);
@@ -72,6 +78,8 @@ void GameManager::moveMinions() {
     bool finished;
     do {
         finished = true;
+
+        std::lock_guard<std::mutex> guard(Minion::key);
         for (Minion &minion : (map->getMinions())) {
 
             int dir = (int) map->getPath()[(int) minion.traversedDistance].getType();

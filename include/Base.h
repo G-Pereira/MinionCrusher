@@ -6,6 +6,7 @@
 #ifndef MINIONCRUSHER_BASE_H
 #define MINIONCRUSHER_BASE_H
 
+#include <mutex>
 #include <inttypes.h>
 #include "MapObject.h"
 
@@ -28,6 +29,8 @@ public:
 	const float &getHealth() const;
 
 	const ObjectType objectType = (ObjectType) 5;
+
+	static std::mutex key;
 
 private:
     float health; // Health of the base the minions attack

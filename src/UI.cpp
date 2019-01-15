@@ -8,7 +8,6 @@
 #include "UI.h"
 
 using namespace std;
-std::mutex UI::key;
 
 UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
     // Init SDL
@@ -107,13 +106,11 @@ void UI::init() {
 }
 
 void UI::render() {
-    //std::lock_guard<std::mutex> guard(UI::key);
     cout << "Rendering parent window" << endl;
     UIElement::render();
 }
 
 void UI::postRender() {
-    std::lock_guard<std::mutex> guard(UI::key);
     SDL_RenderPresent(renderer);
     SDL_RenderClear(renderer);
 }

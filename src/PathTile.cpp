@@ -6,6 +6,8 @@
 
 #include "PathTile.h"
 
+std::mutex PathTile::key;
+
 PathTile::PathTile(float x, float y, float width, float height, const ObjectType type)
         : MapObject(x, y, width, height), type(type) {
 
@@ -21,6 +23,7 @@ const ObjectType &PathTile::getType() const {
 }
 
 void PathTile::render() {
+    std::lock_guard<std::mutex> guard(PathTile::key);
     if (RenderElement::renderer) {
         if (background) {
             int dif = quad.h - quad.w;
