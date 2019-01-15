@@ -1,70 +1,112 @@
 #include "gameManager.h"
 
 GameManager::GameManager() : map(nullptr) {
-	this->money = 500;
+    this->money = 200;
 }
 
+/// Do a full update step. Called periodically to update the whole map.
 void GameManager::update() {
-    if(gameState == start){
-        level = 1;
-        minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
-        cooldownTime = 1000;
-        gameState = run; // TODO: add condition with a start button
-    }
-    if(gameState == run){
-        shootTowers();
-        addMinions();
-        moveMinions();
-    }
-    if (gameState == cooldown){
+    //std::cout << (int)gameState << std::endl;
+
+    switch (gameState) {
+        case menu:
+        case lost:
+            break;
+        case start:
+            level = 0;
+            minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
+            cooldownTime = 5000;
+            gameState = cooldown; // TODO: add condition with a start button
+            break;
+        case run:
+            shootTowers();
+            addMinions();
+            moveMinions();
+            if (map != nullptr) {
+                if (minionsLeftInWave <= 0 && map->minions.size() == 0) {
+                    gameState = cooldown;
+                    spawnSpeed += 0.032F * level;
+                }
+                if (map->base.getHealth() <= 0) {
+                    gameState = lost;
+                }
+            }
+            break;
+        case cooldown:
             cooldownTime--;
-            if (cooldownTime <= 0){
+            if (cooldownTime <= 0) {
                 level++;
                 minionsLeftInWave = 5 * level;
-                cooldownTime = level * 1000;
+                cooldownTime = 2000;
                 gameState = run;
-        }
+            }
+            break;
     }
-    if(minionsLeftInWave <= 0 && map->minions.size() == 0) gameState = cooldown;
-    if (map->base.getHealth() <=0) gameState = lost;
 }
 
-bool GameManager::addTower(CartesianCoordinates coordinates)
-{
-	if (money >= 100) {
-		money -= 100;
-		map->addTower(coordinates);
-		std::cout << money << std::endl;
-		return true;
-	}
-	return false;
+void GameManager::startNewGame(std::string map_path) {
+    resetGame();
+    map = new Map(map_path);
+    gameState = GameManager::start;
 }
 
+void GameManager::resetGame() {
+    // reset all variables
+    delete map;
+    map = nullptr;
+    money = 500;
+    kills = 0;
+    level = 0;
+    cooldownTime = 0;
+    tickCount = 0;
+    minionsLeftInWave = 0;
+    spawnSpeed = 0.2F;
+}
+
+bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type) {
+    if (money >= 100) {
+        if (map->addTower(coordinates, type)) {
+            money -= 100;
+            return true;
+        }
+    } else {
+        std::cout << "not enough money: " << money << std::endl;
+    }
+    return false;
+}
+
+/// Tell all towers to update, which means they will either shoot or load up to shoot.
 void GameManager::shootTowers() {
     for (Tower &tower : map->towers) {
-		int bounty = tower.update(map->minions);
-		if (bounty != 0) {
-			kills++;
-			money += bounty;
-			std::cout << money << std::endl;
-		}
+        int bounty = tower.update(map->minions);
+        if (bounty != 0) {
+            kills++;
+            money += bounty;
+        }
     }
 }
 
+
+/// Spawn minions based on the determined interval.
 void GameManager::addMinions() {
     // Add minions to the battlefield on an interval
-    static float speed = 0.1F;
-    if (speed * tickCount >= ticksToNextMinion && minionsLeftInWave > 0) {
+    if (spawnSpeed * tickCount >= ticksToNextMinion && minionsLeftInWave > 0) {
         tickCount = 0;
-        Minion minion = MinionRemi(map->spawnPos.x, map->spawnPos.y);
-        map->minions.push_back(minion);
-        speed = minion.getSpeed();
-        minionsLeftInWave--;
+        if (minionsLeftInWave % 2 == 0) {
+            Minion minion = MinionRemi(map->spawnPos.x, map->spawnPos.y);
+            map->minions.push_back(minion);
+            minionsLeftInWave--;
+        } else {
+            Minion minion = MinionMedium(map->spawnPos.x, map->spawnPos.y);
+            map->minions.push_back(minion);
+            minionsLeftInWave--;
+        }
     } else {
         tickCount++;
     }
 }
 
+/// Move all the minions forward on the path based on their speed.
 void GameManager::moveMinions() {
     bool finished;
     do {
@@ -73,8 +115,8 @@ void GameManager::moveMinions() {
 
             int dir = (int) map->path[(int) minion.traversedDistance].getType();
             minion.setCoordinates(
-                    {minion.getCoordinates().x + minion.getSpeed() * (-(dir == 1) + (dir == 4)),
-                     minion.getCoordinates().y + minion.getSpeed() * (-(dir == 3) + (dir == 2))}
+                    {minion.getCoordinates().x + minion.speed * (-(dir == 1) + (dir == 4)),
+                     minion.getCoordinates().y + minion.speed * (-(dir == 3) + (dir == 2))}
             );
             if (int(minion.traversedDistance) >= (int) map->path.size() - 1) {
                 map->base.doDamage(map->minions.front().getDamage());
@@ -82,7 +124,10 @@ void GameManager::moveMinions() {
                 finished = false;
                 break;
             }
-            minion.traversedDistance = minion.traversedDistance + minion.getSpeed();
+            minion.traversedDistance = minion.traversedDistance + minion.speed;
+            if (minion.speed < minion.maxSpeed) {
+                minion.speed += (minion.maxSpeed - minion.speed) * 0.01F;
+            }
         }
     } while (!finished);
 }

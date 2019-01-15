@@ -1,44 +1,11 @@
-/**
- * Author: Leon Klute
- * Created on: 26-11-18
- * Last Modified: 28-11-18
- */
-
-#include "UIText.h"
 #include "UI.h"
 
 using namespace std;
 
-UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr) {
-    // Init SDL
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-        throw std::runtime_error("SDL could not initialize!");
-
-    //Set texture filtering to linear
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-        throw std::runtime_error("Warning: Linear texture filtering not enabled!");
-
-    // Create a Window in the middle of the screen
-    window = SDL_CreateWindow("MinionCrusher", SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED, quad.w,
-                              quad.h, SDL_WINDOW_SHOWN);
-    if (window == nullptr)
-        throw std::runtime_error("Window could not be created!");
-
-    // Create a new renderer
-    RenderElement::renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
-                                              SDL_RENDERER_PRESENTVSYNC);
-    if (RenderElement::renderer == nullptr){
-        throw std::runtime_error("Renderer could not be created!");
-    }
-    
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BlendMode::SDL_BLENDMODE_BLEND);
-
-	if (TTF_Init() == -1) {
-		std::cout << "TTF_Init: " << TTF_GetError();
-		exit(2);
-	}
-    init();
+UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr), state(states::inmenu) {
+    loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
+    startMenu();
+    //inGame();
 }
 
 UI::~UI() {
@@ -52,7 +19,44 @@ UI::~UI() {
     SDL_Quit();
 }
 
-void UI::init() {
+void UI::startMenu() {
+    //while (window == nullptr);
+    /* ratio of UI elements
+    current shape:
+    __________________________
+    |						 |
+    |						 |
+    |	menu				 |
+    |						 |
+    |						 |
+    |						 |
+    |________________________|
+    |	info				 |
+    |________________________|
+    */
+    SDL_Rect menu_quad;
+    menu_quad.x = 0;
+    menu_quad.y = 0;
+    menu_quad.w = quad.w;
+    menu_quad.h = quad.h * 8 / 10;
+
+    StartMenu *menu_view = new StartMenu(menu_quad, this);
+
+    addChild(menu_view);
+
+    if (gamemanager->gameState == gamemanager->lost) {
+        SDL_Rect info_quad;
+        info_quad.x = 0;
+        info_quad.y = quad.h * 8 / 10;
+        info_quad.w = quad.w;
+        info_quad.h = quad.h * 2 / 10;
+
+        InfoView *info_view = new InfoView(info_quad, this);
+        addChild(info_view);
+    }
+}
+
+void UI::inGame() {
     /* ratio of UI elements
     current shape:
     _________________________
@@ -88,11 +92,6 @@ void UI::init() {
     BuildView *building_view = new BuildView(building_quad, this);
     InfoView *info_view = new InfoView(info_quad, this);
 
-    map_view->loadTexture("resources/sprites/map_background.bmp");
-    building_view->loadTexture("resources/sprites/right_side.bmp");
-    info_view->loadTexture("resources/sprites/info.bmp");
-	loadTexture("resources/sprites/info.bmp");
-
     children.reserve(3);
     addChild(map_view);
     addChild(building_view);
@@ -100,9 +99,30 @@ void UI::init() {
 
 }
 
+
 void UI::postRender() {
     SDL_RenderPresent(renderer);
-	SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer);
+    switch (gamemanager->gameState) {
+        case GameManager::menu:
+        case GameManager::lost:
+        case GameManager::won:
+            if (state != states::inmenu) {
+                state = states::inmenu;
+                clearChildren();
+                startMenu();
+            }
+            break;
+        case GameManager::start:
+        case GameManager::cooldown:
+        case GameManager::run:
+            if (state != states::ingame) {
+                state = states::ingame;
+                clearChildren();
+                inGame();
+            }
+            break;
+    }
 }
 
 

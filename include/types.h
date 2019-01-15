@@ -1,8 +1,5 @@
-/*
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- * Description: This file holds all type definitions and type declarations that are used throughout MinionCrusher
+/**
+ * This file holds all type definitions and type declarations that are used throughout MinionCrusher
  * in various classes. Classes all have their own file.
  */
 
@@ -11,6 +8,7 @@
 
 #include <cmath>
 #include <string>
+#include <iostream>
 
 /**
  * Structure holding the X, Y coordinates in a cartesian frame.
@@ -29,25 +27,28 @@ struct CartesianCoordinates {
         return CartesianCoordinates{x + lhs.x, y + lhs.y};
     }
 
-    /** Checks whether the the distance between the operator and the target is within the defined range */
-    bool isInRange(CartesianCoordinates const target, float const range) const {
-        return sqrt(pow(target.x - x, 2) + pow(target.y - y, 2)) < (double) range;
+    /** Finds the absolute distance for the coordinate */
+    float abs() const {
+        return sqrt(pow(x, 2) + pow(y, 2));
     }
-	bool operator==(const CartesianCoordinates &rhs) {
-		if (rhs.x == x && rhs.y == y)
-			return true;
-		return false;
-	}
-	bool operator<(const CartesianCoordinates &rhs) {
-		if (x + y < rhs.x + rhs.y)
-			return true;
-		return false;
-	}
-	bool operator>(const CartesianCoordinates &rhs) {
-		if (x + y > rhs.x + rhs.y)
-			return true;
-		return false;
-	}
+
+    bool operator==(const CartesianCoordinates &rhs) {
+        if (rhs.x == x && rhs.y == y)
+            return true;
+        return false;
+    }
+
+    bool operator<(const CartesianCoordinates &rhs) {
+        if (x + y < rhs.x + rhs.y)
+            return true;
+        return false;
+    }
+
+    bool operator>(const CartesianCoordinates &rhs) {
+        if (x + y > rhs.x + rhs.y)
+            return true;
+        return false;
+    }
 };
 
 /**
@@ -61,11 +62,44 @@ struct ObjectSize {
 /**
  * Structure holding all configuration parameters that influence the behavior of an ammo related type.
  */
-struct AmmoType {
+class Ammo {
+public:
+    /**
+     * Type of Ammo to be used by a firing entity
+     * @param speed How fast the Ammo flies
+     * @param damage Health value to be reduced at fire targets
+     * @param blastRadius Radius of damage
+     * @param pierce Penetration strength
+     * @param slow Reduction on target's movement speed
+     */
+    Ammo(float speed, float damage, float blastRadius, float pierce, float slow)
+            : speed(speed), damage(damage), blastRadius(blastRadius), pierce(pierce), slow(slow) {
+
+    }
+
+    /**
+     * How fast the Ammo flies
+     */
     float speed = 1;
+
+    /**
+     * Health value to be reduced at fire targets
+     */
     float damage = 1;
+
+    /**
+     * Radius of damage
+     */
     float blastRadius = 0;
+
+    /**
+     * Penetration strength
+     */
     float pierce = 0;
+
+    /**
+     * Reduction on target's movement speed
+     */
     float slow = 0;
 };
 
@@ -78,12 +112,21 @@ enum class ObjectType : int {
     UP = 2,
     DOWN = 3,
     LEFT = 4,
-	BASE = 5,
-	TOWER1 = 6,
-	TOWER2 = 7,
-	TOWER3 = 8,
-	MINIONMEDIUM = 9,
-	MINIONREMI = 10
+    BASE = 5,
+    TOWER1 = 6,
+    TOWER2 = 7,
+    TOWER3 = 8,
+    MINIONMEDIUM = 9,
+    MINIONREMI = 10
+};
+
+enum class ButtonTypes : int {
+    idle,
+    fireTower,
+    freezeTower,
+    startmap1,
+    startmap2,
+    pause,
 };
 
 #endif //MINIONCRUSHER_TYPES_H

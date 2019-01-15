@@ -1,17 +1,19 @@
 /**
- * Author: Leon Klute
- * Created on: 26-11-18
- * Last Modified: 28-11-18
+ * This is the top level of the UI,
+ * it will be the top parent and opens either the menu or shows the game,
+ * it also has the job of initializing SDL and loading Texturelib
  */
 #pragma once
 #ifndef MINIONCRUSHER_UI_H
 #define MINIONCRUSHER_UI_H
 
 #include <string>
+
 #include "MapView.h"
 #include "UIButton.h"
 #include "BuildView.h"
 #include "InfoView.h"
+#include "StartMenu.h"
 
 class UI : public UIElement {
 public:
@@ -22,18 +24,10 @@ public:
      */
     UI(int w, int h);
 
-    /**
-     * Destructor of the UI, calls the UI close method
-     */
+    /// Destructor of the UI, calls the UI close method
     ~UI();
 
-    /**
-     * Initilialize the UI
-     */
-    void init();
-	/**
-	 * push the build frame to the front
-	 */
+    /// push the build frame to the front
     void postRender() override;
 
     /**
@@ -41,14 +35,24 @@ public:
      * @return pointer to the used renderer
      */
     SDL_Renderer *getRenderer() const;
-	
+
 private:
+    enum class states {
+        ingame,
+        inmenu
+    } state;
+
+    /// Initilialize the inGame UI
+    void inGame();
+
+    /// Initilialize the startmenu UI
+    void startMenu();
+
     enum class elements : int {
         map,
         building,
         info
     };
-    SDL_Window *window;
 };
 
 #endif

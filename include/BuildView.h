@@ -2,23 +2,27 @@
 
 #include "UIElement.h"
 #include "UIButton.h"
+
 /**
- * holds the buttons and information about the buildings
+ * Holds the buttons and information about the buildings
  */
 class BuildView :
         public UIElement {
 public:
+    /**
+     * Build View
+     * @param parent Container to insert the build view
+     */
     BuildView(SDL_Rect, UIElement *parent);
 
     ~BuildView();
 
-	void addButton(ButtonTypes button_type);
-private:
-	int button_distance_x = 20;
-	int button_distance_y = 20;
-	int button_size_x = 100;
-	int button_size_y = 100;
+    /**
+     * Add a button to the Build View
+     * @param button_type Type of button
+     */
+    void addButton(ButtonTypes button_type);
 
-	SDL_Rect nextButtonPosition();
+private:
 };
 

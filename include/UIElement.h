@@ -1,14 +1,17 @@
 /**
-* Base element from which all UIelement inherit. it makes sure the elements can be rendered and passes Events down to its children
-*/
+ * Base element from which all UIelement inherit. it makes sure the elements can be rendered and passes Events down to its children
+ * it also contains some static variables which all of the UI needs to be able to access
+ */
 #pragma once
 #ifndef MINIONCRUSHER_UIVIEW_H
 #define MINIONCRUSHER_UIVIEW_H
 
 #include <string>
 #include <vector>
+
 #include "RenderElement.h"
 #include "gameManager.h"
+#include "types.h"
 
 class UIElement : public RenderElement {
 public:
@@ -35,7 +38,7 @@ public:
     /**
      * Destructor of the UI, calls the UI close method
      */
-    ~UIElement();
+    virtual ~UIElement();
 
     /**
      * Render all parts of the user interface
@@ -46,33 +49,37 @@ public:
     void render() override;
 
     /**
-    * add to the children of the Element
-    * @param new_child UIView element to add to children
-    */
+     * add to the children of the Element
+     * @param new_child UIView element to add to children
+     */
     void addChild(UIElement *new_child);
 
     /**
-    * return the vector of the children
-    * @return a vector with all its children
-    */
+	 * return the vector of the children
+	 * @return a vector with all its children
+	 */
     std::vector<UIElement *> getChildren();
 
     UIElement *getParent();
 
-	static GameManager *gamemanager;
+    void clearChildren();
+
+    static GameManager *gamemanager;
 
 protected:
     std::vector<UIElement *> children;
     UIElement *parent;
 
-	enum class ButtonTypes {
-		idle,
-		building,
-	};
 
-	static ButtonTypes last_button_type;
+    static ButtonTypes last_button_type;
+
+    SDL_Rect nextAutoButtonPosition();
+
+    int button_distance_x = 20;
+    int button_distance_y = 20;
+    int button_size_x = 100;
+    int button_size_y = 100;
 private:
-
 };
 
 #endif

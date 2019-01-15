@@ -1,9 +1,3 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
-
 #ifndef MINIONCRUSHER_MAPOBJECT_H
 #define MINIONCRUSHER_MAPOBJECT_H
 
@@ -23,12 +17,12 @@ public:
      * @param x X coordinate
      * @param y Y coordinate
      */
-    MapObject(float x, float y, float width, float height);
+    MapObject(float x, float y, float width, float height, ObjectType type);
 
     /**
      * Overloaded constructor if one gives an object of type CartesianCoordinates as parameter. Dimensions are fixed.
      */
-    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions, SDL_Texture *texture);
+    MapObject(CartesianCoordinates coordinates, ObjectSize dimensions, SDL_Texture *texture, ObjectType type);
 
     /**
      * Empty destructor.
@@ -41,7 +35,7 @@ public:
      * Get a constant reference to the cartesian coordinates of this MapObject.
      * @return CartesianCoordinates&
      */
-    const CartesianCoordinates &getCoordinates() const;
+    CartesianCoordinates getCoordinates();
 
     /**
      * Set the coordinates.
@@ -81,11 +75,25 @@ public:
     */
     void render() override;
 
-	bool needQuadUpdate;
-	const ObjectType objectType = (ObjectType) 0;
+    /**
+     * Holds information if the object needs to be updated
+     */
+    bool needQuadUpdate;
+
+    /**
+     * Type of object in the map
+     */
+    const ObjectType objectType;
 protected:
-    CartesianCoordinates coordinates; // Position on the map
-    ObjectSize dimensions;  // Dimensions on the map
+    /**
+     * Position of the object on the map
+     */
+    CartesianCoordinates coordinates;
+
+    /**
+     * Dimensions on the map
+     */
+    ObjectSize dimensions;
 };
 
 

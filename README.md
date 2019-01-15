@@ -1,4 +1,4 @@
-# MinionCrusher - The Game
+# MinionCrusher - Instructions Manual
 The sections below explain how to run the code, and show the directory structure.
 
 ## Dependencies

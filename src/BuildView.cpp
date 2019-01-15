@@ -1,45 +1,37 @@
 #include "BuildView.h"
 
 BuildView::BuildView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent) {
-	// add some buttons
-	addButton(ButtonTypes::building);
+    loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::building_background));
+    // add some buttons
+    addButton(ButtonTypes::fireTower);
 
-	addButton(ButtonTypes::building);
-
-	addButton(ButtonTypes::building);
+    addButton(ButtonTypes::freezeTower);
 }
 
 BuildView::~BuildView() {
-    SDL_DestroyTexture(background);
 }
 
-void BuildView::addButton(ButtonTypes button_type)
-{
-	UIButton *button1 = new UIButton(nextButtonPosition(), this, button_type);
-	button1->loadTexture("resources/sprites/tower1_tile.bmp");
-	addChild(button1);
+void BuildView::addButton(ButtonTypes button_type) {
+    UIButton *button1 = new UIButton(nextAutoButtonPosition(), this, button_type);
+    switch (button_type) {
+        case ButtonTypes::fireTower:
+            button1->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower1));
+            break;
+        case ButtonTypes::freezeTower:
+            button1->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower2));
+            break;
+        case ButtonTypes::idle:
+            break;
+        case ButtonTypes::startmap1:
+            break;
+        case ButtonTypes::startmap2:
+            break;
+        case ButtonTypes::pause:
+            break;
+        default:
+            break;
+    }
+    this->addChild(button1);
 }
 
-SDL_Rect BuildView::nextButtonPosition()
-{
-	SDL_Rect retquad = SDL_Rect{ 0 };
-	if (children.size() == 0) {
-		retquad = SDL_Rect{ button_distance_x, button_distance_y, button_size_x, button_size_y };
-	}
-	else {
-		retquad = children.back()->getQuad();
-		if (retquad.x + button_distance_x + retquad.w + button_size_x > quad.w) {
-			retquad.x = button_distance_x;
-			retquad.y += button_distance_y +  button_size_y;
-			retquad.h = button_size_y;
-			retquad.w = button_size_x;
-		}
-		else {
-			retquad.x += button_distance_x + button_size_x;
-			retquad.h = button_size_y;
-			retquad.w = button_size_x;
-		}
-	}
-	return retquad;
-}
 

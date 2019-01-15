@@ -1,3 +1,5 @@
+
+
 #pragma once
 #ifndef MINIONCRUSHER_MAPVIEW_H
 #define MINIONCRUSHER_MAPVIEW_H
@@ -6,9 +8,16 @@
 
 #include "UIElement.h"
 
-
+/**
+ * MapView is the UIElement used while in game to show all objects on the map
+ */
 class MapView : public UIElement {
 public:
+
+    /**
+     * MapView is the UIElement used while in game to show all objects on the map
+     * @param parent Parent entity
+     */
     MapView(SDL_Rect, UIElement *parent);
 
     ~MapView();
@@ -19,25 +28,20 @@ public:
      */
     void postRender() override;
 
-	/**
-	 *
-	 * @param:
-	 */
-	static int setBuildTowerState(void* data, SDL_Event * e);
-
-	/**
-	 *
-	 * @param:
-	 */
-	static int mapClick(void* data, SDL_Event * e);
+    /**
+     * Handle click on the Map
+     * @param:
+     */
+    static int mapClick(void *data, SDL_Event *e);
 
 
 private:
     float tilewidth;
     float tileheight;
-	/**
-	 * return the shape the healthbar should have
-	 */
+
+    /**
+     * return the shape the healthbar should have
+     */
     SDL_Rect getHealthbar();
 };
 

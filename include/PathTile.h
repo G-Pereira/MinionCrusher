@@ -1,8 +1,3 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
 #ifndef MINIONCRUSHER_PATHTILE_H
 #define MINIONCRUSHER_PATHTILE_H
 
@@ -15,10 +10,6 @@ public:
     PathTile(CartesianCoordinates coordinates, ObjectSize dimensions, const ObjectType type);
 
     const ObjectType &getType() const;    /// Get the direction of the tile
-
-    void render() override;    /// render this object in the right way (using tiletype)
-
-	const ObjectType type;                /// Holds the direction of the tile
 
 private:
 };

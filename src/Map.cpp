@@ -1,6 +1,3 @@
-/**
- * This class holds all elements in the game, and can read a level blueprint file
- */
 #include <fstream>
 #include <vector>
 #include <algorithm>
@@ -33,15 +30,16 @@ Map::Map(std::string blueprintFile) {
 
         for (y_tiles = 0; std::getline(f, line); y_tiles++) {
             mapBlueprint.push_back(std::vector<int>());                    // Add a new row to the blueprint
-            for (x_tiles = 0; x_tiles < line.length(); x_tiles++) {
+            for (x_tiles = 0; x_tiles < (int) line.length(); x_tiles++) {
                 int tileType = line.at(x_tiles) - '0';
                 mapBlueprint.back().push_back(
                         tileType);                // Add a value to the right column of the blueprint
                 if (tileType >= 6 && tileType <= 9) {
                     this->path.emplace_back(x_tiles, y_tiles, 1, 1,
-                                            ObjectType(tileType - 5));    // Create the path tile where the minions spawn
+                                            ObjectType(
+                                                    tileType - 5));    // Create the path tile where the minions spawn
                     spawnPos = {(float) x_tiles, (float) y_tiles};
-					unavailable_towerspots.push_back(spawnPos);
+                    unavailable_towerspots.push_back(spawnPos);
                 }
             }
         }
@@ -59,51 +57,61 @@ Map::~Map() {
 
 bool Map::createPath(int x, int y) {
     int dir = mapBlueprint[y][x];
-	if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), CartesianCoordinates{ (float) x,  (float) y }) != unavailable_towerspots.end() ) { return false; }
+    if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(),
+                  CartesianCoordinates{(float) x, (float) y}) != unavailable_towerspots.end()) { return false; }
     if (dir > 0 && dir < 5) {
-        path.emplace_back(x, y, 1, 1, ObjectType(dir));
-		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
+        path.emplace_back(x, y, 1, 1, (ObjectType) dir);
+        unavailable_towerspots.push_back(CartesianCoordinates{(float) x, (float) y});
         createPath(x - (dir == 1) + (dir == 4), y - (dir == 3) + (dir == 2));
     } else if (dir == 5) {
-		base.setCoordinates((float) x, (float) y);
-		unavailable_towerspots.push_back(CartesianCoordinates{ (float)x,(float)y });
-		return true;
+        base.setCoordinates((float) x, (float) y);
+        unavailable_towerspots.push_back(CartesianCoordinates{(float) x, (float) y});
+        return true;
     }
-	return true;
+    return true;
 }
 
-bool Map::towerSpotAvailable(CartesianCoordinates coordinates)
-{
-	if (coordinates.x != floor(coordinates.x)) {
-		std::cout << "x coordinate is not a whole number";
-		return false;
-	}
-	if (coordinates.y != floor(coordinates.y)) {
-		std::cout << "y coordinate is not a whole number";
-		return false;
-	}
-	if (coordinates.x >= x_tiles || 0 > coordinates.x) {
-		std::cout << "x coordinate is outside of map";
-		return false;
-	}
-	if(coordinates.y >= y_tiles || 0 > coordinates.y) {
-		std::cout << "y coordinate is outside of map";
-		return false;
-	}
-	if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), coordinates) != unavailable_towerspots.end()) {
-		std::cout << "Something is already in this spot";
-		return false;
-	}
+bool Map::towerSpotAvailable(CartesianCoordinates coordinates) {
+    if (coordinates.x != floor(coordinates.x)) {
+        std::cout << "x coordinate is not a whole number" << std::endl;
+        return false;
+    }
+    if (coordinates.y != floor(coordinates.y)) {
+        std::cout << "y coordinate is not a whole number" << std::endl;
+        return false;
+    }
+    if (coordinates.x >= x_tiles || 0 > coordinates.x) {
+        std::cout << "x coordinate is outside of map" << std::endl;
+        return false;
+    }
+    if (coordinates.y >= y_tiles || 0 > coordinates.y) {
+        std::cout << "y coordinate is outside of map" << std::endl;
+        return false;
+    }
+    if (std::find(unavailable_towerspots.begin(), unavailable_towerspots.end(), coordinates) !=
+        unavailable_towerspots.end()) {
+        std::cout << "Something is already in this spot" << std::endl;
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
-bool Map::addTower(CartesianCoordinates coordinates)
-{
-	if (towerSpotAvailable(coordinates)) {
-		towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 25, 3, 10, AmmoType{});
-		unavailable_towerspots.push_back(coordinates);
-		return true;
-	}
-	return false;
+bool Map::addTower(CartesianCoordinates coordinates, ButtonTypes type) {
+    if (towerSpotAvailable(coordinates)) {
+        switch (type) {
+            case ButtonTypes::fireTower:
+                towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 100, 3, AmmoFire(), ObjectType::TOWER1);
+                break;
+            case ButtonTypes::freezeTower:
+                towers.emplace_back(coordinates.x, coordinates.y, 1, 1, 100, 3, AmmoFreeze(), ObjectType::TOWER2);
+                break;
+            default:
+                break;
+        }
+        unavailable_towerspots.push_back(coordinates);
+        return true;
+    }
+    std::cout << "cant build a tower here" << std::endl;
+    return false;
 }

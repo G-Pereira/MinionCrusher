@@ -1,14 +1,10 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
-
 #include "Minion.h"
 
-Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty)
-        : MapObject(x, y, width, height), health(health), max_health(health), damage(damage), speed(speed) , bounty(bounty){
-
+Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty,
+               ObjectType type)
+        : MapObject(x, y, width, height, type), health(health), max_health(health), damage(damage), speed(speed),
+          bounty(bounty) {
+    maxSpeed = speed;
 }
 
 Minion::~Minion() {
@@ -28,16 +24,8 @@ void Minion::setHealth(float inputHealth) {
     max_health = inputHealth > max_health ? inputHealth : max_health;
 }
 
-void Minion::setSpeed(float speed) {
-    this->speed = speed;
-}
-
-const float &Minion::getSpeed() const {
-    return this->speed;
-}
-
-void Minion::setDamage(float damage) {
-    this->damage = damage;
+void Minion::setDamage(float inpDamage) {
+    this->damage = inpDamage;
 }
 
 const float &Minion::getDamage() const {
