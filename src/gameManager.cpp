@@ -25,7 +25,7 @@ void GameManager::update() {
 		if (map != nullptr) {
 			if (minionsLeftInWave <= 0 && map->minions.size() == 0) {
 				gameState = cooldown;
-				spawnSpeed += 0.01F;
+				spawnSpeed += 0.032F * level;
 			}
 			if (map->base.getHealth() <= 0) {
 				gameState = lost;
@@ -61,6 +61,7 @@ void GameManager::resetGame() {
 	cooldownTime = 0;
 	tickCount = 0;
 	minionsLeftInWave = 0;
+	spawnSpeed = 0.2F;
 }
 bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 {
