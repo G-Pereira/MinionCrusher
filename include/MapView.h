@@ -23,19 +23,20 @@ public:
      */
     void postRender() override;
 
-	/**
-	 *
-	 * @param:
-	 */
-	static int mapClick(void* data, SDL_Event * e);
+    /**
+     *
+     * @param:
+     */
+    static int mapClick(void *data, SDL_Event *e);
 
 
 private:
     float tilewidth;
     float tileheight;
-	/**
-	 * return the shape the healthbar should have
-	 */
+
+    /**
+     * return the shape the healthbar should have
+     */
     SDL_Rect getHealthbar();
 };
 

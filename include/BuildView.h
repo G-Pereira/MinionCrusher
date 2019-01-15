@@ -2,8 +2,9 @@
 
 #include "UIElement.h"
 #include "UIButton.h"
+
 /**
- * holds the buttons and information about the buildings
+ * Holds the buttons and information about the buildings
  */
 class BuildView :
         public UIElement {
@@ -12,7 +13,8 @@ public:
 
     ~BuildView();
 
-	void addButton(ButtonTypes button_type);
+    void addButton(ButtonTypes button_type);
+
 private:
 };
 

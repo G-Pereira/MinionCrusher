@@ -15,7 +15,7 @@ constexpr Uint32 UPDATE_PERIOD = 1000 / UPDATE_FREQUENCY;
 
 /// Updates position of all mapobjects in the game on a fixed interval. This includes all towers, minions etc.
 Uint32 gameUpdate(Uint32 interval, void *m) {
-	GameManager * gameManager = reinterpret_cast<GameManager *>(m);
+    GameManager *gameManager = reinterpret_cast<GameManager *>(m);
     gameManager->update();
     return interval;
 }
@@ -39,8 +39,8 @@ int main(int argc, char *args[]) {
 
     cout << "Create UI" << endl;
     // create the UI
-	GameManager * gameManager = new GameManager();
-	UIElement::gamemanager = gameManager;
+    GameManager *gameManager = new GameManager();
+    UIElement::gamemanager = gameManager;
 
     UI ui = UI(WINDOW_WIDTH, WINDOW_HEIGHT);
     RenderElement::renderer = ui.getRenderer();

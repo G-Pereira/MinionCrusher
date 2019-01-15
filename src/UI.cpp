@@ -2,9 +2,9 @@
 
 using namespace std;
 
-UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr), state (states::inmenu) {
- 	loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
-	startMenu();
+UI::UI(int w, int h) : UIElement(SDL_Rect{0, 0, w, h}, nullptr), state(states::inmenu) {
+    loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::info));
+    startMenu();
     //inGame();
 }
 
@@ -19,42 +19,41 @@ UI::~UI() {
     SDL_Quit();
 }
 
-void UI::startMenu()
-{
-	//while (window == nullptr);
-	/* ratio of UI elements
-	current shape:
-	__________________________
-	|						 |
-	|						 |
-	|	menu				 |
-	|						 |
-	|						 |
-	|						 |
-	|________________________|
-	|	info				 |
-	|________________________|
-	*/
-	SDL_Rect menu_quad;
-	menu_quad.x = 0;
-	menu_quad.y = 0;
-	menu_quad.w = quad.w;
-	menu_quad.h = quad.h *8 / 10;
+void UI::startMenu() {
+    //while (window == nullptr);
+    /* ratio of UI elements
+    current shape:
+    __________________________
+    |						 |
+    |						 |
+    |	menu				 |
+    |						 |
+    |						 |
+    |						 |
+    |________________________|
+    |	info				 |
+    |________________________|
+    */
+    SDL_Rect menu_quad;
+    menu_quad.x = 0;
+    menu_quad.y = 0;
+    menu_quad.w = quad.w;
+    menu_quad.h = quad.h * 8 / 10;
 
-	StartMenu *menu_view = new StartMenu(menu_quad, this);
+    StartMenu *menu_view = new StartMenu(menu_quad, this);
 
-	addChild(menu_view);
+    addChild(menu_view);
 
-	if (gamemanager->gameState == gamemanager->lost) {
-		SDL_Rect info_quad;
-		info_quad.x = 0;
-		info_quad.y = quad.h * 8 / 10;
-		info_quad.w = quad.w;
-		info_quad.h = quad.h * 2 / 10;
+    if (gamemanager->gameState == gamemanager->lost) {
+        SDL_Rect info_quad;
+        info_quad.x = 0;
+        info_quad.y = quad.h * 8 / 10;
+        info_quad.w = quad.w;
+        info_quad.h = quad.h * 2 / 10;
 
-		InfoView *info_view = new InfoView(info_quad, this);
-		addChild(info_view);
-	}
+        InfoView *info_view = new InfoView(info_quad, this);
+        addChild(info_view);
+    }
 }
 
 void UI::inGame() {
@@ -101,30 +100,29 @@ void UI::inGame() {
 }
 
 
-
 void UI::postRender() {
     SDL_RenderPresent(renderer);
-	SDL_RenderClear(renderer);
-	switch (gamemanager->gameState) {
-	case GameManager::menu:
-	case  GameManager::lost:
-	case GameManager::won:
-		if (state != states::inmenu) {
-			state = states::inmenu;
-			clearChildren();
-			startMenu();
-		}
-		break;
-	case GameManager::start:
-	case GameManager::cooldown:
-	case GameManager::run:
-		if (state != states::ingame) {
-			state = states::ingame;
-			clearChildren();
-			inGame();
-		}
-		break;
-	}
+    SDL_RenderClear(renderer);
+    switch (gamemanager->gameState) {
+        case GameManager::menu:
+        case GameManager::lost:
+        case GameManager::won:
+            if (state != states::inmenu) {
+                state = states::inmenu;
+                clearChildren();
+                startMenu();
+            }
+            break;
+        case GameManager::start:
+        case GameManager::cooldown:
+        case GameManager::run:
+            if (state != states::ingame) {
+                state = states::ingame;
+                clearChildren();
+                inGame();
+            }
+            break;
+    }
 }
 
 

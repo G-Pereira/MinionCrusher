@@ -5,10 +5,10 @@
 #include "UIText.h"
 
 class InfoView : public UIElement {
-        public:
-        InfoView(SDL_Rect quad, UIElement *parent);
+public:
+    InfoView(SDL_Rect quad, UIElement *parent);
 
-        ~InfoView();
+    ~InfoView();
 };
 
 

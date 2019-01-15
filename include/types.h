@@ -31,21 +31,24 @@ struct CartesianCoordinates {
     float abs() const {
         return sqrt(pow(x, 2) + pow(y, 2));
     }
-	bool operator==(const CartesianCoordinates &rhs) {
-		if (rhs.x == x && rhs.y == y)
-			return true;
-		return false;
-	}
-	bool operator<(const CartesianCoordinates &rhs) {
-		if (x + y < rhs.x + rhs.y)
-			return true;
-		return false;
-	}
-	bool operator>(const CartesianCoordinates &rhs) {
-		if (x + y > rhs.x + rhs.y)
-			return true;
-		return false;
-	}
+
+    bool operator==(const CartesianCoordinates &rhs) {
+        if (rhs.x == x && rhs.y == y)
+            return true;
+        return false;
+    }
+
+    bool operator<(const CartesianCoordinates &rhs) {
+        if (x + y < rhs.x + rhs.y)
+            return true;
+        return false;
+    }
+
+    bool operator>(const CartesianCoordinates &rhs) {
+        if (x + y > rhs.x + rhs.y)
+            return true;
+        return false;
+    }
 };
 
 /**
@@ -61,21 +64,22 @@ struct ObjectSize {
  */
 class Ammo {
 public:
-	/**
-	 * Type of Ammo to be used by a firing entity
-	 * @param speed How fast the Ammo flies
-	 * @param damage Health value to be reduced at fire targets
-	 * @param blastRadius Radius of damage
-	 * @param pierce Penetration strength
-	 * @param slow Reduction on target's movement speed
-	 */
-	Ammo(float speed, float damage, float blastRadius, float pierce, float slow) 
-		: speed(speed), damage(damage), blastRadius(blastRadius), pierce(pierce), slow(slow) {
+    /**
+     * Type of Ammo to be used by a firing entity
+     * @param speed How fast the Ammo flies
+     * @param damage Health value to be reduced at fire targets
+     * @param blastRadius Radius of damage
+     * @param pierce Penetration strength
+     * @param slow Reduction on target's movement speed
+     */
+    Ammo(float speed, float damage, float blastRadius, float pierce, float slow)
+            : speed(speed), damage(damage), blastRadius(blastRadius), pierce(pierce), slow(slow) {
 
-	}
-	/**
-	 * How fast the Ammo flies
-	 */
+    }
+
+    /**
+     * How fast the Ammo flies
+     */
     float speed = 1;
 
     /**
@@ -108,21 +112,21 @@ enum class ObjectType : int {
     UP = 2,
     DOWN = 3,
     LEFT = 4,
-	BASE = 5,
-	TOWER1 = 6,
-	TOWER2 = 7,
-	TOWER3 = 8,
-	MINIONMEDIUM = 9,
-	MINIONREMI = 10
+    BASE = 5,
+    TOWER1 = 6,
+    TOWER2 = 7,
+    TOWER3 = 8,
+    MINIONMEDIUM = 9,
+    MINIONREMI = 10
 };
 
-enum class ButtonTypes : int{
-	idle,
-	fireTower,
-	freezeTower,
-	startmap1,
-	startmap2,
-	pause,
+enum class ButtonTypes : int {
+    idle,
+    fireTower,
+    freezeTower,
+    startmap1,
+    startmap2,
+    pause,
 };
 
 #endif //MINIONCRUSHER_TYPES_H

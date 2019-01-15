@@ -75,8 +75,8 @@ public:
     */
     void render() override;
 
-	bool needQuadUpdate;
-	const ObjectType objectType;
+    bool needQuadUpdate;
+    const ObjectType objectType;
 protected:
     CartesianCoordinates coordinates; // Position on the map
     ObjectSize dimensions;  // Dimensions on the map

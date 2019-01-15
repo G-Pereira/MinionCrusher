@@ -27,21 +27,21 @@ public:
      * @param minions List of Minion to poll
      * @return In case of Minion death it returns the reward the player should get for the specific type of Minion that died otherwise returns zero
      */
-    int update(std::list<Minion> &minions);
+    int update(std::list <Minion> &minions);
 
-	/**
+    /**
      * Get the time between two shots
      * @return Time interval between two shots
      */
     const int &getFirePeriod() const;        /// Get the time between two shots
 
-	/**
+    /**
      * Set the time between two shots
      * @param: inpFirePeriod time interval
      */
     void setFirePeriod(int inpFirePeriod);
 
-	/**
+    /**
    * Get the damage the tower does to minions
    */
     const float &getDamage() const;
@@ -85,15 +85,15 @@ public:
     /**
      * Render Tower's visual features like the fire animation
      */
-	void postRender() override;
+    void postRender() override;
 
 private:
     int ticks = 0;      /** Time since last fire */
-    int firePeriod;		/** Period between two shots of a tower */
-    float range;		/** Max distance a tower can shoot at */
-    float damage;		/** Amount of health subtracted from a minion when hit by this tower */
-    Ammo ammo;		    /** Type of ammo the tower shoots */
-	SDL_Rect target;	/** Last object that has been fired at */
+    int firePeriod;        /** Period between two shots of a tower */
+    float range;        /** Max distance a tower can shoot at */
+    float damage;        /** Amount of health subtracted from a minion when hit by this tower */
+    Ammo ammo;            /** Type of ammo the tower shoots */
+    SDL_Rect target;    /** Last object that has been fired at */
 };
 
 

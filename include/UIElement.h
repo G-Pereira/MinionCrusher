@@ -62,22 +62,23 @@ public:
 
     UIElement *getParent();
 
-	void clearChildren();
+    void clearChildren();
 
-	static GameManager *gamemanager;
+    static GameManager *gamemanager;
 
 protected:
     std::vector<UIElement *> children;
     UIElement *parent;
 
 
-	static ButtonTypes last_button_type;
+    static ButtonTypes last_button_type;
 
-	SDL_Rect nextAutoButtonPosition();
-	int button_distance_x = 20;
-	int button_distance_y = 20;
-	int button_size_x = 100;
-	int button_size_y = 100;
+    SDL_Rect nextAutoButtonPosition();
+
+    int button_distance_x = 20;
+    int button_distance_y = 20;
+    int button_size_x = 100;
+    int button_size_y = 100;
 private:
 };
 

@@ -38,11 +38,12 @@ public:
      * @param texture pointer to an instantiated texture
      */
     void loadTexture(SDL_Texture *texture);
-	/**
-	 * create a texture from a string and load it as background
-	 * @param path path to the file containing a bitmap
-	 */
-	void loadText2Texture(std::string text);
+
+    /**
+     * create a texture from a string and load it as background
+     * @param path path to the file containing a bitmap
+     */
+    void loadText2Texture(std::string text);
     /**
     * set the rectangle that defines the position and shape of the element
     * @param quad the new quad to use
@@ -60,13 +61,13 @@ public:
     */
     bool hasTexture();
 
-    static SDL_Renderer* renderer;
-	static SDL_Window* window;
-	static TextureLib* texture_lib;
+    static SDL_Renderer *renderer;
+    static SDL_Window *window;
+    static TextureLib *texture_lib;
 protected:
     SDL_Rect quad;
     SDL_Texture *background;
 private:
-	void initSDL();
+    void initSDL();
 };
 

@@ -27,7 +27,7 @@ public:
     /// Destructor of the UI, calls the UI close method
     ~UI();
 
-	/// push the build frame to the front
+    /// push the build frame to the front
     void postRender() override;
 
     /**
@@ -35,17 +35,18 @@ public:
      * @return pointer to the used renderer
      */
     SDL_Renderer *getRenderer() const;
-	
-private:
-	enum class states{
-		ingame,
-		inmenu
-	} state;
-	/// Initilialize the inGame UI
-	void inGame();
 
-	/// Initilialize the startmenu UI
-	void startMenu();
+private:
+    enum class states {
+        ingame,
+        inmenu
+    } state;
+
+    /// Initilialize the inGame UI
+    void inGame();
+
+    /// Initilialize the startmenu UI
+    void startMenu();
 
     enum class elements : int {
         map,

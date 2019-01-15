@@ -21,38 +21,40 @@
 
 #endif
 
-class TextureLib
-{
+class TextureLib {
 public:
-	TextureLib(SDL_Renderer * renderer);
-	~TextureLib();
+    TextureLib(SDL_Renderer *renderer);
+
+    ~TextureLib();
 
 
-	enum class TextureEnum : int {
-		base,
-		info,
-		map,
-		minion,
-		remi,
-		path,
-		building_background,
-		tower1,
-		tower2,
-		tower3,
-		menu,
-	};
+    enum class TextureEnum : int {
+        base,
+        info,
+        map,
+        minion,
+        remi,
+        path,
+        building_background,
+        tower1,
+        tower2,
+        tower3,
+        menu,
+    };
 
-	enum class States {
-		uninitialized,
-		initialized,
-		error
-	} state;
-	SDL_Texture * GetTexture(TextureEnum texturename);
+    enum class States {
+        uninitialized,
+        initialized,
+        error
+    } state;
+
+    SDL_Texture *GetTexture(TextureEnum texturename);
 
 private:
-	void loadTexture(std::string path, SDL_Color color);
-	std::vector<SDL_Texture *> textures;
+    void loadTexture(std::string path, SDL_Color color);
 
-	SDL_Renderer * renderer;
+    std::vector<SDL_Texture *> textures;
+
+    SDL_Renderer *renderer;
 };
 
