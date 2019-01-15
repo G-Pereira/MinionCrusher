@@ -122,6 +122,8 @@ void UI::postRender() {
                 inGame();
             }
             break;
+        case GameManager::pause:
+            break;
     }
 }
 

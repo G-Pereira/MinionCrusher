@@ -12,6 +12,10 @@ void GameManager::update() {
         case menu:
         case lost:
             break;
+        case pause:
+            break;
+        case won:
+            break;
         case start:
             level = 0;
             minionsLeftInWave = 5; // TODO: Make it modular, design a level manager

@@ -37,7 +37,7 @@ void UIElement::clearChildren() {
 }
 
 SDL_Rect UIElement::nextAutoButtonPosition() {
-    SDL_Rect retquad = SDL_Rect{0};
+    SDL_Rect retquad = SDL_Rect{0, 0, 0, 0};
     if (children.size() == 0) {
         retquad = SDL_Rect{button_distance_x, button_distance_y, button_size_x, button_size_y};
     } else {

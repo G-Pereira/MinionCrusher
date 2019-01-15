@@ -78,6 +78,14 @@ void Tower::postRender() {
         case ObjectType::TOWER2:
             SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, alpha);
             break;
+        case ObjectType::EMPTY:
+        case ObjectType::RIGHT:
+        case ObjectType::UP:
+        case ObjectType::DOWN:
+        case ObjectType::LEFT:
+        case ObjectType::BASE:
+        case ObjectType::TOWER3:
+            break;
     }
     if (target.x >= 0)
         SDL_RenderDrawLine(renderer, quad.x + quad.w / 2, quad.y + quad.h / 2, target.x + target.w / 2,
