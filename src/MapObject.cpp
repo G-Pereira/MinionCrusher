@@ -18,7 +18,7 @@ MapObject::MapObject(CartesianCoordinates coordinates, const ObjectSize dimensio
 MapObject::~MapObject() {
 }
 
-const CartesianCoordinates &MapObject::getCoordinates() const {
+CartesianCoordinates MapObject::getCoordinates(){
     return this->coordinates;
 }
 

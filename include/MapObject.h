@@ -41,7 +41,7 @@ public:
      * Get a constant reference to the cartesian coordinates of this MapObject.
      * @return CartesianCoordinates&
      */
-    const CartesianCoordinates &getCoordinates() const;
+    CartesianCoordinates getCoordinates();
 
     /**
      * Set the coordinates.

@@ -18,7 +18,7 @@ Tower::~Tower() {
 uint8_t Tower::update(std::list<Minion> &minions) {
     if (ticks >= firePeriod) {
         for (Minion &minion : minions) {
-            if (minion.getCoordinates().isInRange(coordinates, range)) {
+            if ((minion.getCoordinates()-coordinates).abs() < range) {
 				target = minion.getQuad();
                 minion.setHealth(minion.getHealth() - this->ammo.damage);
 				minion.speed = minion.speed * ammo.slow;

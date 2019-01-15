@@ -11,6 +11,7 @@
 
 #include <cmath>
 #include <string>
+#include <iostream>
 
 /**
  * Structure holding the X, Y coordinates in a cartesian frame.
@@ -30,8 +31,8 @@ struct CartesianCoordinates {
     }
 
     /** Checks whether the the distance between the operator and the target is within the defined range */
-    bool isInRange(CartesianCoordinates const target, float const range) const {
-        return sqrt(pow(target.x - x, 2) + pow(target.y - y, 2)) < (double) range;
+    float abs() const {
+        return sqrt(pow(x, 2) + pow(y, 2));
     }
 	bool operator==(const CartesianCoordinates &rhs) {
 		if (rhs.x == x && rhs.y == y)
