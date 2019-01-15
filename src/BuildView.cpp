@@ -21,6 +21,16 @@ void BuildView::addButton(ButtonTypes button_type)
 	case ButtonTypes::freezeTower:
 		button1->loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::tower2));
 		break;
+		case idle:
+			break;
+		case startmap1:
+			break;
+		case startmap2:
+			break;
+		case pause:
+			break;
+		case default:
+			break;
 	}
 	this->addChild(button1);
 }
