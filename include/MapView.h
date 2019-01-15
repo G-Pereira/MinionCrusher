@@ -1,6 +1,4 @@
-/**
- * MapView is the UIElement used while in game to show all objects on the map
- */
+
 
 #pragma once
 #ifndef MINIONCRUSHER_MAPVIEW_H
@@ -10,9 +8,16 @@
 
 #include "UIElement.h"
 
-
+/**
+ * MapView is the UIElement used while in game to show all objects on the map
+ */
 class MapView : public UIElement {
 public:
+
+    /**
+     * MapView is the UIElement used while in game to show all objects on the map
+     * @param parent Parent entity
+     */
     MapView(SDL_Rect, UIElement *parent);
 
     ~MapView();
@@ -24,7 +29,7 @@ public:
     void postRender() override;
 
     /**
-     *
+     * Handle click on the Map
      * @param:
      */
     static int mapClick(void *data, SDL_Event *e);
