@@ -27,9 +27,9 @@ public:
 
     const float &getDamage() const;          /// Get the damage the tower does to minions
 
-    const AmmoType &getAmmo() const;        /// Get the ammotype the tower shoots with (not implemented)
+    const Ammo &getAmmo() const;        /// Get the ammotype the tower shoots with (not implemented)
 
-    void setAmmo(AmmoType inpAmmo);          /// Set the ammotype the tower shoots with (not implemented)
+    void setAmmo(Ammo inpAmmo);          /// Set the ammotype the tower shoots with (not implemented)
 
     const float &getRange() const;           /// Get the maximum distance the tower can still shoot
 
