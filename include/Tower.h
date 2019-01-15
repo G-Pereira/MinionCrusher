@@ -13,7 +13,7 @@
 
 class Tower : public MapObject {
 public:
-    Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo, ObjectType type);
+    Tower(float x, float y, float width, float height, int firePeriod, float range, Ammo ammo, ObjectType type);
 
     virtual ~Tower();
 
@@ -29,9 +29,9 @@ public:
 
     void setDamage(float inpDamage);            /// Set the damage the tower does to minions
 
-    const AmmoType &getAmmo() const;         /// Get the ammotype the tower shoots with (not implemented)
+    const Ammo &getAmmo() const;         /// Get the ammotype the tower shoots with (not implemented)
 
-    void setAmmo(AmmoType inpAmmo);          /// Set the ammotype the tower shoots with (not implemented)
+    void setAmmo(Ammo inpAmmo);          /// Set the ammotype the tower shoots with (not implemented)
 
     const float &getRange() const;           /// Get the maximum distance the tower can still shoot
 
@@ -48,7 +48,7 @@ private:
     int firePeriod;		// Period between two shots of a tower
     float range;		// Max distance a tower can shoot at
     float damage;		// Amount of health subtracted from a minion when hit by this tower
-    AmmoType ammo;		// Type of ammo the tower shoots
+    Ammo ammo;		// Type of ammo the tower shoots
 	SDL_Rect target;	// Last object that has been fired at
 };
 

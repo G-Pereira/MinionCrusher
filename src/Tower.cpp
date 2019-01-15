@@ -6,7 +6,7 @@
 
 #include <Tower.h>
 
-Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, AmmoType ammo, ObjectType type)
+Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, Ammo ammo, ObjectType type)
         : MapObject(x, y, width, height, type), firePeriod(firePeriod), range(range), ammo(ammo), target(SDL_Rect{ -1, -1, -1, -1 }) {
 
 }
@@ -53,11 +53,11 @@ void Tower::setDamage(float inpDamage) {
     Tower::damage = inpDamage;
 }
 
-const AmmoType &Tower::getAmmo() const {
+const Ammo &Tower::getAmmo() const {
     return ammo;
 }
 
-void Tower::setAmmo(AmmoType inpAmmo) {
+void Tower::setAmmo(Ammo inpAmmo) {
     Tower::ammo = inpAmmo;
 }
 

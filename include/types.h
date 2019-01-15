@@ -30,7 +30,7 @@ struct CartesianCoordinates {
         return CartesianCoordinates{x + lhs.x, y + lhs.y};
     }
 
-    /** Checks whether the the distance between the operator and the target is within the defined range */
+    /** Finds the absolute distance for the coordinate */
     float abs() const {
         return sqrt(pow(x, 2) + pow(y, 2));
     }
@@ -62,9 +62,9 @@ struct ObjectSize {
 /**
  * Structure holding all configuration parameters that influence the behavior of an ammo related type.
  */
-class AmmoType {
+class Ammo {
 public:
-	AmmoType(float speed, float damage, float blastRadius, float pierce, float slow) 
+	Ammo(float speed, float damage, float blastRadius, float pierce, float slow) 
 		: speed(speed), damage(damage), blastRadius(blastRadius), pierce(pierce), slow(slow) {
 
 	}
