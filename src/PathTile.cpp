@@ -1,9 +1,3 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
-
 #include "PathTile.h"
 
 PathTile::PathTile(float x, float y, float width, float height, const ObjectType type)

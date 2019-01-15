@@ -1,9 +1,3 @@
-/**
- * Author: Gonçalo Pereira
- * Created on: 10-12-18
- * Last Modified: 17-12-18
- */
-
 #ifndef MINIONCRUSHER_TEXTFIELD_H
 #define MINIONCRUSHER_TEXTFIELD_H
 

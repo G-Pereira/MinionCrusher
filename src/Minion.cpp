@@ -1,9 +1,3 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
-
 #include "Minion.h"
 
 Minion::Minion(float x, float y, float width, float height, float health, float damage, float speed, int bounty, ObjectType type)

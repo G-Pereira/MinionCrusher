@@ -1,8 +1,3 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
 #ifndef MINIONCRUSHER_BASE_H
 #define MINIONCRUSHER_BASE_H
 
@@ -21,17 +16,36 @@ public:
 
     virtual ~Base();
 
-    void doDamage(float damage);    /// Damage the base by a determined amount
+    /**
+     * Damage the base by a determined amount
+     * @param Damage Damage to be dealt
+     */
+    void doDamage(float damage);
 
+    /**
+     * Renders Base's animations and status
+     */
 	void postRender() override;
 
+	/**
+	 * Gets Base's remaining health
+	 * @return Remaining health
+	 */
 	const float &getHealth() const;
 
+	/**
+	 * Identify what type of object a Base is. Used to render the correct entity in the Map
+	 */
 	const ObjectType objectType = (ObjectType) 5;
 
 private:
-    float health; // Health of the base the minions attack
-	float max_health; // Health of the minion
+    float health; /// Health of the base the minions attack
+	float max_health; /// Health of the minion
+
+	/**
+	 * Set Base's remaining health
+	 * @param inputHealth Remaining health
+	 */
     void setHealth(float inputHealth);
 };
 

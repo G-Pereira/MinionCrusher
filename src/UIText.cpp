@@ -1,4 +1,3 @@
-
 #include "UIText.h"
 
 UIText::UIText(SDL_Rect quad, UIElement *parent, UIText::info_types type) :

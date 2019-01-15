@@ -1,8 +1,3 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
 #ifndef MINIONCRUSHER_PATHTILE_H
 #define MINIONCRUSHER_PATHTILE_H
 

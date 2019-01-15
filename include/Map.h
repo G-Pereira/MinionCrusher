@@ -1,9 +1,3 @@
-/**
- * Author: Gonçalo Camelo Neves Pereira
- * Created on: 29-11-18
- * Last Modified: 03-11-18
- */
-
 #pragma once
 #ifndef MINIONCRUSHER_MAP_H
 #define MINIONCRUSHER_MAP_H

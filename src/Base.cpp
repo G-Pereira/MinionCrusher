@@ -1,9 +1,3 @@
-/**
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
-
 #include "Base.h"
 
 Base::Base(float x, float y, float width, float height, float health)

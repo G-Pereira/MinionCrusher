@@ -1,8 +1,5 @@
-/*
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- * Description: This file holds all type definitions and type declarations that are used throughout MinionCrusher
+/**
+ * This file holds all type definitions and type declarations that are used throughout MinionCrusher
  * in various classes. Classes all have their own file.
  */
 
@@ -64,14 +61,41 @@ struct ObjectSize {
  */
 class Ammo {
 public:
+	/**
+	 * Type of Ammo to be used by a firing entity
+	 * @param speed How fast the Ammo flies
+	 * @param damage Health value to be reduced at fire targets
+	 * @param blastRadius Radius of damage
+	 * @param pierce Penetration strength
+	 * @param slow Reduction on target's movement speed
+	 */
 	Ammo(float speed, float damage, float blastRadius, float pierce, float slow) 
 		: speed(speed), damage(damage), blastRadius(blastRadius), pierce(pierce), slow(slow) {
 
 	}
+	/**
+	 * How fast the Ammo flies
+	 */
     float speed = 1;
+
+    /**
+     * Health value to be reduced at fire targets
+     */
     float damage = 1;
+
+    /**
+     * Radius of damage
+     */
     float blastRadius = 0;
+
+    /**
+     * Penetration strength
+     */
     float pierce = 0;
+
+    /**
+     * Reduction on target's movement speed
+     */
     float slow = 0;
 };
 

@@ -1,9 +1,3 @@
-/*
- * Author: Remi Jonkman
- * Created on: 28-11-18
- * Last Modified: 28-11-18
- */
-
 #include <Tower.h>
 
 Tower::Tower(float x, float y, float width, float height, int firePeriod, float range, Ammo ammo, ObjectType type)
