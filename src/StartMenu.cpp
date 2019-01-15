@@ -11,8 +11,6 @@ StartMenu::StartMenu(SDL_Rect viewport, UIElement *parent) : UIElement(viewport,
 	loadTexture(texture_lib->GetTexture(TextureLib::TextureEnum::menu));
 	addButton(ButtonTypes::startmap1);
 	addButton(ButtonTypes::startmap2);
-
-	
 }
 
 

@@ -22,6 +22,10 @@ TextureLib::TextureLib(SDL_Renderer * renderer) : renderer(renderer), state(Stat
 
 TextureLib::~TextureLib()
 {
+	for (auto texture : textures) {
+		SDL_DestroyTexture(texture);
+	}
+	textures.clear();
 }
 
 void TextureLib::loadTexture(std::string path, SDL_Color color) {
