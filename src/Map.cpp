@@ -33,7 +33,7 @@ Map::Map(std::string blueprintFile) {
 
         for (y_tiles = 0; std::getline(f, line); y_tiles++) {
             mapBlueprint.push_back(std::vector<int>());                    // Add a new row to the blueprint
-            for (x_tiles = 0; x_tiles < line.length(); x_tiles++) {
+            for (x_tiles = 0; x_tiles < (int) line.length(); x_tiles++) {
                 int tileType = line.at(x_tiles) - '0';
                 mapBlueprint.back().push_back(
                         tileType);                // Add a value to the right column of the blueprint
