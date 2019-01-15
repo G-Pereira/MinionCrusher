@@ -1,7 +1,7 @@
 /**
- * Author: Leon Klute
- * Created on: 04-12-18
- * Last Modified: 04-12-18
+ * UIButton is a UIelement that reacts to a mouse click
+ * each implementation has to be written seperatly
+ * when it is clicked it will always set static UIElement::last_clicked_button to its own button type
  */
 
 #pragma once

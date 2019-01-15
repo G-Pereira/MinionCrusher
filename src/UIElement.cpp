@@ -30,6 +30,10 @@ UIElement *UIElement::getParent() {
 
 void UIElement::clearChildren()
 {
+	for (auto child : children) {
+		delete child;
+		child = nullptr;
+	}
 	children.clear();
 }
 

@@ -13,10 +13,10 @@ void GameManager::update() {
 	case lost:
 		break;
 	case start:
-		level = 1;
+		level=0;
 		minionsLeftInWave = 5; // TODO: Make it modular, design a level manager
-		cooldownTime = 1000;
-		gameState = run; // TODO: add condition with a start button
+		cooldownTime = 5000;
+		gameState = cooldown; // TODO: add condition with a start button
 		break;
 	case run:
 		shootTowers();
@@ -25,11 +25,10 @@ void GameManager::update() {
 		if (map != nullptr) {
 			if (minionsLeftInWave <= 0 && map->minions.size() == 0) {
 				gameState = cooldown;
-				spawnSpeed += 0.01;
+				spawnSpeed += 0.032F * level;
 			}
 			if (map->base.getHealth() <= 0) {
 				gameState = lost;
-				std::cout << "You lost!" << std::endl;
 			}
 		}
 		break;
@@ -40,7 +39,6 @@ void GameManager::update() {
 			minionsLeftInWave = 5 * level;
 			cooldownTime = 2000;
 			gameState = run;
-			std::cout << "gamestate set to: run\n";
 		}
 		break;
 	}
@@ -63,6 +61,7 @@ void GameManager::resetGame() {
 	cooldownTime = 0;
 	tickCount = 0;
 	minionsLeftInWave = 0;
+	spawnSpeed = 0.2F;
 }
 bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 {
@@ -72,7 +71,9 @@ bool GameManager::addTower(CartesianCoordinates coordinates, ButtonTypes type)
 			return true;
 		}
 	}
-	std::cout << "not enough money: " << money << std::endl;
+	else {
+		std::cout << "not enough money: " << money << std::endl;
+	}
 	return false;
 }
 

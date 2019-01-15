@@ -17,7 +17,7 @@ public:
 
     virtual ~Tower();
 
-    uint8_t update(std::list<Minion> &minions);	/// Update function for a tower. Shoots if possible, elsewise it will load until shooting is available.
+    int update(std::list<Minion> &minions);
 
     // Getters and setters below
 
@@ -27,11 +27,9 @@ public:
 
     const float &getDamage() const;          /// Get the damage the tower does to minions
 
-    void setDamage(float inpDamage);            /// Set the damage the tower does to minions
+    const AmmoType &getAmmo() const;        /// Get the ammotype the tower shoots with (not implemented)
 
-    const Ammo &getAmmo() const;         /// Get the ammotype the tower shoots with (not implemented)
-
-    void setAmmo(Ammo inpAmmo);          /// Set the ammotype the tower shoots with (not implemented)
+    void setAmmo(AmmoType inpAmmo);          /// Set the ammotype the tower shoots with (not implemented)
 
     const float &getRange() const;           /// Get the maximum distance the tower can still shoot
 

@@ -1,6 +1,7 @@
 /**
-* Base element from which all UIelement inherit. it makes sure the elements can be rendered and passes Events down to its children
-*/
+ * Base element from which all UIelement inherit. it makes sure the elements can be rendered and passes Events down to its children
+ * it also contains some static variables which all of the UI needs to be able to access
+ */
 #pragma once
 #ifndef MINIONCRUSHER_UIVIEW_H
 #define MINIONCRUSHER_UIVIEW_H
@@ -37,7 +38,7 @@ public:
     /**
      * Destructor of the UI, calls the UI close method
      */
-    ~UIElement();
+    virtual ~UIElement();
 
     /**
      * Render all parts of the user interface

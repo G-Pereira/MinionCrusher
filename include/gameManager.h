@@ -17,7 +17,7 @@ public:
 	int kills = 0;
 	int level = 0;
 	int cooldownTime = 0;
-	float spawnSpeed = 0.1F;
+	float spawnSpeed = 0.2F;
 	enum state { menu, run, pause, lost, won, start, cooldown };		/// Game states
 	state gameState = menu;
 	void startNewGame(std::string map_path);

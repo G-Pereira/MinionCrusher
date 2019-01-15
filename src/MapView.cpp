@@ -1,7 +1,13 @@
 #include "MapView.h"
 MapView::MapView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent), tilewidth(0.0F),
                                                      tileheight(0.0F){
+
+	loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::map));
 	SDL_AddEventWatch(MapView::mapClick, this);
+}
+
+MapView::~MapView() {
+	SDL_DelEventWatch(MapView::mapClick, this);
 }
 
 void MapView::postRender() {
@@ -70,8 +76,4 @@ int MapView::mapClick(void * userdata, SDL_Event * e)
 SDL_Rect MapView::getHealthbar() {
     return SDL_Rect{(int) (tilewidth * 0.25F), (int) (tileheight - tileheight * 0.1F), (int) (tilewidth * 0.5F),
                     (int) (tileheight * 0.1F)};
-}
-
-MapView::~MapView() {
-
 }

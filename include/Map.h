@@ -44,8 +44,8 @@ public:
     std::list<Minion> minions;						 /// List containing all minions currently in the game.
 	std::vector<std::vector<int>> mapBlueprint;      /// Vector containing a blueprint of the map. Used to initialize the map.
 
-    uint8_t x_tiles;
-    uint8_t y_tiles;
+    int x_tiles;
+    int y_tiles;
 
     CartesianCoordinates spawnPos;                   /// Position where minions spawn. Read from the blueprintFile
 

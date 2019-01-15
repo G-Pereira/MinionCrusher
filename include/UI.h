@@ -1,7 +1,7 @@
 /**
- * Author: Leon Klute
- * Created on: 26-11-18
- * Last Modified: 28-11-18
+ * This is the top level of the UI,
+ * it will be the top parent and opens either the menu or shows the game,
+ * it also has the job of initializing SDL and loading Texturelib
  */
 #pragma once
 #ifndef MINIONCRUSHER_UI_H
@@ -52,7 +52,6 @@ private:
         building,
         info
     };
-    SDL_Window *window;
 };
 
 #endif

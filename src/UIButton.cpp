@@ -6,6 +6,7 @@ UIButton::UIButton(SDL_Rect quad, UIElement *parent, ButtonTypes button) :
 }
 
 UIButton::~UIButton() {
+	SDL_DelEventWatch(mouseClick, this);
 }
 
 int UIButton::mouseClick(void * userdata, SDL_Event * e)
@@ -14,15 +15,15 @@ int UIButton::mouseClick(void * userdata, SDL_Event * e)
 		return 0;
 	}
 	UIButton * clicked_button = reinterpret_cast<UIButton *>(userdata);
-	//If mouse event happened
 	if (e->type == SDL_MOUSEBUTTONDOWN) {
+		//If mouse event happened
 		//Get mouse position
 		int x = e->button.x;
 		int y = e->button.y;
 		//SDL_GetMouseState(&x, &y);
 		// go through this object and all parents to substracct the total offset
 		UIElement *UI_elem = clicked_button;
-		while (UI_elem) {
+		while (UI_elem != nullptr) {
 			x -= UI_elem->getQuad().x;
 			y -= UI_elem->getQuad().y;
 			UI_elem = UI_elem->getParent();

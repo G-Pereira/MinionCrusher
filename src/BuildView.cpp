@@ -1,6 +1,7 @@
 #include "BuildView.h"
 
 BuildView::BuildView(SDL_Rect quad, UIElement *parent) : UIElement(quad, parent) {
+	loadTexture(RenderElement::texture_lib->GetTexture(TextureLib::TextureEnum::building_background));
 	// add some buttons
 	addButton(ButtonTypes::fireTower);
 

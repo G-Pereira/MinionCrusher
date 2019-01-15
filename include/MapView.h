@@ -1,3 +1,7 @@
+/**
+ * MapView is the UIElement used while in game to show all objects on the map
+ */
+
 #pragma once
 #ifndef MINIONCRUSHER_MAPVIEW_H
 #define MINIONCRUSHER_MAPVIEW_H
