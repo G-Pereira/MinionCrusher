@@ -1,4 +1,6 @@
 # MinionCrusher - Instructions Manual
+[![Travis CI Build Status](https://api.travis-ci.com/G-Pereira/MinionCrusher.svg?branch=master)](https://travis-ci.com/G-Pereira/MinionCrusher)<br/>
+
 The sections below explain how to run the code, and show the directory structure.
 
 ## Dependencies
